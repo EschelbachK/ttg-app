@@ -97,4 +97,50 @@ public class TrainingExerciseService {
         return set;
     }
 
+    public TrainingExercise addSet(String exerciseId, Double weight, Integer repetitions) {
+        TrainingExercise exercise = exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new RuntimeException("Exercise not found!"));
+
+        int nextOrder = exercise.getSets().size() + 1;
+
+        exercise.getSets().add(
+                new SetEntry(nextOrder, weight, repetitions)
+        );
+
+        return exerciseRepository.save(exercise);
+    }
+
+    public TrainingExercise deleteSet(String exerciseId, int order) {
+        TrainingExercise exercise = exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Exercise not found!"
+                ));
+
+        if (exercise.getSets() == null || exercise.getSets().isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "No sets available!"
+            );
+        }
+
+        boolean removed = exercise.getSets()
+                .removeIf(set -> set.getOrder() == order);
+
+        if (!removed) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Set not found!"
+            );
+        }
+
+        // Reihenfolge neu setzen
+        int i = 1;
+        for (SetEntry set : exercise.getSets()) {
+            set.setOrder(i++);
+        }
+
+        return exerciseRepository.save(exercise);
+    }
+
 }
