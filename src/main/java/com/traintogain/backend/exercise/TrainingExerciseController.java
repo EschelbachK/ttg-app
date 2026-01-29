@@ -1,5 +1,6 @@
 package com.traintogain.backend.exercise;
 
+import com.traintogain.backend.exercise.dto.AddSetRequest;
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
 import com.traintogain.backend.exercise.dto.UpdateSetRequest;
 import com.traintogain.backend.exercise.dto.UpdateTrainingExerciseRequest;
@@ -66,4 +67,23 @@ public class TrainingExerciseController {
         return exerciseService.updateSet(exerciseId, order, request);
     }
 
+    @PostMapping("/{id}/sets")
+    public TrainingExercise addSet(
+            @PathVariable String id,
+            @RequestBody AddSetRequest request
+    ) {
+        return exerciseService.addSet(
+                id,
+                request.weight(),
+                request.repetitions()
+        );
+    }
+
+    @DeleteMapping("/{id}/sets/{order}")
+    public TrainingExercise deleteSet(
+            @PathVariable String id,
+            @PathVariable int order
+    ) {
+        return exerciseService.deleteSet(id, order);
+    }
 }
