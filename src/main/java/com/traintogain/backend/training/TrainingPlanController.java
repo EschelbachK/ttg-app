@@ -1,5 +1,6 @@
 package com.traintogain.backend.training;
 
+import com.traintogain.backend.training.dto.CreateTrainingPlanRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +18,9 @@ public class TrainingPlanController {
     @PostMapping
     public TrainingPlan createPlan(
             @RequestParam String userId,
-            @RequestParam String name
+            @RequestBody CreateTrainingPlanRequest request
     ) {
-        return trainingPlanService.createPlan(userId, name);
+        return trainingPlanService.createPlan(userId, request.name());
     }
 
     @GetMapping
