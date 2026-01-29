@@ -1,6 +1,6 @@
 package com.traintogain.backend.exercise;
 
-import com.traintogain.backend.common.BodyRegion;
+import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +19,19 @@ public class TrainingExerciseController {
 
     @PostMapping
     public TrainingExercise addExercise(
-            @RequestParam String folderId,
-            @RequestParam String name,
-            @RequestParam BodyRegion bodyRegion,
-            @RequestBody List<SetEntry> sets
+            @RequestBody CreateTrainingExerciseRequest request
     ) {
         return exerciseService.addExercise(
-                folderId,
-                name,
-                bodyRegion,
-                sets
+                request.folderId(),
+                request.name(),
+                request.bodyRegion(),
+                request.sets().stream()
+                        .map(s -> new SetEntry(
+                                s.order(),
+                                s.weight(),
+                                s.repetitions()
+                        ))
+                        .toList()
         );
     }
 
