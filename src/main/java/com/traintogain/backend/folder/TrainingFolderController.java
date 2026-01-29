@@ -1,6 +1,7 @@
 package com.traintogain.backend.folder;
 
 import com.traintogain.backend.common.BodyRegion;
+import com.traintogain.backend.folder.dto.CreateTrainingFolderRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +18,13 @@ public class TrainingFolderController {
 
     @PostMapping
     public TrainingFolder createFolder(
-            @RequestParam String trainingPlanId,
-            @RequestParam String name,
-            @RequestParam BodyRegion bodyRegion,
-            @RequestParam int order
+            @RequestBody CreateTrainingFolderRequest request
     ) {
         return folderService.createFolder(
-                trainingPlanId,
-                name,
-                bodyRegion,
-                order
+                request.trainingPlanId(),
+                request.name(),
+                request.bodyRegion(),
+                request.order()
         );
     }
 
