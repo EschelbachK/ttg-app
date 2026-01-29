@@ -41,4 +41,9 @@ public class TrainingExerciseController {
     ) {
         return exerciseService.getExercisesForFolder(folderId);
     }
+
+    @GetMapping("/{id}")
+    public TrainingExercise getExerciseById(@PathVariable String id) {
+        return exerciseService.getExerciseById(id);
+    }
 }
