@@ -143,4 +143,13 @@ public class TrainingExerciseService {
         return exerciseRepository.save(exercise);
     }
 
+    public void deleteExercise(String id) {
+        TrainingExercise exercise = exerciseRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "TrainingExercise not found!"
+                ));
+
+        exerciseRepository.delete(exercise);
+    }
 }

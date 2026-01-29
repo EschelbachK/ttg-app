@@ -1,8 +1,6 @@
 package com.traintogain.backend.exercise;
 
-import com.traintogain.backend.exercise.dto.AddSetRequest;
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
-import com.traintogain.backend.exercise.dto.UpdateSetRequest;
 import com.traintogain.backend.exercise.dto.UpdateTrainingExerciseRequest;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +12,12 @@ public class TrainingExerciseController {
 
     private final TrainingExerciseService exerciseService;
 
-    public TrainingExerciseController(
-            TrainingExerciseService exerciseService
-    ) {
+    public TrainingExerciseController(TrainingExerciseService exerciseService) {
         this.exerciseService = exerciseService;
     }
 
     @PostMapping
-    public TrainingExercise addExercise(
-            @RequestBody CreateTrainingExerciseRequest request
-    ) {
+    public TrainingExercise addExercise(@RequestBody CreateTrainingExerciseRequest request) {
         return exerciseService.addExercise(
                 request.folderId(),
                 request.name(),
@@ -39,9 +33,7 @@ public class TrainingExerciseController {
     }
 
     @GetMapping
-    public List<TrainingExercise> getExercises(
-            @RequestParam String folderId
-    ) {
+    public List<TrainingExercise> getExercises(@RequestParam String folderId) {
         return exerciseService.getExercisesForFolder(folderId);
     }
 
@@ -58,32 +50,8 @@ public class TrainingExerciseController {
         return exerciseService.updateExercise(id, request);
     }
 
-    @PatchMapping("/{exerciseId}/sets/{order}")
-    public SetEntry updateSet(
-            @PathVariable String exerciseId,
-            @PathVariable int order,
-            @RequestBody UpdateSetRequest request
-    ) {
-        return exerciseService.updateSet(exerciseId, order, request);
-    }
-
-    @PostMapping("/{id}/sets")
-    public TrainingExercise addSet(
-            @PathVariable String id,
-            @RequestBody AddSetRequest request
-    ) {
-        return exerciseService.addSet(
-                id,
-                request.weight(),
-                request.repetitions()
-        );
-    }
-
-    @DeleteMapping("/{id}/sets/{order}")
-    public TrainingExercise deleteSet(
-            @PathVariable String id,
-            @PathVariable int order
-    ) {
-        return exerciseService.deleteSet(id, order);
+    @DeleteMapping("/{id}")
+    public void deleteExercise(@PathVariable String id) {
+        exerciseService.deleteExercise(id);
     }
 }
