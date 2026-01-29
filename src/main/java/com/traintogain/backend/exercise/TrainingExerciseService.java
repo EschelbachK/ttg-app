@@ -1,6 +1,8 @@
 package com.traintogain.backend.exercise;
 
 import com.traintogain.backend.common.BodyRegion;
+import com.traintogain.backend.exercise.dto.UpdateSetRequest;
+import com.traintogain.backend.exercise.dto.UpdateTrainingExerciseRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -43,4 +45,56 @@ public class TrainingExerciseService {
                         )
                 );
     }
+    public TrainingExercise updateExercise(
+            String id,
+            UpdateTrainingExerciseRequest request
+    ) {
+        TrainingExercise exercise = getExerciseById(id);
+
+        exercise.setName(request.getName());
+        exercise.setBodyRegion(request.getBodyRegion());
+        exercise.setNotes(request.getNotes());
+        exercise.setRestTimerSeconds(request.getRestTimerSeconds());
+
+        if (request.getSets() != null) {
+            exercise.setSets(
+                    request.getSets().stream()
+                            .map(s -> new SetEntry(
+                                    s.order(),
+                                    s.weight(),
+                                    s.repetitions()
+                            ))
+                            .toList()
+            );
+        }
+
+        return exerciseRepository.save(exercise);
+    }
+
+    public SetEntry updateSet(String exerciseId, int order, UpdateSetRequest request) {
+
+        TrainingExercise exercise = exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new RuntimeException("Exercise not found"));
+
+        SetEntry set = exercise.getSets().stream()
+                .filter(s -> s.getOrder() == order)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Set not found"));
+
+        if (request.weight() != null) {
+            set.setWeight(request.weight());
+        }
+
+        if (request.repetitions() != null) {
+            set.setRepetitions(request.repetitions());
+        }
+
+        if (request.completed() != null) {
+            set.setCompleted(request.completed());
+        }
+
+        exerciseRepository.save(exercise);
+        return set;
+    }
+
 }
