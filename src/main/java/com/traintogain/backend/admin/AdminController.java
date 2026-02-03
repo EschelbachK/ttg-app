@@ -11,7 +11,7 @@ public class AdminController {
 
     @GetMapping("/test")
     @PreAuthorize("hasRole('ADMIN')")
-    public String adminOnly() {
+    public String testAdmin() {
         return "ADMIN OK";
     }
 }
