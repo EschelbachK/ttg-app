@@ -2,6 +2,7 @@ package com.traintogain.backend.auth;
 
 import com.traintogain.backend.auth.dto.LoginRequest;
 import com.traintogain.backend.auth.dto.LoginResponse;
+import com.traintogain.backend.auth.dto.RegisterRequest;
 import com.traintogain.backend.user.User;
 import com.traintogain.backend.user.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -38,4 +39,14 @@ public class AuthController {
                 user.getEmail()
         );
     }
+
+    @PostMapping("/register")
+    public User register(@RequestBody RegisterRequest request) {
+        return userService.register(
+                request.email(),
+                request.username(),
+                request.password()
+        );
+    }
+
 }
