@@ -64,4 +64,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void changePassword(
+            String userId,
+            String oldPassword,
+            String newPassword
+    ) {
+        User user = getById(userId);
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
 }
