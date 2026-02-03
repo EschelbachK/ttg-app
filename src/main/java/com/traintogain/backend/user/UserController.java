@@ -1,7 +1,9 @@
 package com.traintogain.backend.user;
 
+import com.traintogain.backend.user.dto.ChangePasswordRequest;
 import com.traintogain.backend.user.dto.UpdateUserProfileRequest;
 import com.traintogain.backend.user.dto.UserProfileResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,5 +52,22 @@ public class UserController {
                 updatedUser.getRole().name()
         );
     }
+
+    @PatchMapping("/me/password")
+    public ResponseEntity<Void> changePassword(
+            Authentication authentication,
+            @RequestBody ChangePasswordRequest request
+    ) {
+        String userId = authentication.getName();
+
+        userService.changePassword(
+                userId,
+                request.oldPassword(),
+                request.newPassword()
+        );
+
+        return ResponseEntity.ok().build();
+    }
+
 
 }
