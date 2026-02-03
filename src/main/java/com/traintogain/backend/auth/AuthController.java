@@ -3,7 +3,6 @@ package com.traintogain.backend.auth;
 import com.traintogain.backend.auth.dto.LoginRequest;
 import com.traintogain.backend.auth.dto.LoginResponse;
 import com.traintogain.backend.auth.dto.RefreshTokenRequest;
-import com.traintogain.backend.auth.dto.RefreshTokenResponse;
 import com.traintogain.backend.auth.dto.RegisterRequest;
 import com.traintogain.backend.auth.refreshtoken.RefreshToken;
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
@@ -51,37 +50,37 @@ public class AuthController {
         );
     }
 
-    // 🆕 REGISTER
+    // 🔁 REFRESH TOKEN
+    @PostMapping("/refresh")
+    public LoginResponse refresh(@RequestBody RefreshTokenRequest request) {
+
+        RefreshToken refreshToken =
+                refreshTokenService.validateRefreshToken(request.refreshToken());
+
+        String userId = refreshToken.getUserId();
+
+        String newAccessToken = jwtService.generateToken(userId);
+        RefreshToken newRefreshToken =
+                refreshTokenService.createRefreshToken(userId);
+
+        User user = userService.getById(userId);
+
+        return new LoginResponse(
+                newAccessToken,
+                newRefreshToken.getToken(),
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
+    }
+
+    // 📝 REGISTER
     @PostMapping("/register")
     public User register(@RequestBody RegisterRequest request) {
         return userService.register(
                 request.email(),
                 request.username(),
                 request.password()
-        );
-    }
-
-    // 🔄 REFRESH TOKEN
-    @PostMapping("/refresh")
-    public RefreshTokenResponse refresh(
-            @RequestBody RefreshTokenRequest request
-    ) {
-        RefreshToken refreshToken =
-                refreshTokenService.validateRefreshToken(
-                        request.refreshToken()
-                );
-
-        String userId = refreshToken.getUserId();
-
-        String newAccessToken =
-                jwtService.generateToken(userId);
-
-        RefreshToken newRefreshToken =
-                refreshTokenService.createRefreshToken(userId);
-
-        return new RefreshTokenResponse(
-                newAccessToken,
-                newRefreshToken.getToken()
         );
     }
 }
