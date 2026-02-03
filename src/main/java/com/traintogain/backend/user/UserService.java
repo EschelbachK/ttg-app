@@ -45,4 +45,23 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    public User updateProfile(
+            String userId,
+            String email,
+            String username
+    ) {
+        User user = getById(userId);
+
+        if (email != null && !email.isBlank()) {
+            user.setEmail(email);
+        }
+
+        if (username != null && !username.isBlank()) {
+            user.setUsername(username);
+        }
+
+        return userRepository.save(user);
+    }
+
 }
