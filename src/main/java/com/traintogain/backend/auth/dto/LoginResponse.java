@@ -1,7 +1,8 @@
 package com.traintogain.backend.auth.dto;
 
 public record LoginResponse(
-        String token,
+        String accessToken,
+        String refreshToken,
         String userId,
         String username,
         String email
