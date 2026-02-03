@@ -21,7 +21,7 @@ public class UserService {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("Email already in use");
         }
-
+        PasswordValidator.validate(rawPassword);
         String hashedPassword = passwordEncoder.encode(rawPassword);
 
         User user = new User();
@@ -78,11 +78,13 @@ public class UserService {
             throw new RuntimeException("Old password is incorrect");
         }
 
+        PasswordValidator.validate(newPassword);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
 
         refreshTokenService.deleteTokensForUser(userId);
 
     }
+
 
 }
