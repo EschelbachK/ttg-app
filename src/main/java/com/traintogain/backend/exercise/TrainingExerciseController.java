@@ -33,7 +33,9 @@ public class TrainingExerciseController {
     }
 
     @GetMapping
-    public List<TrainingExercise> getExercises(@RequestParam String folderId) {
+    public List<TrainingExercise> getExercises(
+            @RequestParam String folderId
+    ) {
         return exerciseService.getExercisesForFolder(folderId);
     }
 
