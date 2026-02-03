@@ -35,7 +35,7 @@ public class AuthController {
                 request.password()
         );
 
-        String accessToken = jwtService.generateToken(user.getId());
+        String accessToken = jwtService.generateAccessToken(user);
         RefreshToken refreshToken =
                 refreshTokenService.createRefreshToken(user.getId());
 
@@ -57,11 +57,11 @@ public class AuthController {
 
         String userId = refreshToken.getUserId();
 
-        String newAccessToken = jwtService.generateToken(userId);
+        User user = userService.getById(userId);
+        String newAccessToken = jwtService.generateAccessToken(user);
+
         RefreshToken newRefreshToken =
                 refreshTokenService.createRefreshToken(userId);
-
-        User user = userService.getById(userId);
 
         return new LoginResponse(
                 newAccessToken,
