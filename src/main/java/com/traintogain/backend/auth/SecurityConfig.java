@@ -23,10 +23,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                // ❌ Kein CSRF (wir nutzen JWT)
+                // ❌ Kein CSRF (JWT)
                 .csrf(csrf -> csrf.disable())
 
-                // ❌ Kein CORS (Postman, Frontend später explizit)
+                // ❌ Kein CORS (Postman)
                 .cors(cors -> cors.disable())
 
                 // ❌ Kein Session-State
@@ -34,17 +34,25 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // 🔐 Authorization-Regeln
+                // 🔐 Authorization
                 .authorizeHttpRequests(auth -> auth
 
-                        // 🔓 AUTH komplett frei
+                        // 🔓 Auth-Endpunkte
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // 🔓 OPTIONS Requests (Preflight)
+                        // 🔓 H2 Console (DEV ONLY)
+                        .requestMatchers("/h2-console/**").permitAll()
+
+                        // 🔓 Preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // 🔒 Alles andere braucht JWT
+                        // 🔒 Alles andere geschützt
                         .anyRequest().authenticated()
+                )
+
+                // 🪟 H2 braucht Frames
+                .headers(headers ->
+                        headers.frameOptions(frame -> frame.disable())
                 )
 
                 // 🔑 JWT Filter
