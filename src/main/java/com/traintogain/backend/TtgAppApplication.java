@@ -9,5 +9,4 @@ public class TtgAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(TtgAppApplication.class, args);
     }
-
 }
