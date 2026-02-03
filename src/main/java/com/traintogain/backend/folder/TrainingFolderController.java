@@ -1,6 +1,5 @@
 package com.traintogain.backend.folder;
 
-import com.traintogain.backend.common.BodyRegion;
 import com.traintogain.backend.folder.dto.CreateTrainingFolderRequest;
 import org.springframework.web.bind.annotation.*;
 
