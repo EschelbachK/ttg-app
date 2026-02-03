@@ -1,5 +1,6 @@
 package com.traintogain.backend.user;
 
+import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +9,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final RefreshTokenService refreshTokenService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RefreshTokenService refreshTokenService) {
         this.userRepository = userRepository;
+        this.refreshTokenService = refreshTokenService;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -77,6 +80,9 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+
+        refreshTokenService.deleteTokensForUser(userId);
+
     }
 
 }
