@@ -86,5 +86,10 @@ public class UserService {
 
     }
 
-
+    public void deleteById(String userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User not found");
+        }
+        userRepository.deleteById(userId);
+    }
 }
