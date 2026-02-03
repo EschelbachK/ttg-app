@@ -1,9 +1,9 @@
 package com.traintogain.backend.auth;
 
+import com.traintogain.backend.auth.dto.LoginRequest;
+import com.traintogain.backend.auth.dto.LoginResponse;
 import com.traintogain.backend.user.User;
 import com.traintogain.backend.user.UserService;
-import com.traintogain.backend.user.dto.LoginRequest;
-import com.traintogain.backend.user.dto.RegisterRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,25 +11,31 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
-    public AuthController(UserService userService) {
+    public AuthController(
+            UserService userService,
+            JwtService jwtService
+    ) {
         this.userService = userService;
-    }
-
-    @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest request) {
-        return userService.register(
-                request.email(),
-                request.username(),
-                request.password()
-        );
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequest request) {
-        return userService.login(
+    public LoginResponse login(@RequestBody LoginRequest request) {
+
+        User user = userService.login(
                 request.email(),
                 request.password()
+        );
+
+        String token = jwtService.generateToken(user.getId());
+
+        return new LoginResponse(
+                token,
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
         );
     }
 }
