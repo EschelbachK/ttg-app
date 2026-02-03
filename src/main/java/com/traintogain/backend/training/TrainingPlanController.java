@@ -3,6 +3,7 @@ package com.traintogain.backend.training;
 import com.traintogain.backend.training.dto.CreateTrainingPlanRequest;
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,21 +18,24 @@ public class TrainingPlanController {
         this.trainingPlanService = trainingPlanService;
     }
 
+    // 🔐 userId kommt aus JWT
     @PostMapping
     public TrainingPlan createPlan(
-            @RequestParam String userId,
+            Authentication authentication,
             @RequestBody CreateTrainingPlanRequest request
     ) {
+        String userId = authentication.getName();
+
         return trainingPlanService.createPlan(
                 userId,
                 request.name()
         );
     }
 
+    // 🔐 userId kommt aus JWT
     @GetMapping
-    public List<TrainingPlan> getPlans(
-            @RequestParam String userId
-    ) {
+    public List<TrainingPlan> getPlans(Authentication authentication) {
+        String userId = authentication.getName();
         return trainingPlanService.getPlansForUser(userId);
     }
 
