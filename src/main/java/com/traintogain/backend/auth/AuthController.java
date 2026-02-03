@@ -1,13 +1,11 @@
 package com.traintogain.backend.auth;
 
-import com.traintogain.backend.auth.dto.LoginRequest;
-import com.traintogain.backend.auth.dto.LoginResponse;
-import com.traintogain.backend.auth.dto.RefreshTokenRequest;
-import com.traintogain.backend.auth.dto.RegisterRequest;
+import com.traintogain.backend.auth.dto.*;
 import com.traintogain.backend.auth.refreshtoken.RefreshToken;
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
 import com.traintogain.backend.user.User;
 import com.traintogain.backend.user.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -83,4 +81,13 @@ public class AuthController {
                 request.password()
         );
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(
+            @RequestBody LogoutRequest request
+    ) {
+        refreshTokenService.deleteByToken(request.getRefreshToken());
+        return ResponseEntity.ok().build();
+    }
+
 }
