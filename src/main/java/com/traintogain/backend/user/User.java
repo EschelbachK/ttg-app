@@ -1,30 +1,30 @@
 package com.traintogain.backend.user;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 
-@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
-    // später: Einstellungen, Rollen, etc.
+    // 🔐 Rolle (USER / ADMIN)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.USER;
 
-    public User() {
-    }
-
-    public User(String email, String username, String password) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-    }
-
-    // Getter & Setter
+    // --- Getter & Setter ---
 
     public String getId() {
         return id;
@@ -46,15 +46,19 @@ public class User {
         this.username = username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getPassword() {
-        return password;
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
