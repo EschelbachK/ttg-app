@@ -1,6 +1,8 @@
 package com.traintogain.backend.training;
 
 import com.traintogain.backend.training.dto.CreateTrainingPlanRequest;
+import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +22,30 @@ public class TrainingPlanController {
             @RequestParam String userId,
             @RequestBody CreateTrainingPlanRequest request
     ) {
-        return trainingPlanService.createPlan(userId, request.name());
+        return trainingPlanService.createPlan(
+                userId,
+                request.name()
+        );
     }
 
     @GetMapping
-    public List<TrainingPlan> getPlans(@RequestParam String userId) {
+    public List<TrainingPlan> getPlans(
+            @RequestParam String userId
+    ) {
         return trainingPlanService.getPlansForUser(userId);
+    }
+
+    @PatchMapping("/{id}")
+    public TrainingPlan updatePlan(
+            @PathVariable String id,
+            @RequestBody UpdateTrainingPlanRequest request
+    ) {
+        return trainingPlanService.updatePlan(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePlan(@PathVariable String id) {
+        trainingPlanService.deletePlan(id);
     }
 }

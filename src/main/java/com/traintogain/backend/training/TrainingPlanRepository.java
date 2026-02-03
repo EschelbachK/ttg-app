@@ -8,4 +8,8 @@ public interface TrainingPlanRepository
         extends MongoRepository<TrainingPlan, String> {
 
     List<TrainingPlan> findByUserId(String userId);
+
+    List<TrainingPlan> findByUserIdAndArchivedFalse(String userId);
+
+    List<TrainingPlan> findByUserIdAndArchivedTrue(String userId);
 }
