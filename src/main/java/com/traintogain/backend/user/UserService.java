@@ -14,7 +14,6 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-
     public User register(String email, String username, String rawPassword) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("Email already in use");
@@ -22,7 +21,12 @@ public class UserService {
 
         String hashedPassword = passwordEncoder.encode(rawPassword);
 
-        User user = new User(email, username, hashedPassword);
+        User user = new User();
+        user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(hashedPassword);
+        // role bleibt automatisch USER (Default in Entity)
+
         return userRepository.save(user);
     }
 
