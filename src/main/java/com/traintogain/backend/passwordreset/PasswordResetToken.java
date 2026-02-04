@@ -1,6 +1,6 @@
 package com.traintogain.backend.passwordreset;
 
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
@@ -15,25 +15,21 @@ public class PasswordResetToken {
     private String token;
     private Instant expiresAt;
 
-    public PasswordResetToken(
-            String userId,
-            String token,
-            Instant expiresAt
-    ) {
+    public PasswordResetToken(String userId, String token, Instant expiresAt) {
         this.userId = userId;
         this.token = token;
         this.expiresAt = expiresAt;
     }
 
     public boolean isExpired() {
-        return Instant.now().isAfter(expiresAt);
-    }
-
-    public String getToken() {
-        return token;
+        return expiresAt.isBefore(Instant.now());
     }
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getToken() {
+        return token;
     }
 }
