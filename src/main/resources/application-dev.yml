@@ -1,0 +1,11 @@
+spring:
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+app:
+  frontend:
+    reset-url: http://localhost:3000/reset-password
