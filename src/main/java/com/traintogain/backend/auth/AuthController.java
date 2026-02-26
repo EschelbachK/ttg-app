@@ -1,5 +1,6 @@
 package com.traintogain.backend.auth;
 
+import com.traintogain.backend.api.ApiResponse;
 import com.traintogain.backend.auth.dto.*;
 import com.traintogain.backend.auth.refreshtoken.RefreshToken;
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
@@ -26,9 +27,8 @@ public class AuthController {
         this.refreshTokenService = refreshTokenService;
     }
 
-    // 🔐 LOGIN
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
 
         User user = userService.login(
                 request.email(),
@@ -39,18 +39,19 @@ public class AuthController {
         RefreshToken refreshToken =
                 refreshTokenService.createRefreshToken(user.getId());
 
-        return new LoginResponse(
+        LoginResponse response = new LoginResponse(
                 accessToken,
                 refreshToken.getToken(),
                 user.getId(),
                 user.getUsername(),
                 user.getEmail()
         );
+
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    // 🔁 REFRESH TOKEN
     @PostMapping("/refresh")
-    public LoginResponse refresh(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<ApiResponse<LoginResponse>> refresh(@RequestBody RefreshTokenRequest request) {
 
         RefreshToken refreshToken =
                 refreshTokenService.validateRefreshToken(request.refreshToken());
@@ -63,31 +64,34 @@ public class AuthController {
         RefreshToken newRefreshToken =
                 refreshTokenService.createRefreshToken(userId);
 
-        return new LoginResponse(
+        LoginResponse response = new LoginResponse(
                 newAccessToken,
                 newRefreshToken.getToken(),
                 user.getId(),
                 user.getUsername(),
                 user.getEmail()
         );
+
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    // 📝 REGISTER
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest request) {
-        return userService.register(
+    public ResponseEntity<ApiResponse<User>> register(@RequestBody RegisterRequest request) {
+
+        User user = userService.register(
                 request.email(),
                 request.username(),
                 request.password()
         );
+
+        return ResponseEntity.ok(ApiResponse.success(user));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(
-            @RequestBody LogoutRequest request
-    ) {
-        refreshTokenService.deleteByToken(request.getRefreshToken());
-        return ResponseEntity.ok().build();
-    }
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody LogoutRequest request) {
 
+        refreshTokenService.deleteByToken(request.getRefreshToken());
+
+        return ResponseEntity.ok(ApiResponse.success(null));
+    }
 }
