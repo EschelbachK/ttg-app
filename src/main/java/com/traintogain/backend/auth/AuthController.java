@@ -6,6 +6,7 @@ import com.traintogain.backend.auth.refreshtoken.RefreshToken;
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
 import com.traintogain.backend.user.User;
 import com.traintogain.backend.user.UserService;
+import com.traintogain.backend.user.dto.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,7 +77,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<User>> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse<UserResponse>> register(@RequestBody RegisterRequest request) {
 
         User user = userService.register(
                 request.email(),
@@ -84,9 +85,15 @@ public class AuthController {
                 request.password()
         );
 
-        return ResponseEntity.ok(ApiResponse.success(user));
-    }
+        UserResponse response = new UserResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getUsername(),
+                user.getRole().name()
+        );
 
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Void>> logout(@RequestBody LogoutRequest request) {
 
