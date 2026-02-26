@@ -29,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody LoginRequest request) {
 
         User user = userService.login(
                 request.email(),
@@ -40,19 +40,24 @@ public class AuthController {
         RefreshToken refreshToken =
                 refreshTokenService.createRefreshToken(user.getId());
 
-        LoginResponse response = new LoginResponse(
+        UserResponse userResponse = new UserResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getUsername(),
+                user.getRole().name()
+        );
+
+        AuthResponse response = new AuthResponse(
                 accessToken,
                 refreshToken.getToken(),
-                user.getId(),
-                user.getUsername(),
-                user.getEmail()
+                userResponse
         );
 
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<ApiResponse<LoginResponse>> refresh(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> refresh(@RequestBody RefreshTokenRequest request) {
 
         RefreshToken refreshToken =
                 refreshTokenService.validateRefreshToken(request.refreshToken());
@@ -65,12 +70,17 @@ public class AuthController {
         RefreshToken newRefreshToken =
                 refreshTokenService.createRefreshToken(userId);
 
-        LoginResponse response = new LoginResponse(
+        UserResponse userResponse = new UserResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getUsername(),
+                user.getRole().name()
+        );
+
+        AuthResponse response = new AuthResponse(
                 newAccessToken,
                 newRefreshToken.getToken(),
-                user.getId(),
-                user.getUsername(),
-                user.getEmail()
+                userResponse
         );
 
         return ResponseEntity.ok(ApiResponse.success(response));
@@ -94,6 +104,7 @@ public class AuthController {
 
         return ResponseEntity.ok(ApiResponse.success(response));
     }
+
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Void>> logout(@RequestBody LogoutRequest request) {
 
