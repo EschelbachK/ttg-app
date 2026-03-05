@@ -38,9 +38,14 @@ public class TrainingPlanService {
         return trainingPlanRepository.save(plan);
     }
 
-    public void deletePlan(String id) {
+    public void deletePlan(String id, String userId) {
+
         TrainingPlan plan = trainingPlanRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Training plan not found"));
+
+        if (!plan.getUserId().equals(userId)) {
+            throw new RuntimeException("Forbidden");
+        }
 
         trainingPlanRepository.delete(plan);
     }
