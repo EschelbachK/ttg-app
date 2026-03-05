@@ -2,8 +2,8 @@ package com.traintogain.backend.exercise;
 
 public class SetEntry {
 
-    private double weight;
-    private int reps;
+    private final double weight;
+    private final int reps;
 
     public SetEntry(double weight, int reps) {
         this.weight = weight;
