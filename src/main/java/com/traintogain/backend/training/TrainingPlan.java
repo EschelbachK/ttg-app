@@ -9,9 +9,11 @@ public class TrainingPlan {
     @Id
     private String id;
 
-    private String userId;     // Besitzer
-    private String title;      // z.B. "Tag 1 - Push"
-    private boolean archived;  // Archiv / Aktiv
+    private String userId;
+
+    private String title;
+
+    private boolean archived = false;
 
     public TrainingPlan() {
     }
@@ -21,8 +23,6 @@ public class TrainingPlan {
         this.title = title;
         this.archived = false;
     }
-
-    // Getter & Setter
 
     public String getId() {
         return id;
