@@ -49,7 +49,12 @@ public class TrainingPlanController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePlan(@PathVariable String id) {
-        trainingPlanService.deletePlan(id);
+    public void deletePlan(
+            @PathVariable String id,
+            Authentication authentication
+    ) {
+        String userId = authentication.getName();
+
+        trainingPlanService.deletePlan(id, userId);
     }
 }
