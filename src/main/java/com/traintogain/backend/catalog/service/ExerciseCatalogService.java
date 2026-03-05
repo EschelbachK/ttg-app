@@ -78,10 +78,10 @@ public class ExerciseCatalogService {
                 .animationUrl(exercise.getAnimationUrl())
                 .bodyRegion(exercise.getBodyRegion())
                 .equipment(exercise.getEquipment())
-                .primaryMuskel(exercise.getPrimaryMuskel())
-                .secondaryMuskeln(exercise.getSecondaryMuskeln())
-                .uebungstyp(exercise.getUebungstyp())
-                .schwierigkeit(exercise.getSchwierigkeit())
+                .primaryMuskel(exercise.getPrimaryMuscle())
+                .secondaryMuskeln(exercise.getSecondaryMuscles())
+                .uebungstyp(exercise.getExerciseType())
+                .schwierigkeit(exercise.getDifficulty())
                 .build();
     }
 }
