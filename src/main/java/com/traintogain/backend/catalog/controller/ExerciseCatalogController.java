@@ -1,8 +1,8 @@
 package com.traintogain.backend.catalog.controller;
 
+import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.BodyRegion;
-import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +29,16 @@ public class ExerciseCatalogController {
     }
 
     @GetMapping("/search")
-    public List<ExerciseCatalog> searchExercises(
+    public List<ExerciseCatalogResponse> searchExercises(
             @RequestParam String q
     ) {
         return service.searchExercises(q);
+    }
+
+    @GetMapping("/{id}")
+    public ExerciseCatalogDetailsResponse getExercise(
+            @PathVariable String id
+    ) {
+        return service.getExercise(id);
     }
 }
