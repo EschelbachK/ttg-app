@@ -2,6 +2,7 @@ package com.traintogain.backend.exercise;
 
 import com.traintogain.backend.training.dto.CreateTrainingExerciseRequest;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +18,10 @@ public class TrainingExerciseController {
     }
 
     @PostMapping
-    public TrainingExercise addExercise(
+    public ResponseEntity<TrainingExercise> addExercise(
             @Valid @RequestBody CreateTrainingExerciseRequest request
     ) {
-        return trainingExerciseService.addExercise(request);
+        return ResponseEntity.ok(trainingExerciseService.addExercise(request));
     }
 
     @GetMapping
