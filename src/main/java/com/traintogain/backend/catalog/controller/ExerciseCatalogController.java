@@ -26,4 +26,11 @@ public class ExerciseCatalogController {
     ) {
         return service.getExercisesByRegion(bodyRegion);
     }
+
+    @GetMapping("/search")
+    public List<ExerciseCatalog> searchExercises(
+            @RequestParam String q
+    ) {
+        return service.searchExercises(q);
+    }
 }

@@ -10,4 +10,6 @@ public interface ExerciseCatalogRepository extends MongoRepository<ExerciseCatal
 
     List<ExerciseCatalog> findByBodyRegion(BodyRegion bodyRegion);
 
+    List<ExerciseCatalog> findByNameContainingIgnoreCase(String name);
+
 }

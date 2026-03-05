@@ -22,4 +22,8 @@ public class ExerciseCatalogService {
     public List<ExerciseCatalog> getExercisesByRegion(BodyRegion bodyRegion) {
         return repository.findByBodyRegion(bodyRegion);
     }
+
+    public List<ExerciseCatalog> searchExercises(String query) {
+        return repository.findByNameContainingIgnoreCase(query);
+    }
 }
