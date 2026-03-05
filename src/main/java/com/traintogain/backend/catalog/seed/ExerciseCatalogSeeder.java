@@ -1,14 +1,15 @@
 package com.traintogain.backend.catalog.seed;
 
-import com.traintogain.backend.catalog.model.BodyRegion;
-import com.traintogain.backend.catalog.model.EquipmentType;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
-
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import java.io.InputStream;
 import java.util.List;
 
 @Component
@@ -16,45 +17,25 @@ import java.util.List;
 public class ExerciseCatalogSeeder implements CommandLineRunner {
 
     private final ExerciseCatalogRepository repository;
+    private final ObjectMapper objectMapper;
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception {
 
         if (repository.count() > 0) {
             return;
         }
 
-        List<ExerciseCatalog> exercises = List.of(
+        ClassPathResource resource = new ClassPathResource("catalog/exercises.json");
 
-                ExerciseCatalog.builder()
-                        .id("bench_press")
-                        .name("Bankdrücken")
-                        .bodyRegion(BodyRegion.BRUST)
-                        .equipment(EquipmentType.LANGHANTEL)
-                        .imageUrl("/images/exercises/bench_press.png")
-                        .animationUrl("/animations/bench_press.gif")
-                        .build(),
+        try (InputStream input = resource.getInputStream()) {
 
-                ExerciseCatalog.builder()
-                        .id("incline_bench_press")
-                        .name("Schrägbankdrücken")
-                        .bodyRegion(BodyRegion.BRUST)
-                        .equipment(EquipmentType.LANGHANTEL)
-                        .imageUrl("/images/exercises/incline_bench_press.png")
-                        .animationUrl("/animations/incline_bench_press.gif")
-                        .build(),
+            List<ExerciseCatalog> exercises =
+                    objectMapper.readValue(input, new TypeReference<>() {});
 
-                ExerciseCatalog.builder()
-                        .id("butterfly_machine")
-                        .name("Butterfly Maschine")
-                        .bodyRegion(BodyRegion.BRUST)
-                        .equipment(EquipmentType.MASCHINE)
-                        .imageUrl("/images/exercises/butterfly_machine.png")
-                        .animationUrl("/animations/butterfly_machine.gif")
-                        .build()
+            repository.saveAll(exercises);
 
-        );
-
-        repository.saveAll(exercises);
+            System.out.println("Seeded " + exercises.size() + " exercises.");
+        }
     }
 }
