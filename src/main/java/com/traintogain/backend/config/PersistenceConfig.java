@@ -15,7 +15,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
                 "com.traintogain.backend.folder",
                 "com.traintogain.backend.auth.refreshtoken",
                 "com.traintogain.backend.passwordreset",
-                "com.traintogain.backend.catalog"
+                "com.traintogain.backend.catalog",
+                "com.traintogain.backend.workout"
         }
 )
 public class PersistenceConfig {
