@@ -16,6 +16,10 @@ public class TrainingExerciseService {
 
     public TrainingExercise addExercise(CreateTrainingExerciseRequest request) {
 
+        if (request.sets() == null || request.sets().isEmpty()) {
+            throw new IllegalArgumentException("Exercise must contain at least one set");
+        }
+
         TrainingExercise exercise = new TrainingExercise();
         exercise.setFolderId(request.folderId());
         exercise.setName(request.name());
@@ -37,6 +41,7 @@ public class TrainingExerciseService {
     }
 
     public void deleteExercise(String id) {
+
         TrainingExercise exercise = trainingExerciseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("TrainingExercise not found"));
 
