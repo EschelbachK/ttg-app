@@ -35,6 +35,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
+
+        ex.printStackTrace();
+
+        if (ex instanceof org.springframework.web.server.ResponseStatusException statusException) {
+            return buildResponse(
+                    statusException.getReason(),
+                    HttpStatus.valueOf(statusException.getStatusCode().value())
+            );
+        }
+
         return buildResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
