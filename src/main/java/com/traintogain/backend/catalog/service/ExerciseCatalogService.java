@@ -1,5 +1,6 @@
 package com.traintogain.backend.catalog.service;
 
+import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.BodyRegion;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
@@ -19,8 +20,16 @@ public class ExerciseCatalogService {
         return Arrays.asList(BodyRegion.values());
     }
 
-    public List<ExerciseCatalog> getExercisesByRegion(BodyRegion bodyRegion) {
-        return repository.findByBodyRegion(bodyRegion);
+    public List<ExerciseCatalogResponse> getExercisesByRegion(BodyRegion bodyRegion) {
+
+        return repository.findByBodyRegion(bodyRegion)
+                .stream()
+                .map(exercise -> ExerciseCatalogResponse.builder()
+                        .id(exercise.getId())
+                        .name(exercise.getName())
+                        .imageUrl(exercise.getImageUrl())
+                        .build())
+                .toList();
     }
 
     public List<ExerciseCatalog> searchExercises(String query) {

@@ -1,5 +1,6 @@
 package com.traintogain.backend.catalog.controller;
 
+import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.BodyRegion;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
@@ -21,7 +22,7 @@ public class ExerciseCatalogController {
     }
 
     @GetMapping
-    public List<ExerciseCatalog> getExercises(
+    public List<ExerciseCatalogResponse> getExercises(
             @RequestParam BodyRegion bodyRegion
     ) {
         return service.getExercisesByRegion(bodyRegion);
