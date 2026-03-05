@@ -28,7 +28,7 @@ public class TrainingPlanController {
 
         return trainingPlanService.createPlan(
                 userId,
-                request.name()
+                request.title()
         );
     }
 
