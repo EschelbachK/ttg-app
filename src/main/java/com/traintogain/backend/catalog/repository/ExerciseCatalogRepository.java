@@ -1,6 +1,7 @@
 package com.traintogain.backend.catalog.repository;
 
 import com.traintogain.backend.catalog.model.BodyRegion;
+import com.traintogain.backend.catalog.model.EquipmentType;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -12,4 +13,10 @@ public interface ExerciseCatalogRepository extends MongoRepository<ExerciseCatal
 
     List<ExerciseCatalog> findByNameContainingIgnoreCase(String name);
 
+    List<ExerciseCatalog> findByEquipment(EquipmentType equipment);
+
+    List<ExerciseCatalog> findByBodyRegionAndEquipment(
+            BodyRegion bodyRegion,
+            EquipmentType equipment
+    );
 }

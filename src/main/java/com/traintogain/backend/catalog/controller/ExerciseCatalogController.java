@@ -3,6 +3,7 @@ package com.traintogain.backend.catalog.controller;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.BodyRegion;
+import com.traintogain.backend.catalog.model.EquipmentType;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,10 @@ public class ExerciseCatalogController {
 
     @GetMapping
     public List<ExerciseCatalogResponse> getExercises(
-            @RequestParam BodyRegion bodyRegion
+            @RequestParam(required = false) BodyRegion bodyRegion,
+            @RequestParam(required = false) EquipmentType equipment
     ) {
-        return service.getExercisesByRegion(bodyRegion);
+        return service.getExercises(bodyRegion, equipment);
     }
 
     @GetMapping("/search")

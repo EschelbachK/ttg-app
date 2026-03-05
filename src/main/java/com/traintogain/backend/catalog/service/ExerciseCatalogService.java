@@ -3,6 +3,7 @@ package com.traintogain.backend.catalog.service;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.BodyRegion;
+import com.traintogain.backend.catalog.model.EquipmentType;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,24 @@ public class ExerciseCatalogService {
         return Arrays.asList(BodyRegion.values());
     }
 
-    public List<ExerciseCatalogResponse> getExercisesByRegion(BodyRegion bodyRegion) {
+    public List<ExerciseCatalogResponse> getExercises(
+            BodyRegion bodyRegion,
+            EquipmentType equipment
+    ) {
 
-        return repository.findByBodyRegion(bodyRegion)
-                .stream()
+        List<com.traintogain.backend.catalog.model.ExerciseCatalog> exercises;
+
+        if (bodyRegion != null && equipment != null) {
+            exercises = repository.findByBodyRegionAndEquipment(bodyRegion, equipment);
+        } else if (bodyRegion != null) {
+            exercises = repository.findByBodyRegion(bodyRegion);
+        } else if (equipment != null) {
+            exercises = repository.findByEquipment(equipment);
+        } else {
+            exercises = repository.findAll();
+        }
+
+        return exercises.stream()
                 .map(exercise -> ExerciseCatalogResponse.builder()
                         .id(exercise.getId())
                         .name(exercise.getName())
