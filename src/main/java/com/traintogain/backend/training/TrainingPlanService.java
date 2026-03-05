@@ -14,8 +14,8 @@ public class TrainingPlanService {
         this.trainingPlanRepository = trainingPlanRepository;
     }
 
-    public TrainingPlan createPlan(String userId, String name) {
-        TrainingPlan plan = new TrainingPlan(userId, name);
+    public TrainingPlan createPlan(String userId, String title) {
+        TrainingPlan plan = new TrainingPlan(userId, title);
         return trainingPlanRepository.save(plan);
     }
 
