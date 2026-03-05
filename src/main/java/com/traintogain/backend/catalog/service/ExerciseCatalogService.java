@@ -4,11 +4,13 @@ import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.BodyRegion;
 import com.traintogain.backend.catalog.model.EquipmentType;
+import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -23,10 +25,11 @@ public class ExerciseCatalogService {
 
     public List<ExerciseCatalogResponse> getExercises(
             BodyRegion bodyRegion,
-            EquipmentType equipment
+            EquipmentType equipment,
+            String sort
     ) {
 
-        List<com.traintogain.backend.catalog.model.ExerciseCatalog> exercises;
+        List<ExerciseCatalog> exercises;
 
         if (bodyRegion != null && equipment != null) {
             exercises = repository.findByBodyRegionAndEquipment(bodyRegion, equipment);
@@ -36,6 +39,12 @@ public class ExerciseCatalogService {
             exercises = repository.findByEquipment(equipment);
         } else {
             exercises = repository.findAll();
+        }
+
+        if ("name_desc".equals(sort)) {
+            exercises.sort(Comparator.comparing(ExerciseCatalog::getName).reversed());
+        } else if ("name".equals(sort)) {
+            exercises.sort(Comparator.comparing(ExerciseCatalog::getName));
         }
 
         return exercises.stream()

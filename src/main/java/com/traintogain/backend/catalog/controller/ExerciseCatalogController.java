@@ -25,9 +25,10 @@ public class ExerciseCatalogController {
     @GetMapping
     public List<ExerciseCatalogResponse> getExercises(
             @RequestParam(required = false) BodyRegion bodyRegion,
-            @RequestParam(required = false) EquipmentType equipment
+            @RequestParam(required = false) EquipmentType equipment,
+            @RequestParam(required = false) String sort
     ) {
-        return service.getExercises(bodyRegion, equipment);
+        return service.getExercises(bodyRegion, equipment, sort);
     }
 
     @GetMapping("/search")
