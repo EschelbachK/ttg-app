@@ -2,9 +2,7 @@ package com.traintogain.backend.catalog.service;
 
 import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
-import com.traintogain.backend.catalog.model.BodyRegion;
-import com.traintogain.backend.catalog.model.EquipmentType;
-import com.traintogain.backend.catalog.model.ExerciseCatalog;
+import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -80,6 +78,10 @@ public class ExerciseCatalogService {
                 .animationUrl(exercise.getAnimationUrl())
                 .bodyRegion(exercise.getBodyRegion())
                 .equipment(exercise.getEquipment())
+                .primaryMuskel(exercise.getPrimaryMuskel())
+                .secondaryMuskeln(exercise.getSecondaryMuskeln())
+                .uebungstyp(exercise.getUebungstyp())
+                .schwierigkeit(exercise.getSchwierigkeit())
                 .build();
     }
 }

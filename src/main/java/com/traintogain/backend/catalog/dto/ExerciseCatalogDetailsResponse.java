@@ -1,9 +1,10 @@
 package com.traintogain.backend.catalog.dto;
 
-import com.traintogain.backend.catalog.model.BodyRegion;
-import com.traintogain.backend.catalog.model.EquipmentType;
+import com.traintogain.backend.catalog.model.*;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -20,5 +21,13 @@ public class ExerciseCatalogDetailsResponse {
     private BodyRegion bodyRegion;
 
     private EquipmentType equipment;
+
+    private Muscle primaryMuskel;
+
+    private List<Muscle> secondaryMuskeln;
+
+    private ExerciseType uebungstyp;
+
+    private Difficulty schwierigkeit;
 
 }
