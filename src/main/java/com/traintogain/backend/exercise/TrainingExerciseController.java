@@ -1,7 +1,7 @@
 package com.traintogain.backend.exercise;
 
-import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
-import com.traintogain.backend.exercise.dto.UpdateTrainingExerciseRequest;
+import com.traintogain.backend.training.dto.CreateTrainingExerciseRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,50 +10,28 @@ import java.util.List;
 @RequestMapping("/api/training-exercises")
 public class TrainingExerciseController {
 
-    private final TrainingExerciseService exerciseService;
+    private final TrainingExerciseService trainingExerciseService;
 
-    public TrainingExerciseController(TrainingExerciseService exerciseService) {
-        this.exerciseService = exerciseService;
+    public TrainingExerciseController(TrainingExerciseService trainingExerciseService) {
+        this.trainingExerciseService = trainingExerciseService;
     }
 
     @PostMapping
-    public TrainingExercise addExercise(@RequestBody CreateTrainingExerciseRequest request) {
-        return exerciseService.addExercise(
-                request.folderId(),
-                request.name(),
-                request.bodyRegion(),
-                request.sets().stream()
-                        .map(s -> new SetEntry(
-                                s.order(),
-                                s.weight(),
-                                s.repetitions()
-                        ))
-                        .toList()
-        );
+    public TrainingExercise addExercise(
+            @Valid @RequestBody CreateTrainingExerciseRequest request
+    ) {
+        return trainingExerciseService.addExercise(request);
     }
 
     @GetMapping
     public List<TrainingExercise> getExercises(
             @RequestParam String folderId
     ) {
-        return exerciseService.getExercisesForFolder(folderId);
-    }
-
-    @GetMapping("/{id}")
-    public TrainingExercise getExerciseById(@PathVariable String id) {
-        return exerciseService.getExerciseById(id);
-    }
-
-    @PutMapping("/{id}")
-    public TrainingExercise updateExercise(
-            @PathVariable String id,
-            @RequestBody UpdateTrainingExerciseRequest request
-    ) {
-        return exerciseService.updateExercise(id, request);
+        return trainingExerciseService.getExercisesByFolder(folderId);
     }
 
     @DeleteMapping("/{id}")
     public void deleteExercise(@PathVariable String id) {
-        exerciseService.deleteExercise(id);
+        trainingExerciseService.deleteExercise(id);
     }
 }
