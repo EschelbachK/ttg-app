@@ -4,14 +4,16 @@ public enum Muscle {
 
     BRUST,
     RUECKEN,
-    SCHULTER,
+    BEINE,
+    SCHULTERN,
     BIZEPS,
     TRIZEPS,
-    BEINE,
-    GLUTES,
-    HAMSTRINGS,
-    QUADS,
+    BAUCH,
+    NACKEN,
+    UNTERARME,
+    CORE,
     WADEN,
-    CORE
-
+    QUADS,
+    HAMSTRINGS,
+    GLUTES
 }
