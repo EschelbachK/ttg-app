@@ -5,10 +5,12 @@ public enum BodyRegion {
     BRUST,
     RUECKEN,
     BEINE,
-    SCHULTER,
+    SCHULTERN,
     BIZEPS,
     TRIZEPS,
     BAUCH,
+    NACKEN,
+    UNTERARME,
     CARDIO,
     GANZKOERPER
 }
