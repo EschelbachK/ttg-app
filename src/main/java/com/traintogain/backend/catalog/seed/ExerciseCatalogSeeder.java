@@ -2,7 +2,7 @@ package com.traintogain.backend.catalog.seed;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.traintogain.backend.catalog.model.ExerciseCatalog;
+import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -42,6 +42,21 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
                             input,
                             new TypeReference<List<ExerciseCatalog>>() {}
                     );
+
+            exercises.forEach(exercise -> {
+
+                if (exercise.getPrimaryMuscle() == null) {
+                    exercise.setPrimaryMuscle(Muscle.valueOf("BRUST"));
+                }
+
+                if (exercise.getExerciseType() == null) {
+                    exercise.setExerciseType(ExerciseType.GRUNDUEBUNG);
+                }
+
+                if (exercise.getDifficulty() == null) {
+                    exercise.setDifficulty(Difficulty.MITTEL);
+                }
+            });
 
             repository.saveAll(exercises);
 
