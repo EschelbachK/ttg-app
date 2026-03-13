@@ -22,20 +22,30 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (repository.count() > 0) {
+        System.out.println(">>> ExerciseCatalogSeeder started <<<");
+
+        long count = repository.count();
+        System.out.println("Existing exercises in DB: " + count);
+
+        if (count > 0) {
+            System.out.println("Catalog already seeded. Skipping...");
             return;
         }
 
-        ClassPathResource resource = new ClassPathResource("catalog/exercises.json");
+        ClassPathResource resource =
+                new ClassPathResource("catalog/exercises.json");
 
         try (InputStream input = resource.getInputStream()) {
 
             List<ExerciseCatalog> exercises =
-                    objectMapper.readValue(input, new TypeReference<>() {});
+                    objectMapper.readValue(
+                            input,
+                            new TypeReference<List<ExerciseCatalog>>() {}
+                    );
 
             repository.saveAll(exercises);
 
-            System.out.println("Seeded " + exercises.size() + " exercises.");
+            System.out.println(">>> Seeded " + exercises.size() + " exercises <<<");
         }
     }
 }

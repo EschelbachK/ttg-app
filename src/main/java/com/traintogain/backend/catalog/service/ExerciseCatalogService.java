@@ -50,6 +50,13 @@ public class ExerciseCatalogService {
                         .id(exercise.getId())
                         .name(exercise.getName())
                         .imageUrl(exercise.getImageUrl())
+                        .animationUrl(exercise.getAnimationUrl())
+                        .bodyRegion(exercise.getBodyRegion())
+                        .equipment(exercise.getEquipment())
+                        .primaryMuscle(exercise.getPrimaryMuscle())
+                        .secondaryMuscles(exercise.getSecondaryMuscles())
+                        .exerciseType(exercise.getExerciseType())
+                        .difficulty(exercise.getDifficulty())
                         .build())
                 .toList();
     }
@@ -62,6 +69,13 @@ public class ExerciseCatalogService {
                         .id(exercise.getId())
                         .name(exercise.getName())
                         .imageUrl(exercise.getImageUrl())
+                        .animationUrl(exercise.getAnimationUrl())
+                        .bodyRegion(exercise.getBodyRegion())
+                        .equipment(exercise.getEquipment())
+                        .primaryMuscle(exercise.getPrimaryMuscle())
+                        .secondaryMuscles(exercise.getSecondaryMuscles())
+                        .exerciseType(exercise.getExerciseType())
+                        .difficulty(exercise.getDifficulty())
                         .build())
                 .toList();
     }
