@@ -20,18 +20,21 @@ public class SecurityConfig {
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+
                 // ❌ Kein CSRF (JWT)
                 .csrf(csrf -> csrf.disable())
 
-                // ❌ Kein CORS (Postman)
+                // ❌ Kein CORS (Postman / Flutter)
                 .cors(cors -> cors.disable())
 
                 // ❌ Kein Session-State
@@ -45,10 +48,16 @@ public class SecurityConfig {
                         // 🔓 Auth-Endpunkte
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // 🔓 Exercise Catalog (ALT)
+                        .requestMatchers("/api/catalog/**").permitAll()
+
+                        // 🔓 Exercise Catalog (NEU - dein Controller)
+                        .requestMatchers("/api/exercise-catalog/**").permitAll()
+
                         // 🔓 H2 Console (DEV ONLY)
                         .requestMatchers("/h2-console/**").permitAll()
 
-                        // 🔓 Preflight
+                        // 🔓 Preflight (Flutter / Browser CORS)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // 🔒 Alles andere geschützt
