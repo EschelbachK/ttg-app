@@ -22,6 +22,7 @@ public class TrainingFolderService {
     }
 
     public TrainingFolder createFolder(
+            String userId,
             String trainingPlanId,
             String name,
             BodyRegion bodyRegion,
@@ -34,12 +35,14 @@ public class TrainingFolderService {
                 order
         );
 
+        folder.setUserId(userId);
+
         return trainingFolderRepository.save(folder);
     }
 
-    public List<TrainingFolder> getFoldersForPlan(String trainingPlanId) {
+    public List<TrainingFolder> getFoldersForPlan(String userId, String trainingPlanId) {
         return trainingFolderRepository
-                .findByTrainingPlanIdOrderByOrderAsc(trainingPlanId);
+                .findByUserIdAndTrainingPlanIdOrderByOrderAsc(userId, trainingPlanId);
     }
 
     public TrainingFolder updateFolder(String id, UpdateTrainingFolderRequest request) {
@@ -68,7 +71,10 @@ public class TrainingFolderService {
     private void reorderFolders(TrainingFolder folder, int newOrder) {
         List<TrainingFolder> folders =
                 trainingFolderRepository
-                        .findByTrainingPlanIdOrderByOrderAsc(folder.getTrainingPlanId());
+                        .findByUserIdAndTrainingPlanIdOrderByOrderAsc(
+                                folder.getUserId(),
+                                folder.getTrainingPlanId()
+                        );
 
         for (TrainingFolder f : folders) {
             if (!f.getId().equals(folder.getId()) && f.getOrder() >= newOrder) {

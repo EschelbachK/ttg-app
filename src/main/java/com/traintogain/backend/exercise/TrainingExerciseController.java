@@ -3,6 +3,7 @@ package com.traintogain.backend.exercise;
 import com.traintogain.backend.training.dto.CreateTrainingExerciseRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +20,20 @@ public class TrainingExerciseController {
 
     @PostMapping
     public ResponseEntity<TrainingExercise> addExercise(
-            @Valid @RequestBody CreateTrainingExerciseRequest request
+            @Valid @RequestBody CreateTrainingExerciseRequest request,
+            Authentication authentication
     ) {
-        return ResponseEntity.ok(trainingExerciseService.addExercise(request));
+        String userId = authentication.getName();
+        return ResponseEntity.ok(trainingExerciseService.addExercise(userId, request));
     }
 
     @GetMapping
     public List<TrainingExercise> getExercises(
-            @RequestParam String folderId
+            @RequestParam String folderId,
+            Authentication authentication
     ) {
-        return trainingExerciseService.getExercisesByFolder(folderId);
+        String userId = authentication.getName();
+        return trainingExerciseService.getExercisesByFolder(userId, folderId);
     }
 
     @DeleteMapping("/{id}")

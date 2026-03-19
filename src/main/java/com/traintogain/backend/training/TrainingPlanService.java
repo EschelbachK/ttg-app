@@ -20,7 +20,11 @@ public class TrainingPlanService {
     }
 
     public List<TrainingPlan> getPlansForUser(String userId) {
-        return trainingPlanRepository.findByUserId(userId);
+        return trainingPlanRepository.findByUserIdAndArchivedFalse(userId);
+    }
+
+    public List<TrainingPlan> getArchivedPlansForUser(String userId) {
+        return trainingPlanRepository.findByUserIdAndArchivedTrue(userId);
     }
 
     public TrainingPlan updatePlan(String id, UpdateTrainingPlanRequest request) {

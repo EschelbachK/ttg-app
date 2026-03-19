@@ -1,8 +1,6 @@
 package com.traintogain.backend.training;
 
-import com.traintogain.backend.training.dto.CreateTrainingPlanRequest;
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,25 +16,25 @@ public class TrainingPlanController {
         this.trainingPlanService = trainingPlanService;
     }
 
-    // 🔐 userId kommt aus JWT
     @PostMapping
     public TrainingPlan createPlan(
-            Authentication authentication,
-            @RequestBody CreateTrainingPlanRequest request
+            @RequestParam String title,
+            Authentication authentication
     ) {
         String userId = authentication.getName();
-
-        return trainingPlanService.createPlan(
-                userId,
-                request.title()
-        );
+        return trainingPlanService.createPlan(userId, title);
     }
 
-    // 🔐 userId kommt aus JWT
     @GetMapping
     public List<TrainingPlan> getPlans(Authentication authentication) {
         String userId = authentication.getName();
         return trainingPlanService.getPlansForUser(userId);
+    }
+
+    @GetMapping("/archived")
+    public List<TrainingPlan> getArchivedPlans(Authentication authentication) {
+        String userId = authentication.getName();
+        return trainingPlanService.getArchivedPlansForUser(userId);
     }
 
     @PatchMapping("/{id}")
@@ -48,13 +46,11 @@ public class TrainingPlanController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlan(
             @PathVariable String id,
             Authentication authentication
     ) {
         String userId = authentication.getName();
-
         trainingPlanService.deletePlan(id, userId);
     }
 }

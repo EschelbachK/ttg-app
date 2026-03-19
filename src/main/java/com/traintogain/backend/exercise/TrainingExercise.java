@@ -13,13 +13,14 @@ public class TrainingExercise {
     @Id
     private String id;
 
-    private String folderId;          // Brust-Ordner
-    private String name;              // z.B. "Butterfly Maschine"
-    private BodyRegion bodyRegion;    // BRUST
+    private String userId;
+
+    private String folderId;
+    private String name;
+    private BodyRegion bodyRegion;
 
     private List<SetEntry> sets = new ArrayList<>();
 
-    // Erweiterungen (kommen später)
     private String notes;
     private Integer restTimerSeconds;
 
@@ -32,10 +33,12 @@ public class TrainingExercise {
         this.bodyRegion = bodyRegion;
     }
 
-    // Getter & Setter
-
     public String getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getFolderId() {
@@ -64,6 +67,10 @@ public class TrainingExercise {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setFolderId(String folderId) {

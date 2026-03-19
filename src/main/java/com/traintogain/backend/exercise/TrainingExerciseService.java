@@ -14,13 +14,14 @@ public class TrainingExerciseService {
         this.trainingExerciseRepository = trainingExerciseRepository;
     }
 
-    public TrainingExercise addExercise(CreateTrainingExerciseRequest request) {
+    public TrainingExercise addExercise(String userId, CreateTrainingExerciseRequest request) {
 
         if (request.sets() == null || request.sets().isEmpty()) {
             throw new IllegalArgumentException("Exercise must contain at least one set");
         }
 
         TrainingExercise exercise = new TrainingExercise();
+        exercise.setUserId(userId);
         exercise.setFolderId(request.folderId());
         exercise.setName(request.name());
 
@@ -36,8 +37,8 @@ public class TrainingExerciseService {
         return trainingExerciseRepository.save(exercise);
     }
 
-    public List<TrainingExercise> getExercisesByFolder(String folderId) {
-        return trainingExerciseRepository.findByFolderId(folderId);
+    public List<TrainingExercise> getExercisesByFolder(String userId, String folderId) {
+        return trainingExerciseRepository.findByUserIdAndFolderId(userId, folderId);
     }
 
     public void deleteExercise(String id) {

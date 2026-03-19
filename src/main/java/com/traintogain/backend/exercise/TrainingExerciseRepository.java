@@ -8,5 +8,7 @@ public interface TrainingExerciseRepository
 
     List<TrainingExercise> findByFolderId(String folderId);
 
+    List<TrainingExercise> findByUserIdAndFolderId(String userId, String folderId);
+
     void deleteByFolderId(String folderId);
 }

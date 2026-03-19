@@ -10,10 +10,12 @@ public class TrainingFolder {
     @Id
     private String id;
 
-    private String trainingPlanId;   // Referenz auf Tag 1
-    private String name;             // z.B. "Brust"
-    private BodyRegion bodyRegion;   // optional, aber sehr praktisch
-    private int order;               // Reihenfolge im UI
+    private String userId;
+
+    private String trainingPlanId;
+    private String name;
+    private BodyRegion bodyRegion;
+    private int order;
 
     public TrainingFolder() {
     }
@@ -25,10 +27,12 @@ public class TrainingFolder {
         this.order = order;
     }
 
-    // Getter & Setter
-
     public String getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getTrainingPlanId() {
@@ -49,6 +53,10 @@ public class TrainingFolder {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setTrainingPlanId(String trainingPlanId) {

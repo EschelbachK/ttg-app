@@ -18,9 +18,13 @@ public class TrainingFolderController {
 
     @PostMapping
     public TrainingFolder createFolder(
-            @RequestBody CreateTrainingFolderRequest request
+            @RequestBody CreateTrainingFolderRequest request,
+            Authentication authentication
     ) {
+        String userId = authentication.getName();
+
         return folderService.createFolder(
+                userId,
                 request.trainingPlanId(),
                 request.name(),
                 request.bodyRegion(),
@@ -30,8 +34,11 @@ public class TrainingFolderController {
 
     @GetMapping
     public List<TrainingFolder> getFolders(
-            @RequestParam String trainingPlanId
+            @RequestParam String trainingPlanId,
+            Authentication authentication
     ) {
-        return folderService.getFoldersForPlan(trainingPlanId);
+        String userId = authentication.getName();
+
+        return folderService.getFoldersForPlan(userId, trainingPlanId);
     }
 }
