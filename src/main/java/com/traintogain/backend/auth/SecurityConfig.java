@@ -30,46 +30,22 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-
-                // ❌ Kein CSRF (JWT)
                 .csrf(csrf -> csrf.disable())
-
-                // ❌ Kein CORS (Postman / Flutter)
                 .cors(cors -> cors.disable())
-
-                // ❌ Kein Session-State
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-
-                // 🔐 Authorization
                 .authorizeHttpRequests(auth -> auth
-
-                        // 🔓 Auth-Endpunkte
                         .requestMatchers("/api/auth/**").permitAll()
-
-                        // 🔓 Exercise Catalog (ALT)
                         .requestMatchers("/api/catalog/**").permitAll()
-
-                        // 🔓 Exercise Catalog (NEU - dein Controller)
                         .requestMatchers("/api/exercise-catalog/**").permitAll()
-
-                        // 🔓 H2 Console (DEV ONLY)
                         .requestMatchers("/h2-console/**").permitAll()
-
-                        // 🔓 Preflight (Flutter / Browser CORS)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // 🔒 Alles andere geschützt
                         .anyRequest().authenticated()
                 )
-
-                // 🪟 H2 braucht Frames
                 .headers(headers ->
                         headers.frameOptions(frame -> frame.disable())
                 )
-
-                // 🔑 JWT Filter
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
