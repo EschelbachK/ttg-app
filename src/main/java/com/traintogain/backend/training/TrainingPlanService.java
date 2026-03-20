@@ -42,10 +42,10 @@ public class TrainingPlanService {
 
     public TrainingPlan updatePlan(String id, String userId, UpdateTrainingPlanRequest request) {
         TrainingPlan plan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden!"));
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
         if (!plan.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan!");
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
         }
 
         if (request.getTitle() != null && !request.getTitle().isBlank()) {
@@ -61,10 +61,10 @@ public class TrainingPlanService {
 
     public void deletePlan(String id, String userId) {
         TrainingPlan plan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden!"));
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
         if (!plan.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan!");
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
         }
 
         List<TrainingFolder> folders = trainingFolderRepository
