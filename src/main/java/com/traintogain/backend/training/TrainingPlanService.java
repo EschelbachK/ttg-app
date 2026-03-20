@@ -1,5 +1,7 @@
 package com.traintogain.backend.training;
 
+import com.traintogain.backend.common.exception.ForbiddenException;
+import com.traintogain.backend.common.exception.NotFoundException;
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class TrainingPlanService {
 
     public TrainingPlan updatePlan(String id, UpdateTrainingPlanRequest request) {
         TrainingPlan plan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Training plan not found"));
+                .orElseThrow(() -> new NotFoundException("Training plan not found"));
 
         if (request.getTitle() != null && !request.getTitle().isBlank()) {
             plan.setTitle(request.getTitle());
@@ -43,12 +45,11 @@ public class TrainingPlanService {
     }
 
     public void deletePlan(String id, String userId) {
-
         TrainingPlan plan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Training plan not found"));
+                .orElseThrow(() -> new NotFoundException("Training plan not found"));
 
         if (!plan.getUserId().equals(userId)) {
-            throw new RuntimeException("Forbidden");
+            throw new ForbiddenException("Forbidden");
         }
 
         trainingPlanRepository.delete(plan);
