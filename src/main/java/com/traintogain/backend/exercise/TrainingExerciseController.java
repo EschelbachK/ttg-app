@@ -1,5 +1,6 @@
 package com.traintogain.backend.exercise;
 
+import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -39,7 +40,10 @@ public class TrainingExerciseController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExercise(@PathVariable String id) {
-        trainingExerciseService.deleteExercise(id);
+    public void deleteExercise(
+            @PathVariable String id,
+            Authentication authentication
+    ) {
+        trainingExerciseService.deleteExercise(id, authentication.getName());
     }
 }
