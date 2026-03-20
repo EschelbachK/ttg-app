@@ -4,10 +4,10 @@ import jakarta.validation.constraints.Min;
 
 public record CreateSetRequest(
 
-        @Min(value = 0, message = "Weight must be >= 0")
+        @Min(value = 0, message = "Gewicht muss >= 0 sein")
         double weight,
 
-        @Min(value = 1, message = "Reps must be >= 1")
+        @Min(value = 1, message = "Wiederholungen müssen >= 1 sein")
         int reps
 
 ) {}
