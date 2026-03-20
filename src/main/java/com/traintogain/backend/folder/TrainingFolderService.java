@@ -1,8 +1,8 @@
 package com.traintogain.backend.folder;
 
 import com.traintogain.backend.common.BodyRegion;
-import com.traintogain.backend.common.exception.ForbiddenException;
-import com.traintogain.backend.common.exception.NotFoundException;
+import com.traintogain.backend.exception.ForbiddenException;
+import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.exercise.TrainingExerciseRepository;
 import com.traintogain.backend.folder.dto.UpdateTrainingFolderRequest;
 import com.traintogain.backend.training.TrainingPlan;
@@ -36,15 +36,11 @@ public class TrainingFolderService {
             int order
     ) {
         TrainingPlan plan = trainingPlanRepository
-                .findById(trainingPlanId)
+                .findByIdAndUserId(trainingPlanId, userId)
                 .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
-        if (!plan.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
-        }
-
         TrainingFolder folder = new TrainingFolder(
-                trainingPlanId,
+                plan.getId(),
                 name,
                 bodyRegion,
                 order
@@ -53,6 +49,15 @@ public class TrainingFolderService {
         folder.setUserId(userId);
 
         return trainingFolderRepository.save(folder);
+    }
+
+    public List<TrainingFolder> getFoldersForPlan(String userId, String planId) {
+        TrainingPlan plan = trainingPlanRepository
+                .findByIdAndUserId(planId, userId)
+                .orElseThrow(() -> new NotFoundException("Plan nicht gefunden"));
+
+        return trainingFolderRepository
+                .findByUserIdAndTrainingPlanIdOrderByOrderAsc(userId, plan.getId());
     }
 
     public TrainingFolder updateFolder(String id, String userId, UpdateTrainingFolderRequest request) {
