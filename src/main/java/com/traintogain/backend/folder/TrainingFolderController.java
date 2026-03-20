@@ -3,6 +3,7 @@ package com.traintogain.backend.folder;
 import com.traintogain.backend.folder.dto.CreateTrainingFolderRequest;
 import com.traintogain.backend.training.TrainingPlan;
 import com.traintogain.backend.training.TrainingPlanRepository;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class TrainingFolderController {
 
     @PostMapping
     public TrainingFolder createFolder(
-            @RequestBody CreateTrainingFolderRequest request,
+            @Valid @RequestBody CreateTrainingFolderRequest request,
             Authentication authentication
     ) {
         String userId = authentication.getName();
@@ -46,9 +47,7 @@ public class TrainingFolderController {
     }
 
     @GetMapping
-    public List<TrainingFolder> getFolders(
-            Authentication authentication
-    ) {
+    public List<TrainingFolder> getFolders(Authentication authentication) {
         String userId = authentication.getName();
 
         TrainingPlan plan = trainingPlanRepository
@@ -65,7 +64,6 @@ public class TrainingFolderController {
             @PathVariable String id,
             Authentication authentication
     ) {
-        String userId = authentication.getName();
-        folderService.deleteFolder(id, userId);
+        folderService.deleteFolder(id, authentication.getName());
     }
 }
