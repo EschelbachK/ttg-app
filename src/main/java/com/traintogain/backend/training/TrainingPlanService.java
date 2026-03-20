@@ -1,7 +1,7 @@
 package com.traintogain.backend.training;
 
-import com.traintogain.backend.common.exception.ForbiddenException;
-import com.traintogain.backend.common.exception.NotFoundException;
+import com.traintogain.backend.exception.ForbiddenException;
+import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +29,13 @@ public class TrainingPlanService {
         return trainingPlanRepository.findByUserIdAndArchivedTrue(userId);
     }
 
-    public TrainingPlan updatePlan(String id, UpdateTrainingPlanRequest request) {
+    public TrainingPlan updatePlan(String id, String userId, UpdateTrainingPlanRequest request) {
         TrainingPlan plan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Training plan not found"));
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
+
+        if (!plan.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
+        }
 
         if (request.getTitle() != null && !request.getTitle().isBlank()) {
             plan.setTitle(request.getTitle());
@@ -46,10 +50,10 @@ public class TrainingPlanService {
 
     public void deletePlan(String id, String userId) {
         TrainingPlan plan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Training plan not found"));
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
         if (!plan.getUserId().equals(userId)) {
-            throw new ForbiddenException("Forbidden");
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
         }
 
         trainingPlanRepository.delete(plan);
