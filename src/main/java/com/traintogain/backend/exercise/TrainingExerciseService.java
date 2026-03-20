@@ -1,6 +1,8 @@
 package com.traintogain.backend.exercise;
 
-import com.traintogain.backend.common.exception.NotFoundException;
+import com.traintogain.backend.exception.ForbiddenException;
+import com.traintogain.backend.exception.NotFoundException;
+import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class TrainingExerciseService {
     public TrainingExercise addExercise(String userId, CreateTrainingExerciseRequest request) {
 
         if (request.sets() == null || request.sets().isEmpty()) {
-            throw new IllegalArgumentException("Exercise must contain at least one set");
+            throw new IllegalArgumentException("Die Übung muss mindestens einen Satz enthalten");
         }
 
         TrainingExercise exercise = new TrainingExercise();
@@ -28,7 +30,7 @@ public class TrainingExerciseService {
         List<SetEntry> sets = request.sets().stream()
                 .map(s -> new SetEntry(
                         s.weight(),
-                        s.reps()
+                        s.repetitions()
                 ))
                 .toList();
 
@@ -41,9 +43,13 @@ public class TrainingExerciseService {
         return trainingExerciseRepository.findByUserIdAndFolderId(userId, folderId);
     }
 
-    public void deleteExercise(String id) {
+    public void deleteExercise(String id, String userId) {
         TrainingExercise exercise = trainingExerciseRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("TrainingExercise not found"));
+                .orElseThrow(() -> new NotFoundException("Übung wurde nicht gefunden"));
+
+        if (!exercise.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff auf diese Übung");
+        }
 
         trainingExerciseRepository.delete(exercise);
     }
