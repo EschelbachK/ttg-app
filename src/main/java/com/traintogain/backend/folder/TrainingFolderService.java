@@ -7,6 +7,8 @@ import com.traintogain.backend.exercise.TrainingExerciseRepository;
 import com.traintogain.backend.folder.dto.UpdateTrainingFolderRequest;
 import com.traintogain.backend.training.TrainingPlan;
 import com.traintogain.backend.training.TrainingPlanRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,13 +53,16 @@ public class TrainingFolderService {
         return trainingFolderRepository.save(folder);
     }
 
-    public List<TrainingFolder> getFoldersForPlan(String userId, String planId) {
+    public Page<TrainingFolder> getFoldersForPlan(
+            String userId,
+            String planId,
+            Pageable pageable
+    ) {
         TrainingPlan plan = trainingPlanRepository
                 .findByIdAndUserId(planId, userId)
                 .orElseThrow(() -> new NotFoundException("Plan nicht gefunden"));
 
-        return trainingFolderRepository
-                .findByUserIdAndTrainingPlanIdOrderByOrderAsc(userId, plan.getId());
+        return trainingFolderRepository.findByUserIdAndTrainingPlanId(userId, plan.getId(), pageable);
     }
 
     public TrainingFolder updateFolder(String id, String userId, UpdateTrainingFolderRequest request) {

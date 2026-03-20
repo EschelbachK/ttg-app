@@ -5,6 +5,8 @@ import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
 import com.traintogain.backend.folder.TrainingFolder;
 import com.traintogain.backend.folder.TrainingFolderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +52,12 @@ public class TrainingExerciseService {
         return trainingExerciseRepository.save(exercise);
     }
 
-    public List<TrainingExercise> getExercisesByFolder(String userId, String planId, String folderId) {
+    public Page<TrainingExercise> getExercisesByFolder(
+            String userId,
+            String planId,
+            String folderId,
+            Pageable pageable
+    ) {
 
         TrainingFolder folder = trainingFolderRepository.findById(folderId)
                 .orElseThrow(() -> new NotFoundException("Ordner nicht gefunden"));
@@ -59,7 +66,7 @@ public class TrainingExerciseService {
             throw new ForbiddenException("Kein Zugriff auf diesen Ordner");
         }
 
-        return trainingExerciseRepository.findByUserIdAndFolderId(userId, folderId);
+        return trainingExerciseRepository.findByUserIdAndFolderId(userId, folderId, pageable);
     }
 
     public void deleteExercise(String id, String userId) {
