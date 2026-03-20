@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/training-exercises")
+@RequestMapping("/api/training-plans/{planId}/exercises")
 public class TrainingExerciseController {
 
     private final TrainingExerciseService trainingExerciseService;
@@ -20,21 +20,24 @@ public class TrainingExerciseController {
 
     @PostMapping
     public ResponseEntity<TrainingExercise> addExercise(
+            @PathVariable String planId,
             @Valid @RequestBody CreateTrainingExerciseRequest request,
             Authentication authentication
     ) {
         return ResponseEntity.ok(
-                trainingExerciseService.addExercise(authentication.getName(), request)
+                trainingExerciseService.addExercise(authentication.getName(), planId, request)
         );
     }
 
     @GetMapping
     public List<TrainingExercise> getExercises(
+            @PathVariable String planId,
             @RequestParam String folderId,
             Authentication authentication
     ) {
         return trainingExerciseService.getExercisesByFolder(
                 authentication.getName(),
+                planId,
                 folderId
         );
     }
