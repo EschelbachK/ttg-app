@@ -9,4 +9,6 @@ public interface TrainingPlanRepository
     List<TrainingPlan> findByUserIdAndArchivedFalse(String userId);
 
     List<TrainingPlan> findByUserIdAndArchivedTrue(String userId);
+
+    boolean existsByUserId(String userId);
 }
