@@ -3,6 +3,8 @@ package com.traintogain.backend.folder;
 import com.traintogain.backend.common.BodyRegion;
 import com.traintogain.backend.exercise.TrainingExerciseRepository;
 import com.traintogain.backend.folder.dto.UpdateTrainingFolderRequest;
+import com.traintogain.backend.training.TrainingPlan;
+import com.traintogain.backend.training.TrainingPlanRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +14,16 @@ public class TrainingFolderService {
 
     private final TrainingFolderRepository trainingFolderRepository;
     private final TrainingExerciseRepository trainingExerciseRepository;
+    private final TrainingPlanRepository trainingPlanRepository;
 
     public TrainingFolderService(
             TrainingFolderRepository trainingFolderRepository,
-            TrainingExerciseRepository trainingExerciseRepository
+            TrainingExerciseRepository trainingExerciseRepository,
+            TrainingPlanRepository trainingPlanRepository
     ) {
         this.trainingFolderRepository = trainingFolderRepository;
         this.trainingExerciseRepository = trainingExerciseRepository;
+        this.trainingPlanRepository = trainingPlanRepository;
     }
 
     public TrainingFolder createFolder(
@@ -28,6 +33,14 @@ public class TrainingFolderService {
             BodyRegion bodyRegion,
             int order
     ) {
+        TrainingPlan plan = trainingPlanRepository
+                .findById(trainingPlanId)
+                .orElseThrow();
+
+        if (!plan.getUserId().equals(userId)) {
+            throw new RuntimeException("Forbidden");
+        }
+
         TrainingFolder folder = new TrainingFolder(
                 trainingPlanId,
                 name,
@@ -47,7 +60,7 @@ public class TrainingFolderService {
 
     public TrainingFolder updateFolder(String id, UpdateTrainingFolderRequest request) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Folder not found"));
+                .orElseThrow(() -> new RuntimeException());
 
         if (request.getName() != null && !request.getName().isBlank()) {
             folder.setName(request.getName());
@@ -85,9 +98,13 @@ public class TrainingFolderService {
         trainingFolderRepository.saveAll(folders);
     }
 
-    public void deleteFolder(String id) {
+    public void deleteFolder(String id, String userId) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Folder not found"));
+                .orElseThrow(() -> new RuntimeException());
+
+        if (!folder.getUserId().equals(userId)) {
+            throw new RuntimeException("Forbidden");
+        }
 
         trainingExerciseRepository.deleteByFolderId(folder.getId());
         trainingFolderRepository.delete(folder);
