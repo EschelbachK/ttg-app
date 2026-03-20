@@ -1,7 +1,6 @@
 package com.traintogain.backend.exercise;
 
 import com.traintogain.backend.common.exception.NotFoundException;
-import com.traintogain.backend.training.dto.CreateTrainingExerciseRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
