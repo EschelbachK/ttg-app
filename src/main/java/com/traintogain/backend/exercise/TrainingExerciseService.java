@@ -60,10 +60,10 @@ public class TrainingExerciseService {
     ) {
 
         TrainingFolder folder = trainingFolderRepository.findById(folderId)
-                .orElseThrow(() -> new NotFoundException("Ordner nicht gefunden"));
+                .orElseThrow(() -> new NotFoundException("Übung nicht gefunden!"));
 
         if (!folder.getUserId().equals(userId) || !folder.getTrainingPlanId().equals(planId)) {
-            throw new ForbiddenException("Kein Zugriff auf diesen Ordner");
+            throw new ForbiddenException("Kein Zugriff auf diese Übung!");
         }
 
         return trainingExerciseRepository.findByUserIdAndFolderId(userId, folderId, pageable);
@@ -71,10 +71,10 @@ public class TrainingExerciseService {
 
     public void deleteExercise(String id, String userId) {
         TrainingExercise exercise = trainingExerciseRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Übung wurde nicht gefunden"));
+                .orElseThrow(() -> new NotFoundException("Übung wurde nicht gefunden!"));
 
         if (!exercise.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diese Übung");
+            throw new ForbiddenException("Kein Zugriff auf diese Übung!");
         }
 
         trainingExerciseRepository.delete(exercise);
