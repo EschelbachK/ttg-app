@@ -41,11 +41,15 @@ public class TrainingFolderService {
                 .findByIdAndUserId(trainingPlanId, userId)
                 .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
+        int nextOrder = trainingFolderRepository
+                .findByUserIdAndTrainingPlanIdOrderByOrderAsc(userId, trainingPlanId)
+                .size();
+
         TrainingFolder folder = new TrainingFolder(
                 plan.getId(),
                 name,
                 bodyRegion,
-                order
+                nextOrder
         );
 
         folder.setUserId(userId);
@@ -60,17 +64,17 @@ public class TrainingFolderService {
     ) {
         TrainingPlan plan = trainingPlanRepository
                 .findByIdAndUserId(planId, userId)
-                .orElseThrow(() -> new NotFoundException("Plan nicht gefunden!"));
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
         return trainingFolderRepository.findByUserIdAndTrainingPlanId(userId, plan.getId(), pageable);
     }
 
     public TrainingFolder updateFolder(String id, String userId, UpdateTrainingFolderRequest request) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Muskelgruppe wurde nicht gefunden!"));
+                .orElseThrow(() -> new NotFoundException("Muskelgruppe wurde nicht gefunden"));
 
         if (!folder.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe!");
+            throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe");
         }
 
         if (request.getName() != null && !request.getName().isBlank()) {
@@ -86,24 +90,28 @@ public class TrainingFolderService {
                 && request.getOrder() != folder.getOrder()) {
 
             reorderFolders(folder, request.getOrder());
-            folder.setOrder(request.getOrder());
         }
 
         return trainingFolderRepository.save(folder);
     }
 
-    private void reorderFolders(TrainingFolder folder, int newOrder) {
+    private void reorderFolders(TrainingFolder target, int newOrder) {
         List<TrainingFolder> folders =
-                trainingFolderRepository
-                        .findByUserIdAndTrainingPlanIdOrderByOrderAsc(
-                                folder.getUserId(),
-                                folder.getTrainingPlanId()
-                        );
+                trainingFolderRepository.findByUserIdAndTrainingPlanIdOrderByOrderAsc(
+                        target.getUserId(),
+                        target.getTrainingPlanId()
+                );
 
-        for (TrainingFolder f : folders) {
-            if (!f.getId().equals(folder.getId()) && f.getOrder() >= newOrder) {
-                f.setOrder(f.getOrder() + 1);
-            }
+        folders.removeIf(f -> f.getId().equals(target.getId()));
+
+        if (newOrder > folders.size()) {
+            newOrder = folders.size();
+        }
+
+        folders.add(newOrder, target);
+
+        for (int i = 0; i < folders.size(); i++) {
+            folders.get(i).setOrder(i);
         }
 
         trainingFolderRepository.saveAll(folders);
@@ -111,10 +119,10 @@ public class TrainingFolderService {
 
     public void deleteFolder(String id, String userId) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Muskelgruppe wurde nicht gefunden!"));
+                .orElseThrow(() -> new NotFoundException("Muskelgruppe wurde nicht gefunden"));
 
         if (!folder.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe!");
+            throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe");
         }
 
         trainingExerciseRepository.deleteByFolderId(folder.getId());
