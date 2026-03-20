@@ -1,5 +1,6 @@
 package com.traintogain.backend.exercise;
 
+import com.traintogain.backend.common.exception.NotFoundException;
 import com.traintogain.backend.training.dto.CreateTrainingExerciseRequest;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +43,8 @@ public class TrainingExerciseService {
     }
 
     public void deleteExercise(String id) {
-
         TrainingExercise exercise = trainingExerciseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("TrainingExercise not found"));
+                .orElseThrow(() -> new NotFoundException("TrainingExercise not found"));
 
         trainingExerciseRepository.delete(exercise);
     }
