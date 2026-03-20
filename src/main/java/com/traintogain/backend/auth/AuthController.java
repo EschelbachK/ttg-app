@@ -4,12 +4,13 @@ import com.traintogain.backend.api.ApiResponse;
 import com.traintogain.backend.auth.dto.*;
 import com.traintogain.backend.auth.refreshtoken.RefreshToken;
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
+import com.traintogain.backend.training.TrainingPlan;
+import com.traintogain.backend.training.TrainingPlanRepository;
 import com.traintogain.backend.user.User;
 import com.traintogain.backend.user.UserService;
 import com.traintogain.backend.user.dto.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -17,15 +18,18 @@ public class AuthController {
     private final UserService userService;
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
+    private final TrainingPlanRepository trainingPlanRepository;
 
     public AuthController(
             UserService userService,
             JwtService jwtService,
-            RefreshTokenService refreshTokenService
+            RefreshTokenService refreshTokenService,
+            TrainingPlanRepository trainingPlanRepository
     ) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.refreshTokenService = refreshTokenService;
+        this.trainingPlanRepository = trainingPlanRepository;
     }
 
     @PostMapping("/login")
@@ -35,6 +39,8 @@ public class AuthController {
                 request.email(),
                 request.password()
         );
+
+        ensureTrainingPlan(user.getId());
 
         String accessToken = jwtService.generateAccessToken(user);
         RefreshToken refreshToken =
@@ -95,6 +101,8 @@ public class AuthController {
                 request.password()
         );
 
+        ensureTrainingPlan(user.getId());
+
         UserResponse response = new UserResponse(
                 user.getId(),
                 user.getEmail(),
@@ -111,5 +119,15 @@ public class AuthController {
         refreshTokenService.deleteByToken(request.getRefreshToken());
 
         return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    private void ensureTrainingPlan(String userId) {
+        boolean exists = trainingPlanRepository.existsByUserId(userId);
+
+        if (!exists) {
+            TrainingPlan plan = new TrainingPlan();
+            plan.setUserId(userId);
+            trainingPlanRepository.save(plan);
+        }
     }
 }
