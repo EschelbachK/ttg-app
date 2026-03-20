@@ -1,6 +1,8 @@
 package com.traintogain.backend.folder;
 
 import com.traintogain.backend.common.BodyRegion;
+import com.traintogain.backend.common.exception.ForbiddenException;
+import com.traintogain.backend.common.exception.NotFoundException;
 import com.traintogain.backend.exercise.TrainingExerciseRepository;
 import com.traintogain.backend.folder.dto.UpdateTrainingFolderRequest;
 import com.traintogain.backend.training.TrainingPlan;
@@ -35,10 +37,10 @@ public class TrainingFolderService {
     ) {
         TrainingPlan plan = trainingPlanRepository
                 .findById(trainingPlanId)
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Training plan not found"));
 
         if (!plan.getUserId().equals(userId)) {
-            throw new RuntimeException("Forbidden");
+            throw new ForbiddenException("Forbidden");
         }
 
         TrainingFolder folder = new TrainingFolder(
@@ -60,7 +62,7 @@ public class TrainingFolderService {
 
     public TrainingFolder updateFolder(String id, UpdateTrainingFolderRequest request) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new NotFoundException("Folder not found"));
 
         if (request.getName() != null && !request.getName().isBlank()) {
             folder.setName(request.getName());
@@ -100,10 +102,10 @@ public class TrainingFolderService {
 
     public void deleteFolder(String id, String userId) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new NotFoundException("Folder not found"));
 
         if (!folder.getUserId().equals(userId)) {
-            throw new RuntimeException("Forbidden");
+            throw new ForbiddenException("Forbidden");
         }
 
         trainingExerciseRepository.deleteByFolderId(folder.getId());
