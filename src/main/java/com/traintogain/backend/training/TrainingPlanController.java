@@ -1,6 +1,7 @@
 package com.traintogain.backend.training;
 
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class TrainingPlanController {
     @PatchMapping("/{id}")
     public TrainingPlan updatePlan(
             @PathVariable String id,
-            @RequestBody UpdateTrainingPlanRequest request
+            @Valid @RequestBody UpdateTrainingPlanRequest request
     ) {
         return trainingPlanService.updatePlan(id, request);
     }
