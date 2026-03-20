@@ -2,6 +2,8 @@ package com.traintogain.backend.training;
 
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +20,13 @@ public class TrainingPlanController {
     }
 
     @PostMapping
-    public TrainingPlan createPlan(
+    public ResponseEntity<TrainingPlan> createPlan(
             @RequestParam String title,
             Authentication authentication
     ) {
-        return trainingPlanService.createPlan(authentication.getName(), title);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                trainingPlanService.createPlan(authentication.getName(), title)
+        );
     }
 
     @GetMapping
@@ -45,10 +49,11 @@ public class TrainingPlanController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePlan(
+    public ResponseEntity<Void> deletePlan(
             @PathVariable String id,
             Authentication authentication
     ) {
         trainingPlanService.deletePlan(id, authentication.getName());
+        return ResponseEntity.noContent().build();
     }
 }
