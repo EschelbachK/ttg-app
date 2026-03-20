@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,17 +22,19 @@ public class TrainingFolderController {
     }
 
     @PostMapping
-    public TrainingFolder createFolder(
+    public ResponseEntity<TrainingFolder> createFolder(
             @PathVariable String planId,
             @Valid @RequestBody CreateTrainingFolderRequest request,
             Authentication authentication
     ) {
-        return folderService.createFolder(
-                authentication.getName(),
-                planId,
-                request.name(),
-                null,
-                request.order()
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                folderService.createFolder(
+                        authentication.getName(),
+                        planId,
+                        request.name(),
+                        null,
+                        request.order()
+                )
         );
     }
 
@@ -48,10 +52,11 @@ public class TrainingFolderController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFolder(
+    public ResponseEntity<Void> deleteFolder(
             @PathVariable String id,
             Authentication authentication
     ) {
         folderService.deleteFolder(id, authentication.getName());
+        return ResponseEntity.noContent().build();
     }
 }
