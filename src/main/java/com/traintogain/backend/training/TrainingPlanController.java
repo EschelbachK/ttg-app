@@ -21,20 +21,17 @@ public class TrainingPlanController {
             @RequestParam String title,
             Authentication authentication
     ) {
-        String userId = authentication.getName();
-        return trainingPlanService.createPlan(userId, title);
+        return trainingPlanService.createPlan(authentication.getName(), title);
     }
 
     @GetMapping
     public List<TrainingPlan> getPlans(Authentication authentication) {
-        String userId = authentication.getName();
-        return trainingPlanService.getPlansForUser(userId);
+        return trainingPlanService.getPlansForUser(authentication.getName());
     }
 
     @GetMapping("/archived")
     public List<TrainingPlan> getArchivedPlans(Authentication authentication) {
-        String userId = authentication.getName();
-        return trainingPlanService.getArchivedPlansForUser(userId);
+        return trainingPlanService.getArchivedPlansForUser(authentication.getName());
     }
 
     @PatchMapping("/{id}")
@@ -50,7 +47,6 @@ public class TrainingPlanController {
             @PathVariable String id,
             Authentication authentication
     ) {
-        String userId = authentication.getName();
-        trainingPlanService.deletePlan(id, userId);
+        trainingPlanService.deletePlan(id, authentication.getName());
     }
 }
