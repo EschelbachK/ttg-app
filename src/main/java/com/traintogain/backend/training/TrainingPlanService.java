@@ -2,6 +2,9 @@ package com.traintogain.backend.training;
 
 import com.traintogain.backend.exception.ForbiddenException;
 import com.traintogain.backend.exception.NotFoundException;
+import com.traintogain.backend.folder.TrainingFolder;
+import com.traintogain.backend.folder.TrainingFolderRepository;
+import com.traintogain.backend.exercise.TrainingExerciseRepository;
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,17 @@ import java.util.List;
 public class TrainingPlanService {
 
     private final TrainingPlanRepository trainingPlanRepository;
+    private final TrainingFolderRepository trainingFolderRepository;
+    private final TrainingExerciseRepository trainingExerciseRepository;
 
-    public TrainingPlanService(TrainingPlanRepository trainingPlanRepository) {
+    public TrainingPlanService(
+            TrainingPlanRepository trainingPlanRepository,
+            TrainingFolderRepository trainingFolderRepository,
+            TrainingExerciseRepository trainingExerciseRepository
+    ) {
         this.trainingPlanRepository = trainingPlanRepository;
+        this.trainingFolderRepository = trainingFolderRepository;
+        this.trainingExerciseRepository = trainingExerciseRepository;
     }
 
     public TrainingPlan createPlan(String userId, String title) {
@@ -56,6 +67,14 @@ public class TrainingPlanService {
             throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
         }
 
+        List<TrainingFolder> folders = trainingFolderRepository
+                .findByUserIdAndTrainingPlanIdOrderByOrderAsc(userId, plan.getId());
+
+        for (TrainingFolder folder : folders) {
+            trainingExerciseRepository.deleteByFolderId(folder.getId());
+        }
+
+        trainingFolderRepository.deleteAll(folders);
         trainingPlanRepository.delete(plan);
     }
 }
