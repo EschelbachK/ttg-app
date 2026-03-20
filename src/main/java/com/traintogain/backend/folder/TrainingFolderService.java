@@ -37,10 +37,10 @@ public class TrainingFolderService {
     ) {
         TrainingPlan plan = trainingPlanRepository
                 .findById(trainingPlanId)
-                .orElseThrow(() -> new NotFoundException("Training plan not found"));
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
 
         if (!plan.getUserId().equals(userId)) {
-            throw new ForbiddenException("Forbidden");
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
         }
 
         TrainingFolder folder = new TrainingFolder(
@@ -55,14 +55,13 @@ public class TrainingFolderService {
         return trainingFolderRepository.save(folder);
     }
 
-    public List<TrainingFolder> getFoldersForPlan(String userId, String trainingPlanId) {
-        return trainingFolderRepository
-                .findByUserIdAndTrainingPlanIdOrderByOrderAsc(userId, trainingPlanId);
-    }
-
-    public TrainingFolder updateFolder(String id, UpdateTrainingFolderRequest request) {
+    public TrainingFolder updateFolder(String id, String userId, UpdateTrainingFolderRequest request) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Folder not found"));
+                .orElseThrow(() -> new NotFoundException("Ordner wurde nicht gefunden"));
+
+        if (!folder.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff auf diesen Ordner");
+        }
 
         if (request.getName() != null && !request.getName().isBlank()) {
             folder.setName(request.getName());
@@ -102,10 +101,10 @@ public class TrainingFolderService {
 
     public void deleteFolder(String id, String userId) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Folder not found"));
+                .orElseThrow(() -> new NotFoundException("Ordner wurde nicht gefunden"));
 
         if (!folder.getUserId().equals(userId)) {
-            throw new ForbiddenException("Forbidden");
+            throw new ForbiddenException("Kein Zugriff auf diesen Ordner");
         }
 
         trainingExerciseRepository.deleteByFolderId(folder.getId());
