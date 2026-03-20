@@ -1,12 +1,17 @@
 package com.traintogain.backend.folder;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import java.util.List;
 
 public interface TrainingFolderRepository
         extends MongoRepository<TrainingFolder, String> {
 
-    List<TrainingFolder> findByTrainingPlanIdOrderByOrderAsc(String trainingPlanId);
+    Page<TrainingFolder> findByUserIdAndTrainingPlanId(
+            String userId,
+            String trainingPlanId,
+            Pageable pageable
+    );
 
-    List<TrainingFolder> findByUserIdAndTrainingPlanIdOrderByOrderAsc(String userId, String trainingPlanId);
+    java.util.List<TrainingFolder> findByUserIdAndTrainingPlanIdOrderByOrderAsc(String userId, String trainingPlanId);
 }
