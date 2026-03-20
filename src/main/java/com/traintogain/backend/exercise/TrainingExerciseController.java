@@ -23,8 +23,9 @@ public class TrainingExerciseController {
             @Valid @RequestBody CreateTrainingExerciseRequest request,
             Authentication authentication
     ) {
-        String userId = authentication.getName();
-        return ResponseEntity.ok(trainingExerciseService.addExercise(userId, request));
+        return ResponseEntity.ok(
+                trainingExerciseService.addExercise(authentication.getName(), request)
+        );
     }
 
     @GetMapping
@@ -32,8 +33,10 @@ public class TrainingExerciseController {
             @RequestParam String folderId,
             Authentication authentication
     ) {
-        String userId = authentication.getName();
-        return trainingExerciseService.getExercisesByFolder(userId, folderId);
+        return trainingExerciseService.getExercisesByFolder(
+                authentication.getName(),
+                folderId
+        );
     }
 
     @DeleteMapping("/{id}")
