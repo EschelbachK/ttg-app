@@ -60,17 +60,17 @@ public class TrainingFolderService {
     ) {
         TrainingPlan plan = trainingPlanRepository
                 .findByIdAndUserId(planId, userId)
-                .orElseThrow(() -> new NotFoundException("Plan nicht gefunden"));
+                .orElseThrow(() -> new NotFoundException("Plan nicht gefunden!"));
 
         return trainingFolderRepository.findByUserIdAndTrainingPlanId(userId, plan.getId(), pageable);
     }
 
     public TrainingFolder updateFolder(String id, String userId, UpdateTrainingFolderRequest request) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Ordner wurde nicht gefunden"));
+                .orElseThrow(() -> new NotFoundException("Muskelgruppe wurde nicht gefunden!"));
 
         if (!folder.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diesen Ordner");
+            throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe!");
         }
 
         if (request.getName() != null && !request.getName().isBlank()) {
@@ -111,10 +111,10 @@ public class TrainingFolderService {
 
     public void deleteFolder(String id, String userId) {
         TrainingFolder folder = trainingFolderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Ordner wurde nicht gefunden"));
+                .orElseThrow(() -> new NotFoundException("Muskelgruppe wurde nicht gefunden!"));
 
         if (!folder.getUserId().equals(userId)) {
-            throw new ForbiddenException("Kein Zugriff auf diesen Ordner");
+            throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe!");
         }
 
         trainingExerciseRepository.deleteByFolderId(folder.getId());
