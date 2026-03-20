@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -33,7 +32,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // kein JWT → weiter
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -49,14 +47,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String userId = jwtService.extractUserId(jwt);
         String role = jwtService.extractRole(jwt);
 
-        GrantedAuthority authority =
-                new SimpleGrantedAuthority("ROLE_" + role);
-
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
                         userId,
                         null,
-                        List.of(authority)
+                        List.of(new SimpleGrantedAuthority("ROLE_" + role))
                 );
 
         authentication.setDetails(
@@ -65,13 +60,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        request.setAttribute("userId", userId);
+
         filterChain.doFilter(request, response);
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getRequestURI();
-        return path.startsWith("/api/auth/");
+        return request.getRequestURI().startsWith("/api/auth/");
     }
-
 }
