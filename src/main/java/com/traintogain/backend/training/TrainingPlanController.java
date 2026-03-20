@@ -38,9 +38,10 @@ public class TrainingPlanController {
     @PatchMapping("/{id}")
     public TrainingPlan updatePlan(
             @PathVariable String id,
-            @Valid @RequestBody UpdateTrainingPlanRequest request
+            @Valid @RequestBody UpdateTrainingPlanRequest request,
+            Authentication authentication
     ) {
-        return trainingPlanService.updatePlan(id, request);
+        return trainingPlanService.updatePlan(id, authentication.getName(), request);
     }
 
     @DeleteMapping("/{id}")
