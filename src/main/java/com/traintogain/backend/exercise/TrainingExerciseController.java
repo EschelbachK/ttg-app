@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class TrainingExerciseController {
             @Valid @RequestBody CreateTrainingExerciseRequest request,
             Authentication authentication
     ) {
-        return ResponseEntity.ok(
+        return ResponseEntity.status(HttpStatus.CREATED).body(
                 trainingExerciseService.addExercise(authentication.getName(), planId, request)
         );
     }
@@ -47,10 +48,11 @@ public class TrainingExerciseController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExercise(
+    public ResponseEntity<Void> deleteExercise(
             @PathVariable String id,
             Authentication authentication
     ) {
         trainingExerciseService.deleteExercise(id, authentication.getName());
+        return ResponseEntity.noContent().build();
     }
 }
