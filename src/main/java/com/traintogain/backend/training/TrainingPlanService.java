@@ -28,6 +28,9 @@ public class TrainingPlanService {
     }
 
     public TrainingPlan createPlan(String userId, String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Title darf nicht leer sein");
+        }
         TrainingPlan plan = new TrainingPlan(userId, title);
         return trainingPlanRepository.save(plan);
     }

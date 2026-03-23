@@ -1,6 +1,7 @@
 package com.traintogain.backend.training;
 
 import com.traintogain.backend.training.dto.UpdateTrainingPlanRequest;
+import com.traintogain.backend.training.dto.CreateTrainingPlanRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,11 @@ public class TrainingPlanController {
 
     @PostMapping
     public ResponseEntity<TrainingPlan> createPlan(
-            @RequestParam String title,
+            @Valid @RequestBody CreateTrainingPlanRequest request,
             Authentication authentication
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                trainingPlanService.createPlan(authentication.getName(), title)
+                trainingPlanService.createPlan(authentication.getName(), request.title())
         );
     }
 

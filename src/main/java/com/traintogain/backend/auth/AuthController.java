@@ -11,6 +11,7 @@ import com.traintogain.backend.user.UserService;
 import com.traintogain.backend.user.dto.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -122,12 +123,5 @@ public class AuthController {
     }
 
     private void ensureTrainingPlan(String userId) {
-        boolean exists = trainingPlanRepository.existsByUserId(userId);
-
-        if (!exists) {
-            TrainingPlan plan = new TrainingPlan();
-            plan.setUserId(userId);
-            trainingPlanRepository.save(plan);
-        }
     }
 }
