@@ -8,5 +8,4 @@ import java.util.List;
 public interface WorkoutSessionRepository extends MongoRepository<WorkoutSession, String> {
 
     List<WorkoutSession> findByUserId(String userId);
-
 }
