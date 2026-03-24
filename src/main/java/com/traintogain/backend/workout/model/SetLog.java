@@ -12,5 +12,4 @@ public class SetLog {
     private double weight;
 
     private int reps;
-
 }

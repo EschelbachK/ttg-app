@@ -16,5 +16,4 @@ public class ExerciseSession {
     private String name;
 
     private List<SetLog> sets;
-
 }

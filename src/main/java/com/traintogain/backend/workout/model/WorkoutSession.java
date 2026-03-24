@@ -25,5 +25,4 @@ public class WorkoutSession {
     private Instant finishedAt;
 
     private List<ExerciseSession> exercises;
-
 }
