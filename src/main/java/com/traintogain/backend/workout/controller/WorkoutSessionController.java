@@ -1,5 +1,6 @@
 package com.traintogain.backend.workout.controller;
 
+import com.traintogain.backend.workout.model.SetLog;
 import com.traintogain.backend.workout.model.WorkoutSession;
 import com.traintogain.backend.workout.service.WorkoutSessionService;
 import lombok.RequiredArgsConstructor;
@@ -29,4 +30,20 @@ public class WorkoutSessionController {
         return service.getUserWorkouts(userId);
     }
 
+    @GetMapping("/exercises/{exerciseId}/sets")
+    public List<SetLog> getSets(
+            @RequestParam String userId,
+            @PathVariable String exerciseId
+    ) {
+        return service.getSets(userId, exerciseId);
+    }
+
+    @PostMapping("/exercises/{exerciseId}/sets")
+    public List<SetLog> addSet(
+            @RequestParam String userId,
+            @PathVariable String exerciseId,
+            @RequestBody SetLog set
+    ) {
+        return service.addSet(userId, exerciseId, set);
+    }
 }
