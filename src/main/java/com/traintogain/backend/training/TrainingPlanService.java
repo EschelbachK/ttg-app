@@ -31,6 +31,7 @@ public class TrainingPlanService {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Title darf nicht leer sein");
         }
+
         TrainingPlan plan = new TrainingPlan(userId, title);
         return trainingPlanRepository.save(plan);
     }
@@ -60,6 +61,18 @@ public class TrainingPlanService {
         }
 
         return trainingPlanRepository.save(plan);
+    }
+
+    public void archivePlan(String id, String userId) {
+        TrainingPlan plan = trainingPlanRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
+
+        if (!plan.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
+        }
+
+        plan.setArchived(true);
+        trainingPlanRepository.save(plan);
     }
 
     public void deletePlan(String id, String userId) {

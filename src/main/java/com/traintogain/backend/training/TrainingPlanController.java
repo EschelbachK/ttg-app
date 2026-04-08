@@ -49,6 +49,15 @@ public class TrainingPlanController {
         return trainingPlanService.updatePlan(id, authentication.getName(), request);
     }
 
+    @PostMapping("/{id}/archive")
+    public ResponseEntity<Void> archivePlan(
+            @PathVariable String id,
+            Authentication authentication
+    ) {
+        trainingPlanService.archivePlan(id, authentication.getName());
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(
             @PathVariable String id,

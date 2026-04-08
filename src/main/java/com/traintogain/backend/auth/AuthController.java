@@ -123,5 +123,15 @@ public class AuthController {
     }
 
     private void ensureTrainingPlan(String userId) {
+        boolean exists = trainingPlanRepository.existsByUserId(userId);
+
+        if (!exists) {
+            TrainingPlan plan = new TrainingPlan();
+            plan.setUserId(userId);
+            plan.setTitle("Mein erster Trainingsplan");
+            plan.setArchived(false);
+
+            trainingPlanRepository.save(plan);
+        }
     }
 }

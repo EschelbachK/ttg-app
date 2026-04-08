@@ -1,6 +1,5 @@
 package com.traintogain.backend.folder;
 
-import com.traintogain.backend.common.BodyRegion;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,67 +10,31 @@ public class TrainingFolder {
     private String id;
 
     private String userId;
-
     private String trainingPlanId;
     private String name;
-    private BodyRegion bodyRegion;
     private int order;
+    private boolean archived;
 
-    public TrainingFolder() {
-    }
+    public TrainingFolder() {}
 
-    public TrainingFolder(String trainingPlanId, String name, BodyRegion bodyRegion, int order) {
+    public TrainingFolder(String trainingPlanId, String name, int order) {
         this.trainingPlanId = trainingPlanId;
         this.name = name;
-        this.bodyRegion = bodyRegion;
         this.order = order;
+        this.archived = false;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getUserId() { return userId; }
+    public String getTrainingPlanId() { return trainingPlanId; }
+    public String getName() { return name; }
+    public int getOrder() { return order; }
+    public boolean isArchived() { return archived; }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getTrainingPlanId() {
-        return trainingPlanId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public BodyRegion getBodyRegion() {
-        return bodyRegion;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public void setTrainingPlanId(String trainingPlanId) {
-        this.trainingPlanId = trainingPlanId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBodyRegion(BodyRegion bodyRegion) {
-        this.bodyRegion = bodyRegion;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
+    public void setId(String id) { this.id = id; }
+    public void setUserId(String userId) { this.userId = userId; }
+    public void setTrainingPlanId(String trainingPlanId) { this.trainingPlanId = trainingPlanId; }
+    public void setName(String name) { this.name = name; }
+    public void setOrder(int order) { this.order = order; }
+    public void setArchived(boolean archived) { this.archived = archived; }
 }

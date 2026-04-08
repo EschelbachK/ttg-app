@@ -69,6 +69,10 @@ public class TrainingExerciseService {
         return trainingExerciseRepository.findByUserIdAndFolderId(userId, folderId, pageable);
     }
 
+    public List<TrainingExercise> getExercisesByFolderId(String folderId) {
+        return trainingExerciseRepository.findByFolderId(folderId);
+    }
+
     public void deleteExercise(String id, String userId) {
         TrainingExercise exercise = trainingExerciseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Übung wurde nicht gefunden"));
