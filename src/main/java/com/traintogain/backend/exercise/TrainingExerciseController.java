@@ -4,15 +4,13 @@ import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/training-plans/{planId}/exercises")
+@RequestMapping("/api/training-plans/{planId}/folders/{folderId}/exercises")
 public class TrainingExerciseController {
 
     private final TrainingExerciseService trainingExerciseService;
@@ -24,19 +22,25 @@ public class TrainingExerciseController {
     @PostMapping
     public ResponseEntity<TrainingExercise> addExercise(
             @PathVariable String planId,
+            @PathVariable String folderId,
             @Valid @RequestBody CreateTrainingExerciseRequest request,
             Authentication authentication
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                trainingExerciseService.addExercise(authentication.getName(), planId, request)
+                trainingExerciseService.addExercise(
+                        authentication.getName(),
+                        planId,
+                        folderId,
+                        request
+                )
         );
     }
 
     @GetMapping
     public Page<TrainingExercise> getExercises(
             @PathVariable String planId,
-            @RequestParam String folderId,
-            @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
+            @PathVariable String folderId,
+            Pageable pageable,
             Authentication authentication
     ) {
         return trainingExerciseService.getExercisesByFolder(

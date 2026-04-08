@@ -9,9 +9,6 @@ import java.util.List;
 
 public record CreateTrainingExerciseRequest(
 
-        @NotBlank(message = "Ordner-ID darf nicht leer sein")
-        String folderId,
-
         @NotBlank(message = "Übungsname darf nicht leer sein")
         String name,
 
