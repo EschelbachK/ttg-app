@@ -33,4 +33,13 @@ public class TrainingExercise {
     public void setFolderId(String folderId) { this.folderId = folderId; }
     public void setName(String name) { this.name = name; }
     public void setSets(List<SetEntry> sets) { this.sets = sets; }
+
+    public TrainingExercise copyForFolder(String newFolderId) {
+        TrainingExercise copy = new TrainingExercise();
+        copy.setUserId(this.userId);
+        copy.setFolderId(newFolderId);
+        copy.setName(this.name);
+        copy.setSets(this.sets); // optional deep copy später
+        return copy;
+    }
 }
