@@ -1,8 +1,7 @@
 package com.traintogain.backend.workout.controller;
 
 import com.traintogain.backend.workout.domain.WorkoutSession;
-import com.traintogain.backend.workout.dto.AddSetRequest;
-import com.traintogain.backend.workout.dto.StartWorkoutRequest;
+import com.traintogain.backend.workout.dto.*;
 import com.traintogain.backend.workout.service.WorkoutSessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +20,11 @@ public class WorkoutSessionController {
         return service.startWorkout(request.getUserId());
     }
 
+    @GetMapping("/active")
+    public WorkoutSession active(@RequestParam String userId) {
+        return service.getActiveWorkout(userId);
+    }
+
     @PostMapping("/finish")
     public WorkoutSession finish(@RequestBody StartWorkoutRequest request) {
         return service.finishWorkout(request.getUserId());
@@ -32,10 +36,22 @@ public class WorkoutSessionController {
     }
 
     @PostMapping("/set")
-    public WorkoutSession addSet(
-            @RequestParam String userId,
-            @RequestBody AddSetRequest request
-    ) {
+    public WorkoutSession addSet(@RequestParam String userId, @RequestBody AddSetRequest request) {
         return service.addSet(userId, request);
+    }
+
+    @PutMapping("/set")
+    public WorkoutSession updateSet(@RequestParam String userId, @RequestBody UpdateSetRequest request) {
+        return service.updateSet(userId, request);
+    }
+
+    @DeleteMapping("/set/{setId}")
+    public WorkoutSession deleteSet(@RequestParam String userId, @PathVariable String setId) {
+        return service.deleteSet(userId, setId);
+    }
+
+    @PutMapping("/exercise/reorder")
+    public WorkoutSession reorder(@RequestParam String userId, @RequestBody ReorderExerciseRequest request) {
+        return service.reorderExercises(userId, request);
     }
 }

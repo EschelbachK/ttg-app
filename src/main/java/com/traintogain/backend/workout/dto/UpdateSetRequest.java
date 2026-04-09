@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddSetRequest {
+public class UpdateSetRequest {
 
     private String exerciseId;
-    private String name;
+    private String setId;
     private double weight;
     private int reps;
 }
