@@ -58,27 +58,26 @@ public class GlobalExceptionHandler {
                 .stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .collect(Collectors.joining(", "));
-
         return buildResponse(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException ex) {
+        return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
-
-        ex.printStackTrace();
-
         if (ex instanceof org.springframework.web.server.ResponseStatusException statusException) {
             return buildResponse(
                     statusException.getReason(),
                     HttpStatus.valueOf(statusException.getStatusCode().value())
             );
         }
-
         return buildResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<ErrorResponse> buildResponse(String message, HttpStatus status) {
-        ErrorResponse error = new ErrorResponse(message, status.value());
-        return new ResponseEntity<>(error, status);
+        return new ResponseEntity<>(new ErrorResponse(message, status.value()), status);
     }
 }
