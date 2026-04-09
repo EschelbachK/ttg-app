@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,9 +24,32 @@ public class WorkoutSessionService {
                         WorkoutSession.builder()
                                 .userId(userId)
                                 .startedAt(Instant.now())
-                                .exercises(new java.util.ArrayList<>())
+                                .exercises(new ArrayList<>())
                                 .build()
                 ));
+    }
+
+    public WorkoutSession startWorkoutWithPlan(StartWorkoutWithPlanRequest request) {
+
+        WorkoutSession session = WorkoutSession.builder()
+                .userId(request.getUserId())
+                .startedAt(Instant.now())
+                .exercises(new ArrayList<>())
+                .build();
+
+        int order = 0;
+
+        for (var ex : request.getExercises()) {
+            session.getExercises().add(
+                    ExerciseSession.create(
+                            ex.getExerciseId(),
+                            resolver.resolveName(ex.getExerciseId(), ex.getName()),
+                            order++
+                    )
+            );
+        }
+
+        return repository.save(session);
     }
 
     public WorkoutSession getActiveWorkout(String userId) {
@@ -63,7 +87,9 @@ public class WorkoutSessionService {
                     return ex;
                 });
 
-        exercise.getSets().add(SetLog.create(request.getWeight(), request.getReps()));
+        SetLog set = SetLog.create(request.getWeight(), request.getReps());
+
+        exercise.getSets().add(set);
 
         return repository.save(session);
     }
@@ -104,6 +130,35 @@ public class WorkoutSessionService {
                     .findFirst()
                     .ifPresent(e -> e.setOrder(index));
         }
+
+        return repository.save(session);
+    }
+
+    public WorkoutSession startRest(String userId, String setId) {
+        WorkoutSession session = getActiveWorkout(userId);
+
+        session.getExercises().forEach(ex ->
+                ex.getSets().forEach(set -> {
+                    if (set.getId().equals(setId)) {
+                        set.setRestStartedAt(Instant.now());
+                    }
+                })
+        );
+
+        return repository.save(session);
+    }
+
+    public WorkoutSession finishRest(String userId, String setId) {
+        WorkoutSession session = getActiveWorkout(userId);
+
+        session.getExercises().forEach(ex ->
+                ex.getSets().forEach(set -> {
+                    if (set.getId().equals(setId) && set.getRestStartedAt() != null) {
+                        int seconds = (int) (Instant.now().getEpochSecond() - set.getRestStartedAt().getEpochSecond());
+                        set.setRestSeconds(seconds);
+                    }
+                })
+        );
 
         return repository.save(session);
     }
