@@ -1,4 +1,4 @@
-package com.traintogain.backend.workout.model;
+package com.traintogain.backend.workout.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

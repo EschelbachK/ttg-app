@@ -1,7 +1,8 @@
 package com.traintogain.backend.workout.controller;
 
-import com.traintogain.backend.workout.model.SetLog;
-import com.traintogain.backend.workout.model.WorkoutSession;
+import com.traintogain.backend.workout.domain.WorkoutSession;
+import com.traintogain.backend.workout.dto.AddSetRequest;
+import com.traintogain.backend.workout.dto.StartWorkoutRequest;
 import com.traintogain.backend.workout.service.WorkoutSessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,41 +10,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/workouts")
+@RequestMapping("/api/workout")
 @RequiredArgsConstructor
 public class WorkoutSessionController {
 
     private final WorkoutSessionService service;
 
     @PostMapping("/start")
-    public WorkoutSession startWorkout(@RequestParam String userId) {
-        return service.startWorkout(userId);
+    public WorkoutSession start(@RequestBody StartWorkoutRequest request) {
+        return service.startWorkout(request.getUserId());
     }
 
     @PostMapping("/finish")
-    public WorkoutSession finishWorkout(@RequestBody WorkoutSession session) {
-        return service.saveWorkout(session);
+    public WorkoutSession finish(@RequestBody StartWorkoutRequest request) {
+        return service.finishWorkout(request.getUserId());
     }
 
     @GetMapping
-    public List<WorkoutSession> getWorkouts(@RequestParam String userId) {
-        return service.getUserWorkouts(userId);
+    public List<WorkoutSession> get(@RequestParam String userId) {
+        return service.getWorkouts(userId);
     }
 
-    @GetMapping("/exercises/{exerciseId}/sets")
-    public List<SetLog> getSets(
+    @PostMapping("/set")
+    public WorkoutSession addSet(
             @RequestParam String userId,
-            @PathVariable String exerciseId
+            @RequestBody AddSetRequest request
     ) {
-        return service.getSets(userId, exerciseId);
-    }
-
-    @PostMapping("/exercises/{exerciseId}/sets")
-    public List<SetLog> addSet(
-            @RequestParam String userId,
-            @PathVariable String exerciseId,
-            @RequestBody SetLog set
-    ) {
-        return service.addSet(userId, exerciseId, set);
+        return service.addSet(userId, request);
     }
 }

@@ -1,14 +1,12 @@
 package com.traintogain.backend.workout.service;
 
-import com.traintogain.backend.workout.model.ExerciseSession;
-import com.traintogain.backend.workout.model.SetLog;
-import com.traintogain.backend.workout.model.WorkoutSession;
+import com.traintogain.backend.workout.domain.*;
+import com.traintogain.backend.workout.dto.AddSetRequest;
 import com.traintogain.backend.workout.repository.WorkoutSessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,63 +19,46 @@ public class WorkoutSessionService {
         WorkoutSession session = WorkoutSession.builder()
                 .userId(userId)
                 .startedAt(Instant.now())
-                .exercises(new ArrayList<>())
+                .exercises(new java.util.ArrayList<>())
                 .build();
 
         return repository.save(session);
     }
 
-    public WorkoutSession saveWorkout(WorkoutSession session) {
+    public WorkoutSession finishWorkout(String userId) {
+        WorkoutSession session = getActiveSession(userId);
         session.setFinishedAt(Instant.now());
         return repository.save(session);
     }
 
-    public List<WorkoutSession> getUserWorkouts(String userId) {
+    public List<WorkoutSession> getWorkouts(String userId) {
         return repository.findByUserId(userId);
     }
 
-    public List<SetLog> getSets(String userId, String exerciseId) {
-        WorkoutSession session = getActiveSession(userId);
-
-        for (ExerciseSession ex : session.getExercises()) {
-            if (ex.getCatalogExerciseId().equals(exerciseId)) {
-                return ex.getSets();
-            }
-        }
-
-        return new ArrayList<>();
-    }
-
-    public List<SetLog> addSet(String userId, String exerciseId, SetLog set) {
+    public WorkoutSession addSet(String userId, AddSetRequest request) {
         WorkoutSession session = getActiveSession(userId);
 
         ExerciseSession exercise = session.getExercises()
                 .stream()
-                .filter(e -> e.getCatalogExerciseId().equals(exerciseId))
+                .filter(e -> e.getExerciseId().equals(request.getExerciseId()))
                 .findFirst()
                 .orElseGet(() -> {
-                    ExerciseSession newEx = ExerciseSession.builder()
-                            .catalogExerciseId(exerciseId)
-                            .name("")
-                            .sets(new ArrayList<>())
-                            .build();
-
-                    session.getExercises().add(newEx);
-                    return newEx;
+                    ExerciseSession ex = ExerciseSession.create(
+                            request.getExerciseId(),
+                            request.getName(),
+                            session.getExercises().size()
+                    );
+                    session.getExercises().add(ex);
+                    return ex;
                 });
 
-        exercise.getSets().add(set);
+        exercise.getSets().add(SetLog.create(request.getWeight(), request.getReps()));
 
-        repository.save(session);
-
-        return exercise.getSets();
+        return repository.save(session);
     }
 
     private WorkoutSession getActiveSession(String userId) {
-        return repository.findByUserId(userId)
-                .stream()
-                .filter(s -> s.getFinishedAt() == null)
-                .findFirst()
+        return repository.findFirstByUserIdAndFinishedAtIsNull(userId)
                 .orElseThrow();
     }
 }
