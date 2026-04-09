@@ -1,5 +1,6 @@
 package com.traintogain.backend.workout.service;
 
+import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.workout.domain.*;
 import com.traintogain.backend.workout.dto.*;
 import com.traintogain.backend.workout.repository.WorkoutSessionRepository;
@@ -14,6 +15,7 @@ import java.util.List;
 public class WorkoutSessionService {
 
     private final WorkoutSessionRepository repository;
+    private final WorkoutExerciseResolver resolver;
 
     public WorkoutSession startWorkout(String userId) {
         return repository.findFirstByUserIdAndFinishedAtIsNull(userId)
@@ -28,13 +30,13 @@ public class WorkoutSessionService {
 
     public WorkoutSession getActiveWorkout(String userId) {
         return repository.findFirstByUserIdAndFinishedAtIsNull(userId)
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("No active workout"));
     }
 
     public WorkoutSession finishWorkout(String userId) {
         WorkoutSession session = getActiveWorkout(userId);
 
-        if (session.getExercises().isEmpty()) throw new RuntimeException();
+        if (session.getExercises().isEmpty()) throw new IllegalArgumentException("Workout is empty");
 
         session.setFinishedAt(Instant.now());
         return repository.save(session);
@@ -54,7 +56,7 @@ public class WorkoutSessionService {
                 .orElseGet(() -> {
                     ExerciseSession ex = ExerciseSession.create(
                             request.getExerciseId(),
-                            request.getName(),
+                            resolver.resolveName(request.getExerciseId(), request.getName()),
                             session.getExercises().size()
                     );
                     session.getExercises().add(ex);
@@ -94,11 +96,13 @@ public class WorkoutSessionService {
         WorkoutSession session = getActiveWorkout(userId);
 
         for (int i = 0; i < request.getExerciseIds().size(); i++) {
+            final int index = i;
             String id = request.getExerciseIds().get(i);
+
             session.getExercises().stream()
                     .filter(e -> e.getId().equals(id))
                     .findFirst()
-                    .ifPresent(e -> e.setOrder(i));
+                    .ifPresent(e -> e.setOrder(index));
         }
 
         return repository.save(session);
