@@ -20,6 +20,11 @@ public class WorkoutSessionController {
         return service.startWorkout(request.getUserId());
     }
 
+    @PostMapping("/start/plan")
+    public WorkoutSession startWithPlan(@RequestBody StartWorkoutWithPlanRequest request) {
+        return service.startWorkoutWithPlan(request);
+    }
+
     @GetMapping("/active")
     public WorkoutSession active(@RequestParam String userId) {
         return service.getActiveWorkout(userId);
@@ -53,5 +58,15 @@ public class WorkoutSessionController {
     @PutMapping("/exercise/reorder")
     public WorkoutSession reorder(@RequestParam String userId, @RequestBody ReorderExerciseRequest request) {
         return service.reorderExercises(userId, request);
+    }
+
+    @PostMapping("/rest/start/{setId}")
+    public WorkoutSession startRest(@RequestParam String userId, @PathVariable String setId) {
+        return service.startRest(userId, setId);
+    }
+
+    @PostMapping("/rest/finish/{setId}")
+    public WorkoutSession finishRest(@RequestParam String userId, @PathVariable String setId) {
+        return service.finishRest(userId, setId);
     }
 }
