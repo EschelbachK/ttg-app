@@ -20,6 +20,10 @@ public class SetLog {
 
     private Instant createdAt;
 
+    private Instant restStartedAt;
+
+    private int restSeconds;
+
     public static SetLog create(double weight, int reps) {
         return SetLog.builder()
                 .id(UUID.randomUUID().toString())
