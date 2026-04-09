@@ -1,6 +1,6 @@
 package com.traintogain.backend.workout.service;
 
-import com.traintogain.backend.common.exception.NotFoundException;
+import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.workout.domain.WorkoutSession;
 import com.traintogain.backend.workout.dto.WorkoutSummaryResponse;
 import com.traintogain.backend.workout.repository.WorkoutSessionRepository;
