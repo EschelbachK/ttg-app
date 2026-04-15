@@ -40,9 +40,11 @@ public class TrainingExerciseService {
             throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe");
         }
 
-        List<SetEntry> sets = request.sets().stream()
+        List<SetEntry> sets = request.sets() != null
+                ? request.sets().stream()
                 .map(s -> new SetEntry(s.weight(), s.repetitions()))
-                .toList();
+                .toList()
+                : List.of();
 
         TrainingExercise exercise = new TrainingExercise();
         exercise.setUserId(userId);
