@@ -3,12 +3,15 @@ package com.traintogain.backend.exercise.dto;
 import com.traintogain.backend.common.BodyRegion;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
 public class UpdateTrainingExerciseRequest {
 
+    @NotBlank(message = "Übungsname darf nicht leer sein")
     private String name;
+
     private BodyRegion bodyRegion;
     private String notes;
 
