@@ -32,16 +32,21 @@ public class TrainingPlanService {
             throw new IllegalArgumentException("Title darf nicht leer sein");
         }
 
-        TrainingPlan plan = new TrainingPlan(userId, title);
+        int nextOrder = trainingPlanRepository
+                .findByUserIdAndArchivedFalseOrderByOrderAsc(userId)
+                .size();
+
+        TrainingPlan plan = new TrainingPlan(userId, title, nextOrder);
+
         return trainingPlanRepository.save(plan);
     }
 
     public List<TrainingPlan> getPlansForUser(String userId) {
-        return trainingPlanRepository.findByUserIdAndArchivedFalse(userId);
+        return trainingPlanRepository.findByUserIdAndArchivedFalseOrderByOrderAsc(userId);
     }
 
     public List<TrainingPlan> getArchivedPlansForUser(String userId) {
-        return trainingPlanRepository.findByUserIdAndArchivedTrue(userId);
+        return trainingPlanRepository.findByUserIdAndArchivedTrueOrderByOrderAsc(userId);
     }
 
     public TrainingPlan updatePlan(String id, String userId, UpdateTrainingPlanRequest request) {
@@ -61,6 +66,33 @@ public class TrainingPlanService {
         }
 
         return trainingPlanRepository.save(plan);
+    }
+
+    public void updateOrder(String id, int newOrder, String userId) {
+        List<TrainingPlan> plans = trainingPlanRepository
+                .findByUserIdAndArchivedFalseOrderByOrderAsc(userId);
+
+        TrainingPlan current = plans.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
+
+        if (!current.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
+        }
+
+        plans.remove(current);
+
+        if (newOrder < 0) newOrder = 0;
+        if (newOrder > plans.size()) newOrder = plans.size();
+
+        plans.add(newOrder, current);
+
+        for (int i = 0; i < plans.size(); i++) {
+            plans.get(i).setOrder(i);
+        }
+
+        trainingPlanRepository.saveAll(plans);
     }
 
     public void archivePlan(String id, String userId) {

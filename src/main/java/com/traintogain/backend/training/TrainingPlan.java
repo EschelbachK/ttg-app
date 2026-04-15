@@ -15,12 +15,15 @@ public class TrainingPlan {
 
     private boolean archived = false;
 
+    private int order = 0;
+
     public TrainingPlan() {
     }
 
-    public TrainingPlan(String userId, String title) {
+    public TrainingPlan(String userId, String title, int order) {
         this.userId = userId;
         this.title = title;
+        this.order = order;
         this.archived = false;
     }
 
@@ -40,6 +43,10 @@ public class TrainingPlan {
         return archived;
     }
 
+    public int getOrder() {
+        return order;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -54,5 +61,9 @@ public class TrainingPlan {
 
     public void setArchived(boolean archived) {
         this.archived = archived;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

@@ -7,9 +7,10 @@ import java.util.Optional;
 public interface TrainingPlanRepository
         extends MongoRepository<TrainingPlan, String> {
 
-    List<TrainingPlan> findByUserIdAndArchivedFalse(String userId);
+    // 🔥 WICHTIG: MIT ORDER SORTIERUNG
+    List<TrainingPlan> findByUserIdAndArchivedFalseOrderByOrderAsc(String userId);
 
-    List<TrainingPlan> findByUserIdAndArchivedTrue(String userId);
+    List<TrainingPlan> findByUserIdAndArchivedTrueOrderByOrderAsc(String userId);
 
     boolean existsByUserId(String userId);
 

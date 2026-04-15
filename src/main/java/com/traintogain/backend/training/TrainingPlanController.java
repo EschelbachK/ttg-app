@@ -49,6 +49,16 @@ public class TrainingPlanController {
         return trainingPlanService.updatePlan(id, authentication.getName(), request);
     }
 
+    @PatchMapping("/{id}/order")
+    public ResponseEntity<Void> updateOrder(
+            @PathVariable String id,
+            @RequestParam int order,
+            Authentication authentication
+    ) {
+        trainingPlanService.updateOrder(id, order, authentication.getName());
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{id}/archive")
     public ResponseEntity<Void> archivePlan(
             @PathVariable String id,
