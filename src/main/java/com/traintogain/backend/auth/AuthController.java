@@ -21,12 +21,9 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
     private final TrainingPlanRepository trainingPlanRepository;
 
-    public AuthController(
-            UserService userService,
-            JwtService jwtService,
-            RefreshTokenService refreshTokenService,
-            TrainingPlanRepository trainingPlanRepository
-    ) {
+    public AuthController(UserService userService, JwtService jwtService,
+                          RefreshTokenService refreshTokenService,
+                          TrainingPlanRepository trainingPlanRepository) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.refreshTokenService = refreshTokenService;
@@ -34,104 +31,55 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody LoginRequest request) {
-
-        User user = userService.login(
-                request.email(),
-                request.password()
-        );
-
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody LoginRequest r) {
+        User user = userService.login(r.email(), r.password());
         ensureTrainingPlan(user.getId());
-
-        String accessToken = jwtService.generateAccessToken(user);
-        RefreshToken refreshToken =
-                refreshTokenService.createRefreshToken(user.getId());
-
-        UserResponse userResponse = new UserResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getUsername(),
-                user.getRole().name()
-        );
-
-        AuthResponse response = new AuthResponse(
-                accessToken,
-                refreshToken.getToken(),
-                userResponse
-        );
-
-        return ResponseEntity.ok(ApiResponse.success(response));
+        return ResponseEntity.ok(ApiResponse.success(buildAuthResponse(user)));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<ApiResponse<AuthResponse>> refresh(@RequestBody RefreshTokenRequest request) {
-
-        RefreshToken refreshToken =
-                refreshTokenService.validateRefreshToken(request.refreshToken());
-
-        String userId = refreshToken.getUserId();
-
-        User user = userService.getById(userId);
-        String newAccessToken = jwtService.generateAccessToken(user);
-
-        RefreshToken newRefreshToken =
-                refreshTokenService.createRefreshToken(userId);
-
-        UserResponse userResponse = new UserResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getUsername(),
-                user.getRole().name()
-        );
-
-        AuthResponse response = new AuthResponse(
-                newAccessToken,
-                newRefreshToken.getToken(),
-                userResponse
-        );
-
-        return ResponseEntity.ok(ApiResponse.success(response));
+    public ResponseEntity<ApiResponse<AuthResponse>> refresh(@RequestBody RefreshTokenRequest r) {
+        RefreshToken token = refreshTokenService.validateRefreshToken(r.refreshToken());
+        User user = userService.getById(token.getUserId());
+        return ResponseEntity.ok(ApiResponse.success(buildAuthResponse(user)));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<UserResponse>> register(@RequestBody RegisterRequest request) {
-
-        User user = userService.register(
-                request.email(),
-                request.username(),
-                request.password()
-        );
-
+    public ResponseEntity<ApiResponse<UserResponse>> register(@RequestBody RegisterRequest r) {
+        User user = userService.register(r.email(), r.username(), r.password());
         ensureTrainingPlan(user.getId());
+        return ResponseEntity.ok(ApiResponse.success(mapUser(user)));
+    }
 
-        UserResponse response = new UserResponse(
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody LogoutRequest r) {
+        refreshTokenService.deleteByToken(r.getRefreshToken());
+        return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    private AuthResponse buildAuthResponse(User user) {
+        String access = jwtService.generateAccessToken(user);
+        RefreshToken refresh = refreshTokenService.createRefreshToken(user.getId());
+        return new AuthResponse(access, refresh.getToken(), mapUser(user));
+    }
+
+    private UserResponse mapUser(User user) {
+        return new UserResponse(
                 user.getId(),
                 user.getEmail(),
                 user.getUsername(),
                 user.getRole().name()
         );
-
-        return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody LogoutRequest request) {
-
-        refreshTokenService.deleteByToken(request.getRefreshToken());
-
-        return ResponseEntity.ok(ApiResponse.success(null));
     }
 
     private void ensureTrainingPlan(String userId) {
-        boolean exists = trainingPlanRepository.existsByUserId(userId);
+        if (trainingPlanRepository.existsByUserId(userId)) return;
 
-        if (!exists) {
-            TrainingPlan plan = new TrainingPlan();
-            plan.setUserId(userId);
-            plan.setTitle("Mein erster Trainingsplan");
-            plan.setArchived(false);
+        TrainingPlan plan = new TrainingPlan();
+        plan.setUserId(userId);
+        plan.setTitle("Mein erster Trainingsplan");
+        plan.setArchived(false);
 
-            trainingPlanRepository.save(plan);
-        }
+        trainingPlanRepository.save(plan);
     }
 }
