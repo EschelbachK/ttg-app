@@ -1,13 +1,10 @@
 package com.traintogain.backend.auth;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,57 +14,47 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtService jwt;
 
-    public JwtAuthenticationFilter(JwtService jwtService) {
-        this.jwtService = jwtService;
+    public JwtAuthenticationFilter(JwtService jwt) {
+        this.jwt = jwt;
     }
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain
-    ) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+            throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        String h = req.getHeader("Authorization");
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+        if (h == null || !h.startsWith("Bearer ")) {
+            chain.doFilter(req, res);
             return;
         }
 
-        String jwt = authHeader.substring(7);
+        String token = h.substring(7);
 
-        if (!jwtService.isTokenValid(jwt)) {
-            filterChain.doFilter(request, response);
+        if (!jwt.isTokenValid(token)) {
+            chain.doFilter(req, res);
             return;
         }
 
-        String userId = jwtService.extractUserId(jwt);
-        String username = jwtService.extractUsername(jwt);
-        String role = jwtService.extractRole(jwt);
+        String userId = jwt.extractUserId(token);
+        String role = jwt.extractRole(token);
 
-        UsernamePasswordAuthenticationToken authentication =
+        UsernamePasswordAuthenticationToken auth =
                 new UsernamePasswordAuthenticationToken(
-                        username,
+                        userId,
                         null,
                         List.of(new SimpleGrantedAuthority("ROLE_" + role))
                 );
 
-        authentication.setDetails(
-                new WebAuthenticationDetailsSource().buildDetails(request)
-        );
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        request.setAttribute("userId", userId);
-
-        filterChain.doFilter(request, response);
+        chain.doFilter(req, res);
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().startsWith("/api/auth/");
+    protected boolean shouldNotFilter(HttpServletRequest req) {
+        return req.getRequestURI().startsWith("/api/auth/");
     }
 }
