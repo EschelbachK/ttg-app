@@ -1,108 +1,87 @@
 package com.traintogain.backend.user;
 
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
-import com.traintogain.backend.exception.EmailAlreadyExistsException;
-import com.traintogain.backend.exception.InvalidCredentialsException;
-import com.traintogain.backend.exception.UserNotFoundException;
-import com.traintogain.backend.exception.InvalidPasswordException;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.traintogain.backend.exception.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final RefreshTokenService refreshTokenService;
+    private final UserRepository repo;
+    private final PasswordEncoder encoder;
+    private final RefreshTokenService refresh;
 
-    public UserService(UserRepository userRepository,
-                       RefreshTokenService refreshTokenService) {
-        this.userRepository = userRepository;
-        this.refreshTokenService = refreshTokenService;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    public UserService(UserRepository repo, PasswordEncoder encoder, RefreshTokenService refresh) {
+        this.repo = repo;
+        this.encoder = encoder;
+        this.refresh = refresh;
     }
 
-    public User register(String email, String username, String rawPassword) {
+    public User register(String email, String username, String raw) {
+        if (repo.findByEmail(email).isPresent())
+            throw new EmailAlreadyExistsException("E-Mail wird bereits verwendet!");
 
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new EmailAlreadyExistsException("Email already in use");
-        }
+        PasswordValidator.validate(raw);
 
-        PasswordValidator.validate(rawPassword);
+        User u = new User();
+        u.setEmail(email);
+        u.setUsername(username);
+        u.setPassword(encoder.encode(raw));
 
-        String hashedPassword = passwordEncoder.encode(rawPassword);
-
-        User user = new User();
-        user.setEmail(email);
-        user.setUsername(username);
-        user.setPassword(hashedPassword);
-
-        return userRepository.save(user);
+        return repo.save(u);
     }
 
-    public User login(String email, String rawPassword) {
+    public User login(String email, String raw) {
+        User u = repo.findByEmail(email)
+                .orElseThrow(() -> new InvalidCredentialsException("Ungültige Anmeldedaten!"));
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new InvalidCredentialsException("Invalid credentials")
-                );
+        if (!encoder.matches(raw, u.getPassword()))
+            throw new InvalidCredentialsException("Ungültige Anmeldedaten!");
 
-        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
-            throw new InvalidCredentialsException("Invalid credentials");
-        }
-
-        return user;
+        return u;
     }
 
-    public User getById(String userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() ->
-                        new UserNotFoundException("User not found")
-                );
+    public User getById(String id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Benutzer nicht gefunden!"));
     }
 
-    public User updateProfile(String userId,
-                              String email,
-                              String username) {
-
-        User user = getById(userId);
+    public User updateProfile(String id, String email, String username) {
+        User u = getById(id);
 
         if (email != null && !email.isBlank()) {
-            user.setEmail(email);
+            repo.findByEmail(email).ifPresent(e -> {
+                if (!e.getId().equals(id))
+                    throw new EmailAlreadyExistsException("E-Mail wird bereits verwendet!");
+            });
+            u.setEmail(email);
         }
 
-        if (username != null && !username.isBlank()) {
-            user.setUsername(username);
-        }
+        if (username != null && !username.isBlank())
+            u.setUsername(username);
 
-        return userRepository.save(user);
+        return repo.save(u);
     }
 
-    public void changePassword(String userId,
-                               String oldPassword,
-                               String newPassword) {
+    public void changePassword(String id, String oldP, String newP) {
+        User u = getById(id);
 
-        User user = getById(userId);
+        if (!encoder.matches(oldP, u.getPassword()))
+            throw new InvalidPasswordException("Altes Passwort ist falsch!");
 
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new InvalidPasswordException("Old password is incorrect");
-        }
+        PasswordValidator.validate(newP);
 
-        PasswordValidator.validate(newPassword);
+        u.setPassword(encoder.encode(newP));
+        repo.save(u);
 
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-
-        refreshTokenService.deleteTokensForUser(userId);
+        refresh.deleteTokensForUser(id);
     }
 
-    public void deleteById(String userId) {
+    public void deleteById(String id) {
+        if (!repo.existsById(id))
+            throw new UserNotFoundException("Benutzer nicht gefunden!");
 
-        if (!userRepository.existsById(userId)) {
-            throw new UserNotFoundException("User not found");
-        }
-
-        userRepository.deleteById(userId);
+        repo.deleteById(id);
     }
 }
