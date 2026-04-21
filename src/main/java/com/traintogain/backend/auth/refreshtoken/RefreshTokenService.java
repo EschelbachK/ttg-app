@@ -8,62 +8,40 @@ import java.util.UUID;
 @Service
 public class RefreshTokenService {
 
-    // ⏱️ 7 Tage
-    private static final long REFRESH_TOKEN_EXPIRATION_SECONDS =
-            60 * 60 * 24 * 7;
+    private static final long EXP = 60 * 60 * 24 * 7;
 
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository repo;
 
-    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository) {
-        this.refreshTokenRepository = refreshTokenRepository;
+    public RefreshTokenService(RefreshTokenRepository repo) {
+        this.repo = repo;
     }
 
-    /**
-     * Erstellt ein neues Refresh Token für einen User
-     */
     public RefreshToken createRefreshToken(String userId) {
-
-        // 🔄 Alte Tokens des Users löschen (1 aktives Token)
-        refreshTokenRepository.deleteByUserId(userId);
-
-        RefreshToken refreshToken = new RefreshToken(
+        repo.deleteByUserId(userId);
+        return repo.save(new RefreshToken(
                 userId,
                 UUID.randomUUID().toString(),
-                Instant.now().plusSeconds(REFRESH_TOKEN_EXPIRATION_SECONDS)
-        );
-
-        return refreshTokenRepository.save(refreshToken);
+                Instant.now().plusSeconds(EXP)
+        ));
     }
 
-    /**
-     * Validiert ein Refresh Token
-     */
     public RefreshToken validateRefreshToken(String token) {
+        RefreshToken rt = repo.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Token not found"));
 
-        RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
-                .orElseThrow(() ->
-                        new RuntimeException("Refresh token not found")
-                );
-
-        if (refreshToken.isExpired()) {
-            refreshTokenRepository.delete(refreshToken);
-            throw new RuntimeException("Refresh token expired");
+        if (rt.isExpired()) {
+            repo.delete(rt);
+            throw new RuntimeException("Token expired");
         }
 
-        return refreshToken;
+        return rt;
     }
 
-    /**
-     * Löscht alle Refresh Tokens eines Users (Logout)
-     */
+    public void deleteByToken(String token) {
+        repo.findByToken(token).ifPresent(repo::delete);
+    }
+
     public void deleteTokensForUser(String userId) {
-        refreshTokenRepository.deleteByUserId(userId);
+        repo.deleteByUserId(userId);
     }
-
-        public void deleteByToken(String token) {
-            refreshTokenRepository
-                    .findByToken(token)
-                    .ifPresent(refreshTokenRepository::delete);
-        }
-
-    }
+}
