@@ -1,83 +1,79 @@
 package com.traintogain.backend.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleEmailExists(EmailAlreadyExistsException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.CONFLICT);
+        return build(ex.getMessage(), "EMAIL_EXISTS", HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        return build(ex.getMessage(), "INVALID_CREDENTIALS", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return build(ex.getMessage(), "USER_NOT_FOUND", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidPasswordException.class)
     public ResponseEntity<ErrorResponse> handleInvalidPassword(InvalidPasswordException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return build(ex.getMessage(), "INVALID_PASSWORD", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidRefreshTokenException.class)
     public ResponseEntity<ErrorResponse> handleInvalidRefreshToken(InvalidRefreshTokenException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        return build(ex.getMessage(), "INVALID_REFRESH_TOKEN", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return build(ex.getMessage(), "NOT_FOUND", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<ErrorResponse> handleForbidden(ForbiddenException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.FORBIDDEN);
+        return build(ex.getMessage(), "FORBIDDEN", HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorized(UnauthorizedException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        return build(ex.getMessage(), "UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
-        String message = ex.getBindingResult()
-                .getFieldErrors()
+        String msg = ex.getBindingResult().getFieldErrors()
                 .stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .collect(Collectors.joining(", "));
-        return buildResponse(message, HttpStatus.BAD_REQUEST);
+        return build(msg, "VALIDATION_ERROR", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException ex) {
-        return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return build(ex.getMessage(), "BAD_REQUEST", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
-        if (ex instanceof org.springframework.web.server.ResponseStatusException statusException) {
-            return buildResponse(
-                    statusException.getReason(),
-                    HttpStatus.valueOf(statusException.getStatusCode().value())
-            );
-        }
-        return buildResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        log.error("UNHANDLED ERROR", ex);
+        return build("Interner Serverfehler", "INTERNAL_ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private ResponseEntity<ErrorResponse> buildResponse(String message, HttpStatus status) {
-        return new ResponseEntity<>(new ErrorResponse(message, status.value()), status);
+    private ResponseEntity<ErrorResponse> build(String msg, String code, HttpStatus status) {
+        return new ResponseEntity<>(new ErrorResponse(msg, code, status.value()), status);
     }
 }
