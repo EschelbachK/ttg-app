@@ -1,11 +1,9 @@
 package com.traintogain.backend.passwordreset;
 
-import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
 import com.traintogain.backend.mail.MailService;
+import com.traintogain.backend.passwordreset.PasswordResetRepository;
 import com.traintogain.backend.user.User;
 import com.traintogain.backend.user.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -14,82 +12,56 @@ import java.util.UUID;
 @Service
 public class PasswordResetService {
 
-    private final PasswordResetTokenRepository tokenRepository;
-    private final UserRepository userRepository;
-    private final RefreshTokenService refreshTokenService;
-    private final MailService mailService;
+    private static final long EXP = 60 * 30;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordResetRepository repo;
+    private final UserRepository userRepo;
+    private final MailService mail;
 
-    @Value("${app.frontend.reset-url}")
-    private String frontendResetUrl;
-
-    public PasswordResetService(
-            PasswordResetTokenRepository tokenRepository,
-            UserRepository userRepository,
-            RefreshTokenService refreshTokenService,
-            MailService mailService
-    ) {
-        this.tokenRepository = tokenRepository;
-        this.userRepository = userRepository;
-        this.refreshTokenService = refreshTokenService;
-        this.mailService = mailService;
+    public PasswordResetService(PasswordResetRepository repo,
+                                UserRepository userRepo,
+                                MailService mail) {
+        this.repo = repo;
+        this.userRepo = userRepo;
+        this.mail = mail;
     }
 
-    // ✅ 1️⃣ RESET ANFORDERN (MAIL)
     public void requestReset(String email) {
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Benutzer nicht gefunden"));
 
-        userRepository.findByEmail(email).ifPresent(user -> {
+        repo.deleteByUserId(user.getId());
 
-            // alte Tokens löschen
-            tokenRepository.deleteByUserId(user.getId());
+        String token = UUID.randomUUID().toString();
 
-            PasswordResetToken token = new PasswordResetToken(
-                    user.getId(),
-                    UUID.randomUUID().toString(),
-                    Instant.now().plusSeconds(60 * 30) // 30 Minuten
-            );
+        repo.save(new com.traintogain.backend.auth.passwordreset.PasswordResetToken(
+                user.getId(),
+                token,
+                Instant.now().plusSeconds(EXP)
+        ));
 
-            tokenRepository.save(token);
+        String link = "http://localhost:3000/reset-password?token=" + token;
 
-            String resetLink = frontendResetUrl + "?token=" + token.getToken();
-
-            mailService.send(
-                    user.getEmail(),
-                    "Reset your password",
-                    """
-                    You requested a password reset.
-
-                    Click the link below to reset your password:
-                    %s
-
-                    If you did not request this, you can ignore this email.
-                    """.formatted(resetLink)
-            );
-        });
-
+        mail.send(
+                user.getEmail(),
+                "Passwort zurücksetzen",
+                "Klicke auf den Link um dein Passwort zurückzusetzen:\n" + link
+        );
     }
 
-    // ✅ 2️⃣ PASSWORT ZURÜCKSETZEN
-    public void resetPassword(String token, String newPassword) {
+    public String validate(String token) {
+        com.traintogain.backend.auth.passwordreset.PasswordResetToken t = repo.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Token ungültig"));
 
-        PasswordResetToken resetToken = tokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid reset token"));
-
-        if (resetToken.isExpired()) {
-            tokenRepository.delete(resetToken);
-            throw new RuntimeException("Reset token expired");
+        if (t.isExpired()) {
+            repo.delete(t);
+            throw new RuntimeException("Token abgelaufen");
         }
 
-        User user = userRepository.findById(resetToken.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        return t.getUserId();
+    }
 
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-
-        // 🔥 SECURITY: alle Sessions killen
-        refreshTokenService.deleteTokensForUser(user.getId());
-
-        tokenRepository.delete(resetToken);
+    public void delete(String token) {
+        repo.findByToken(token).ifPresent(repo::delete);
     }
 }
