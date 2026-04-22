@@ -68,6 +68,16 @@ public class TrainingPlanController {
         return ResponseEntity.ok().build();
     }
 
+    // 🔥🔥🔥 DAS HAT GEFEHLT
+    @PostMapping("/{id}/restore")
+    public ResponseEntity<Void> restorePlan(
+            @PathVariable String id,
+            Authentication authentication
+    ) {
+        trainingPlanService.restorePlan(id, authentication.getName());
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(
             @PathVariable String id,

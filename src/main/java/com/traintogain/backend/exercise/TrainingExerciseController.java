@@ -1,6 +1,7 @@
 package com.traintogain.backend.exercise;
 
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
+import com.traintogain.backend.exercise.dto.UpdateTrainingExerciseRequest;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +49,26 @@ public class TrainingExerciseController {
                 planId,
                 folderId,
                 pageable
+        );
+    }
+
+    // 🔥 FIX: UPDATE ENDPOINT
+    @PutMapping("/{exerciseId}")
+    public ResponseEntity<TrainingExercise> updateExercise(
+            @PathVariable String planId,
+            @PathVariable String folderId,
+            @PathVariable String exerciseId,
+            @Valid @RequestBody UpdateTrainingExerciseRequest request,
+            Authentication authentication
+    ) {
+        return ResponseEntity.ok(
+                trainingExerciseService.updateExercise(
+                        authentication.getName(),
+                        planId,
+                        folderId,
+                        exerciseId,
+                        request
+                )
         );
     }
 

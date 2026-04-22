@@ -3,6 +3,7 @@ package com.traintogain.backend.exercise;
 import com.traintogain.backend.exception.ForbiddenException;
 import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
+import com.traintogain.backend.exercise.dto.UpdateTrainingExerciseRequest;
 import com.traintogain.backend.folder.TrainingFolder;
 import com.traintogain.backend.folder.TrainingFolderRepository;
 import org.springframework.data.domain.Page;
@@ -50,6 +51,34 @@ public class TrainingExerciseService {
         exercise.setUserId(userId);
         exercise.setFolderId(folderId);
         exercise.setName(request.name());
+        exercise.setSets(sets);
+
+        return trainingExerciseRepository.save(exercise);
+    }
+
+    public TrainingExercise updateExercise(
+            String userId,
+            String planId,
+            String folderId,
+            String exerciseId,
+            UpdateTrainingExerciseRequest request
+    ) {
+
+        TrainingExercise exercise = trainingExerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new NotFoundException("Übung nicht gefunden"));
+
+        if (!exercise.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff");
+        }
+
+        // 🔥 FIX: record richtig verwenden
+        List<SetEntry> sets = request.getSets() != null
+                ? request.getSets().stream()
+                .map(s -> new SetEntry(s.weight(), s.repetitions()))
+                .toList()
+                : List.of();
+
+        // 🔥 CRITICAL
         exercise.setSets(sets);
 
         return trainingExerciseRepository.save(exercise);

@@ -18,7 +18,13 @@ public class UserService {
         this.refresh = refresh;
     }
 
+    private String normalize(String email) {
+        return email.trim().toLowerCase();
+    }
+
     public User register(String email, String username, String raw) {
+        email = normalize(email);
+
         if (repo.findByEmail(email).isPresent())
             throw new EmailAlreadyExistsException("E-Mail wird bereits verwendet!");
 
@@ -33,6 +39,8 @@ public class UserService {
     }
 
     public User login(String email, String raw) {
+        email = normalize(email);
+
         User u = repo.findByEmail(email)
                 .orElseThrow(() -> new InvalidCredentialsException("Ungültige Anmeldedaten!"));
 
@@ -51,11 +59,14 @@ public class UserService {
         User u = getById(id);
 
         if (email != null && !email.isBlank()) {
-            repo.findByEmail(email).ifPresent(e -> {
+            String normalized = normalize(email);
+
+            repo.findByEmail(normalized).ifPresent(e -> {
                 if (!e.getId().equals(id))
                     throw new EmailAlreadyExistsException("E-Mail wird bereits verwendet!");
             });
-            u.setEmail(email);
+
+            u.setEmail(normalized);
         }
 
         if (username != null && !username.isBlank())

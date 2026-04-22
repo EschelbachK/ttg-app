@@ -125,4 +125,23 @@ public class TrainingPlanService {
         trainingFolderRepository.deleteAll(folders);
         trainingPlanRepository.delete(plan);
     }
+    public void restorePlan(String id, String userId) {
+        TrainingPlan plan = trainingPlanRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Trainingsplan wurde nicht gefunden"));
+
+        if (!plan.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff auf diesen Trainingsplan");
+        }
+
+        plan.setArchived(false);
+
+        // 🔥 optional: wieder korrekt einsortieren
+        int nextOrder = trainingPlanRepository
+                .findByUserIdAndArchivedFalseOrderByOrderAsc(userId)
+                .size();
+
+        plan.setOrder(nextOrder);
+
+        trainingPlanRepository.save(plan);
+    }
 }

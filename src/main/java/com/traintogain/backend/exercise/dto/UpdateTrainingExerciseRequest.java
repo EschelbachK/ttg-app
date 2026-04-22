@@ -9,13 +9,13 @@ import java.util.List;
 
 public class UpdateTrainingExerciseRequest {
 
-    @NotBlank(message = "Übungsname darf nicht leer sein")
+    @NotBlank
     private String name;
 
     private BodyRegion bodyRegion;
     private String notes;
 
-    @Min(value = 0, message = "Pause muss >= 0 Sekunden sein")
+    @Min(0)
     private Integer restTimerSeconds;
 
     private List<@Valid SetEntryRequest> sets;
