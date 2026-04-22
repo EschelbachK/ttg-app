@@ -1,5 +1,3 @@
-[
-  // ================= BRUST =================
   {"id":"bench_press","name":"Bankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS","SCHULTERN"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"incline_bench_press","name":"Schrägbankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"decline_bench_press","name":"Negativbankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
@@ -29,7 +27,6 @@
   {"id":"weighted_push_up","name":"Weighted Push Up","bodyRegion":"BRUST","equipment":"KOERPERGEWICHT","primaryMuscle":"BRUST","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"FORTGESCHRITTEN"},
   {"id":"dips_brust","name":"Dips Brust","bodyRegion":"BRUST","equipment":"KOERPERGEWICHT","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS"],"exerciseType":"BODYWEIGHT","difficulty":"MITTEL"},
 
-  // ================= RUECKEN =================
   {"id":"deadlift","name":"Kreuzheben","bodyRegion":"RUECKEN","equipment":"LANGHANTEL","primaryMuscle":"RUECKEN","secondaryMuscles":["BEINE"],"exerciseType":"GRUNDUEBUNG","difficulty":"FORTGESCHRITTEN"},
   {"id":"romanian_deadlift","name":"Rumänisches Kreuzheben","bodyRegion":"RUECKEN","equipment":"LANGHANTEL","primaryMuscle":"RUECKEN","secondaryMuscles":["BEINE"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"good_morning","name":"Good Morning","bodyRegion":"RUECKEN","equipment":"LANGHANTEL","primaryMuscle":"RUECKEN","secondaryMuscles":["BEINE"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
@@ -54,7 +51,6 @@
   {"id":"pull_up","name":"Klimmzüge","bodyRegion":"RUECKEN","equipment":"KOERPERGEWICHT","primaryMuscle":"RUECKEN","secondaryMuscles":["BIZEPS"],"exerciseType":"BODYWEIGHT","difficulty":"MITTEL"},
   {"id":"chin_up","name":"Chin Ups","bodyRegion":"RUECKEN","equipment":"KOERPERGEWICHT","primaryMuscle":"RUECKEN","secondaryMuscles":["BIZEPS"],"exerciseType":"BODYWEIGHT","difficulty":"MITTEL"},
 
-  // ================= BEINE =================
   {"id":"squat","name":"Kniebeuge","bodyRegion":"BEINE","equipment":"LANGHANTEL","primaryMuscle":"QUADS","secondaryMuscles":["GLUTES"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"front_squat","name":"Front Squat","bodyRegion":"BEINE","equipment":"LANGHANTEL","primaryMuscle":"QUADS","secondaryMuscles":["CORE"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"sumo_squat","name":"Sumo Kniebeuge","bodyRegion":"BEINE","equipment":"LANGHANTEL","primaryMuscle":"GLUTES","secondaryMuscles":["QUADS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
@@ -79,7 +75,6 @@
   {"id":"seated_calf_raise","name":"Wadenheben sitzend","bodyRegion":"BEINE","equipment":"MASCHINE","primaryMuscle":"WADEN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"standing_calf_raise","name":"Wadenheben stehend","bodyRegion":"BEINE","equipment":"KOERPERGEWICHT","primaryMuscle":"WADEN","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"ANFAENGER"},
 
-  // ================= SCHULTERN =================
   {"id":"overhead_press","name":"Schulterdrücken Langhantel","bodyRegion":"SCHULTERN","equipment":"LANGHANTEL","primaryMuscle":"SCHULTERN","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"dumbbell_shoulder_press","name":"Schulterdrücken Kurzhantel","bodyRegion":"SCHULTERN","equipment":"KURZHANTEL","primaryMuscle":"SCHULTERN","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"arnold_press","name":"Arnold Press","bodyRegion":"SCHULTERN","equipment":"KURZHANTEL","primaryMuscle":"SCHULTERN","secondaryMuscles":[],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
@@ -91,7 +86,6 @@
   {"id":"rear_delt_machine","name":"Rear Delt Maschine","bodyRegion":"SCHULTERN","equipment":"MASCHINE","primaryMuscle":"SCHULTERN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"cable_lateral_raise","name":"Seitheben Kabel","bodyRegion":"SCHULTERN","equipment":"KABELZUG","primaryMuscle":"SCHULTERN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
 
-  // ================= BIZEPS =================
   {"id":"barbell_curl","name":"Langhantel Curl","bodyRegion":"BIZEPS","equipment":"LANGHANTEL","primaryMuscle":"BIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"dumbbell_curl","name":"Kurzhantel Curl","bodyRegion":"BIZEPS","equipment":"KURZHANTEL","primaryMuscle":"BIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"hammer_curl","name":"Hammer Curl","bodyRegion":"BIZEPS","equipment":"KURZHANTEL","primaryMuscle":"BIZEPS","secondaryMuscles":["UNTERARME"],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
@@ -101,7 +95,6 @@
   {"id":"cable_curl","name":"Kabel Curl","bodyRegion":"BIZEPS","equipment":"KABELZUG","primaryMuscle":"BIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"machine_biceps_curl","name":"Bizepsmaschine","bodyRegion":"BIZEPS","equipment":"MASCHINE","primaryMuscle":"BIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
 
-  // ================= TRIZEPS =================
   {"id":"skullcrusher","name":"Trizepsdrücken Langhantel","bodyRegion":"TRIZEPS","equipment":"LANGHANTEL","primaryMuscle":"TRIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"MITTEL"},
   {"id":"overhead_barbell_extension","name":"Überkopf Langhantel Trizeps","bodyRegion":"TRIZEPS","equipment":"LANGHANTEL","primaryMuscle":"TRIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"MITTEL"},
   {"id":"dumbbell_triceps_extension","name":"Trizeps Kurzhantel","bodyRegion":"TRIZEPS","equipment":"KURZHANTEL","primaryMuscle":"TRIZEPS","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
@@ -112,7 +105,6 @@
   {"id":"triceps_dips","name":"Dips Trizeps","bodyRegion":"TRIZEPS","equipment":"KOERPERGEWICHT","primaryMuscle":"TRIZEPS","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"MITTEL"},
   {"id":"close_push_up","name":"Enger Liegestütz","bodyRegion":"TRIZEPS","equipment":"KOERPERGEWICHT","primaryMuscle":"TRIZEPS","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"MITTEL"},
 
-  // ================= BAUCH =================
   {"id":"crunch","name":"Crunch","bodyRegion":"BAUCH","equipment":"KOERPERGEWICHT","primaryMuscle":"BAUCH","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"ANFAENGER"},
   {"id":"sit_up","name":"Sit Up","bodyRegion":"BAUCH","equipment":"KOERPERGEWICHT","primaryMuscle":"BAUCH","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"ANFAENGER"},
   {"id":"leg_raise","name":"Beinheben","bodyRegion":"BAUCH","equipment":"KOERPERGEWICHT","primaryMuscle":"BAUCH","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"ANFAENGER"},
@@ -124,20 +116,17 @@
   {"id":"side_plank","name":"Side Plank","bodyRegion":"BAUCH","equipment":"KOERPERGEWICHT","primaryMuscle":"CORE","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"ANFAENGER"},
   {"id":"ab_wheel","name":"Ab Wheel","bodyRegion":"BAUCH","equipment":"SONSTIGES","primaryMuscle":"CORE","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"MITTEL"},
 
-  // ================= NACKEN =================
   {"id":"shrug_barbell","name":"Shrugs Langhantel","bodyRegion":"NACKEN","equipment":"LANGHANTEL","primaryMuscle":"NACKEN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"shrug_dumbbell","name":"Shrugs Kurzhantel","bodyRegion":"NACKEN","equipment":"KURZHANTEL","primaryMuscle":"NACKEN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"machine_shrug","name":"Shrug Maschine","bodyRegion":"NACKEN","equipment":"MASCHINE","primaryMuscle":"NACKEN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"cable_shrug","name":"Shrugs Kabel","bodyRegion":"NACKEN","equipment":"KABELZUG","primaryMuscle":"NACKEN","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
 
-  // ================= UNTERARME =================
   {"id":"wrist_curl","name":"Wrist Curl","bodyRegion":"UNTERARME","equipment":"LANGHANTEL","primaryMuscle":"UNTERARME","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"reverse_wrist_curl","name":"Reverse Wrist Curl","bodyRegion":"UNTERARME","equipment":"LANGHANTEL","primaryMuscle":"UNTERARME","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"reverse_curl","name":"Reverse Curl","bodyRegion":"UNTERARME","equipment":"LANGHANTEL","primaryMuscle":"UNTERARME","secondaryMuscles":["BIZEPS"],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"ANFAENGER"},
   {"id":"farmer_walk","name":"Farmer Walk","bodyRegion":"UNTERARME","equipment":"KURZHANTEL","primaryMuscle":"UNTERARME","secondaryMuscles":["CORE"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"wrist_roller","name":"Wrist Roller","bodyRegion":"UNTERARME","equipment":"SONSTIGES","primaryMuscle":"UNTERARME","secondaryMuscles":[],"exerciseType":"ISOLATIONSUEBUNG","difficulty":"MITTEL"},
 
-  // ================= CARDIO =================
   {"id":"treadmill","name":"Laufband","bodyRegion":"CARDIO","equipment":"MASCHINE","primaryMuscle":"BEINE","secondaryMuscles":[],"exerciseType":"CARDIO","difficulty":"ANFAENGER"},
   {"id":"bike","name":"Fahrrad","bodyRegion":"CARDIO","equipment":"MASCHINE","primaryMuscle":"BEINE","secondaryMuscles":[],"exerciseType":"CARDIO","difficulty":"ANFAENGER"},
   {"id":"rowing_machine","name":"Rudergerät","bodyRegion":"CARDIO","equipment":"MASCHINE","primaryMuscle":"RUECKEN","secondaryMuscles":["BEINE"],"exerciseType":"CARDIO","difficulty":"ANFAENGER"},
@@ -146,7 +135,6 @@
   {"id":"sprint","name":"Sprint","bodyRegion":"CARDIO","equipment":"KOERPERGEWICHT","primaryMuscle":"BEINE","secondaryMuscles":[],"exerciseType":"CARDIO","difficulty":"MITTEL"},
   {"id":"jump_rope","name":"Seilspringen","bodyRegion":"CARDIO","equipment":"KOERPERGEWICHT","primaryMuscle":"BEINE","secondaryMuscles":[],"exerciseType":"CARDIO","difficulty":"ANFAENGER"},
 
-  // ================= GANZKOERPER =================
   {"id":"burpee","name":"Burpee","bodyRegion":"GANZKOERPER","equipment":"KOERPERGEWICHT","primaryMuscle":"GANZKOERPER","secondaryMuscles":[],"exerciseType":"BODYWEIGHT","difficulty":"MITTEL"},
   {"id":"clean_and_press","name":"Clean & Press","bodyRegion":"GANZKOERPER","equipment":"LANGHANTEL","primaryMuscle":"GANZKOERPER","secondaryMuscles":[],"exerciseType":"GRUNDUEBUNG","difficulty":"FORTGESCHRITTEN"},
   {"id":"thruster","name":"Thruster","bodyRegion":"GANZKOERPER","equipment":"LANGHANTEL","primaryMuscle":"BEINE","secondaryMuscles":["SCHULTERN"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
