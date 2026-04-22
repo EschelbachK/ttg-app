@@ -1,4 +1,4 @@
-  {"id":"bench_press","name":"Bankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS","SCHULTERN"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
+[  {"id":"bench_press","name":"Bankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS","SCHULTERN"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"incline_bench_press","name":"Schrägbankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"decline_bench_press","name":"Negativbankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
   {"id":"close_grip_bench_press","name":"Enges Bankdrücken","bodyRegion":"BRUST","equipment":"LANGHANTEL","primaryMuscle":"BRUST","secondaryMuscles":["TRIZEPS"],"exerciseType":"GRUNDUEBUNG","difficulty":"MITTEL"},
