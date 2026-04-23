@@ -1,8 +1,8 @@
 package com.traintogain.backend.user;
 
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
-import com.traintogain.backend.auth.service.EmailService;
 import com.traintogain.backend.exception.*;
+import com.traintogain.backend.mail.MailService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +15,18 @@ public class UserService {
     private final UserRepository repo;
     private final PasswordEncoder encoder;
     private final RefreshTokenService refresh;
-    private final EmailService emailService;
+    private final MailService emailService;
 
-    public UserService(UserRepository repo, PasswordEncoder encoder, RefreshTokenService refresh, EmailService emailService) {
+    public UserService(
+            UserRepository repo,
+            PasswordEncoder encoder,
+            RefreshTokenService refresh,
+            MailService mailService
+    ) {
         this.repo = repo;
         this.encoder = encoder;
         this.refresh = refresh;
-        this.emailService = emailService;
+        this.emailService = mailService;
     }
 
     private String normalize(String email) {
@@ -34,9 +39,7 @@ public class UserService {
         if (repo.findByEmail(email).isPresent())
             throw new EmailAlreadyExistsException("E-Mail wird bereits verwendet!");
 
-        try {
-            PasswordValidator.validate(raw);
-        } catch (RuntimeException ignored) {}
+        PasswordValidator.validate(raw);
 
         User u = new User();
         u.setEmail(email);
@@ -93,6 +96,44 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("Benutzer nicht gefunden!"));
     }
 
+    public void changePassword(String id, String oldP, String newP) {
+        User u = getById(id);
+
+        if (!encoder.matches(oldP, u.getPassword()))
+            throw new InvalidPasswordException("Altes Passwort ist falsch!");
+
+        PasswordValidator.validate(newP);
+
+        u.setPassword(encoder.encode(newP));
+        repo.save(u);
+
+        refresh.deleteTokensForUser(id);
+    }
+
+    public void forgotPassword(String email) {
+        email = normalize(email);
+
+        repo.findByEmail(email).ifPresent(user -> {
+            String token = UUID.randomUUID().toString();
+
+            user.setResetToken(token);
+            user.setResetTokenExpiry(Instant.now().plusSeconds(900));
+
+            repo.save(user);
+
+            emailService.sendResetEmail(user.getEmail(), token);
+        });
+    }
+
+    public void deleteById(String id) {
+        if (!repo.existsById(id))
+            throw new UserNotFoundException("Benutzer nicht gefunden!");
+
+        repo.deleteById(id);
+
+        refresh.deleteTokensForUser(id);
+    }
+
     public User updateProfile(String id, String email, String username) {
         User u = getById(id);
 
@@ -113,48 +154,6 @@ public class UserService {
         return repo.save(u);
     }
 
-    public void changePassword(String id, String oldP, String newP) {
-        User u = getById(id);
-
-        if (!encoder.matches(oldP, u.getPassword()))
-            throw new InvalidPasswordException("Altes Passwort ist falsch!");
-
-        try {
-            PasswordValidator.validate(newP);
-        } catch (RuntimeException ignored) {}
-
-        u.setPassword(encoder.encode(newP));
-        repo.save(u);
-
-        refresh.deleteTokensForUser(id);
-    }
-
-    public void deleteById(String id) {
-        if (!repo.existsById(id))
-            throw new UserNotFoundException("Benutzer nicht gefunden!");
-
-        repo.deleteById(id);
-    }
-
-    public void forgotPassword(String email) {
-        email = normalize(email);
-
-        User user = repo.findByEmail(email).orElse(null);
-
-        if (user == null) {
-            return;
-        }
-
-        String token = UUID.randomUUID().toString();
-
-        user.setResetToken(token);
-        user.setResetTokenExpiry(Instant.now().plusSeconds(900));
-
-        repo.save(user);
-
-        emailService.sendResetEmail(user.getEmail(), token);
-    }
-
     public void resetPassword(String token, String newPassword) {
         User user = repo.findByResetToken(token)
                 .orElseThrow(() -> new InvalidTokenException("Token ungültig"));
@@ -164,12 +163,9 @@ public class UserService {
             throw new InvalidTokenException("Token abgelaufen");
         }
 
-        try {
-            PasswordValidator.validate(newPassword);
-        } catch (RuntimeException ignored) {}
+        PasswordValidator.validate(newPassword);
 
         user.setPassword(encoder.encode(newPassword));
-
         user.setResetToken(null);
         user.setResetTokenExpiry(null);
 
@@ -177,5 +173,4 @@ public class UserService {
 
         refresh.deleteTokensForUser(user.getId());
     }
-
 }
