@@ -1,5 +1,6 @@
 package com.traintogain.backend.auth.refreshtoken;
 
+import com.traintogain.backend.exception.InvalidRefreshTokenException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -27,11 +28,11 @@ public class RefreshTokenService {
 
     public RefreshToken validateRefreshToken(String token) {
         RefreshToken rt = repo.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Token not found"));
+                .orElseThrow(() -> new InvalidRefreshTokenException("refresh token invalid"));
 
         if (rt.isExpired()) {
             repo.delete(rt);
-            throw new RuntimeException("Token expired");
+            throw new InvalidRefreshTokenException("refresh token expired");
         }
 
         return rt;
