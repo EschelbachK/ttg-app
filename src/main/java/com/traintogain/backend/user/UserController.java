@@ -39,8 +39,10 @@ public class UserController {
     @DeleteMapping("/me")
     public ResponseEntity<Void> delete(Authentication auth) {
         String id = auth.getName();
+
         refreshTokenService.deleteTokensForUser(id);
         userService.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 }
