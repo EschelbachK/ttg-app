@@ -112,9 +112,11 @@ public class TrainingFolderService {
 
     private void moveFolder(TrainingFolder target, int newOrder) {
         List<TrainingFolder> folders =
-                trainingFolderRepository.findByUserIdAndTrainingPlanIdOrderByOrderAsc(
-                        target.getUserId(),
-                        target.getTrainingPlanId()
+                new java.util.ArrayList<>(
+                        trainingFolderRepository.findByUserIdAndTrainingPlanIdOrderByOrderAsc(
+                                target.getUserId(),
+                                target.getTrainingPlanId()
+                        )
                 );
 
         folders.removeIf(f -> f.getId().equals(target.getId()));
@@ -138,9 +140,11 @@ public class TrainingFolderService {
         }
 
         List<TrainingFolder> folders =
-                trainingFolderRepository.findByUserIdAndTrainingPlanIdOrderByOrderAsc(
-                        folder.getUserId(),
-                        folder.getTrainingPlanId()
+                new java.util.ArrayList<>(
+                        trainingFolderRepository.findByUserIdAndTrainingPlanIdOrderByOrderAsc(
+                                folder.getUserId(),
+                                folder.getTrainingPlanId()
+                        )
                 );
 
         trainingExerciseRepository.deleteByFolderId(folder.getId());
