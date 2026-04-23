@@ -1,10 +1,28 @@
 spring:
+  application:
+    name: ttg-backend
+
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI}
+
   mail:
     host: smtp-relay.brevo.com
     port: 587
-    username: spring_mail_username
-    password: spring_mail_password
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
       mail.smtp.ssl.trust: "*"
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+
+server:
+  address: 0.0.0.0
+  port: 8080
+
+backend:
+  url: ${BACKEND_URL}
