@@ -1,11 +1,10 @@
 spring:
   mail:
-    host: localhost
-    port: 1025
+    host: smtp-relay.brevo.com
+    port: 587
+    username: spring_mail_username
+    password: spring_mail_password
     properties:
-      mail.smtp.auth: false
-      mail.smtp.starttls.enable: false
-
-app:
-  frontend:
-    reset-url: http://localhost:3000/reset-password
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.ssl.trust: "*"
