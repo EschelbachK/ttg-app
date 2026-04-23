@@ -4,6 +4,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
 
@@ -37,9 +38,11 @@ public class User {
     private boolean enabled = false;
 
     @Setter
+    @Field("verificationToken")
     private String verificationToken;
 
     @Setter
+    @Field("verificationTokenExpiry")
     private Instant verificationTokenExpiry;
 
     public String getId() { return id; }
@@ -54,5 +57,4 @@ public class User {
 
     public String getVerificationToken() { return verificationToken; }
     public Instant getVerificationTokenExpiry() { return verificationTokenExpiry; }
-
 }
