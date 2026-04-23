@@ -31,8 +31,6 @@ class UserServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // ================= REGISTER =================
-
     @Test
     void register_success() {
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.empty());
@@ -43,6 +41,8 @@ class UserServiceTest {
 
         assertEquals("test@mail.com", user.getEmail());
         assertEquals("hashed", user.getPassword());
+        assertFalse(user.isEnabled());
+        assertNotNull(user.getVerificationToken());
     }
 
     @Test
@@ -53,12 +53,11 @@ class UserServiceTest {
                 () -> service.register("test@mail.com", "user", "123456"));
     }
 
-    // ================= LOGIN =================
-
     @Test
     void login_success() {
         User user = new User();
         user.setPassword("hashed");
+        user.setEnabled(true);
 
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(user));
         when(encoder.matches("123456", "hashed")).thenReturn(true);
@@ -69,8 +68,12 @@ class UserServiceTest {
     }
 
     @Test
-    void login_userNotFound() {
-        when(repo.findByEmail("test@mail.com")).thenReturn(Optional.empty());
+    void login_notEnabled() {
+        User user = new User();
+        user.setPassword("hashed");
+        user.setEnabled(false);
+
+        when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(user));
 
         assertThrows(InvalidCredentialsException.class,
                 () -> service.login("test@mail.com", "123456"));
@@ -80,6 +83,7 @@ class UserServiceTest {
     void login_wrongPassword() {
         User user = new User();
         user.setPassword("hashed");
+        user.setEnabled(true);
 
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(user));
         when(encoder.matches("wrong", "hashed")).thenReturn(false);
@@ -87,8 +91,6 @@ class UserServiceTest {
         assertThrows(InvalidCredentialsException.class,
                 () -> service.login("test@mail.com", "wrong"));
     }
-
-    // ================= GET =================
 
     @Test
     void getById_success() {
@@ -109,12 +111,11 @@ class UserServiceTest {
                 () -> service.getById("id"));
     }
 
-    // ================= UPDATE =================
-
     @Test
     void updateProfile_success() {
-        User user = mock(User.class);
-        when(user.getId()).thenReturn("id");
+        User user = new User();
+        user.setEmail("old@mail.com");
+        user.setUsername("old");
 
         when(repo.findById("id")).thenReturn(Optional.of(user));
         when(repo.findByEmail("new@mail.com")).thenReturn(Optional.empty());
@@ -129,10 +130,10 @@ class UserServiceTest {
     @Test
     void updateProfile_emailTaken() {
         User user = new User();
-        User other = new User();
+        user.setEmail("old@mail.com");
 
-        when(user.getId()).thenReturn("id");
-        when(other.getId()).thenReturn("other");
+        User other = new User();
+        other.setEmail("other@mail.com");
 
         when(repo.findById("id")).thenReturn(Optional.of(user));
         when(repo.findByEmail("mail@test.com")).thenReturn(Optional.of(other));
@@ -140,8 +141,6 @@ class UserServiceTest {
         assertThrows(EmailAlreadyExistsException.class,
                 () -> service.updateProfile("id", "mail@test.com", null));
     }
-
-    // ================= PASSWORD =================
 
     @Test
     void changePassword_success() {
@@ -169,8 +168,6 @@ class UserServiceTest {
         assertThrows(InvalidPasswordException.class,
                 () -> service.changePassword("id", "wrong", "new"));
     }
-
-    // ================= DELETE =================
 
     @Test
     void delete_success() {
