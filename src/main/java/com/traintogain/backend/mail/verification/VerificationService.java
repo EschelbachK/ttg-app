@@ -40,13 +40,7 @@ public class VerificationService {
 
     public void sendVerificationMail(User user) {
         String token = createToken(user);
-        String link = "http://localhost:8080/api/auth/verify?token=" + token;
-
-        mailService.send(
-                user.getEmail(),
-                "Verify your account",
-                "Click here: " + link
-        );
+        mailService.sendVerificationEmail(user.getEmail(), token);
     }
 
     public void verify(String token) {
@@ -64,5 +58,4 @@ public class VerificationService {
         userRepository.save(user);
         verificationTokenRepository.delete(verificationToken);
     }
-
 }
