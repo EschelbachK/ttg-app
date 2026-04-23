@@ -1,39 +1,32 @@
 package com.traintogain.backend.exercise;
 
 import com.traintogain.backend.exception.ForbiddenException;
-import com.traintogain.backend.exercise.TrainingExerciseRepository;
+import com.traintogain.backend.exception.NotFoundException;
+import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
+import com.traintogain.backend.exercise.dto.SetEntryRequest;
 import com.traintogain.backend.folder.TrainingFolder;
 import com.traintogain.backend.folder.TrainingFolderRepository;
-import com.traintogain.backend.training.TrainingPlan;
-import com.traintogain.backend.training.TrainingPlanRepository;
-import com.traintogain.backend.training.TrainingPlanService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class TrainingPlanServiceTest {
-
-    @Mock
-    private TrainingPlanRepository planRepository;
-
-    @Mock
-    private TrainingFolderRepository folderRepository;
+class TrainingExerciseServiceTest {
 
     @Mock
     private TrainingExerciseRepository exerciseRepository;
 
+    @Mock
+    private TrainingFolderRepository folderRepository;
+
     @InjectMocks
-    private TrainingPlanService service;
+    private TrainingExerciseService service;
 
     @BeforeEach
     void setup() {
@@ -41,35 +34,89 @@ class TrainingPlanServiceTest {
     }
 
     @Test
-    void createPlan_success() {
-        when(planRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+    void addExercise_success() {
+        TrainingFolder folder = new TrainingFolder("plan", "Brust", 0);
+        folder.setUserId("user");
 
-        TrainingPlan plan = service.createPlan("user", "Mein Trainingsplan");
+        when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
+        when(exerciseRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
-        assertEquals("Mein Trainingsplan", plan.getTitle());
+        CreateTrainingExerciseRequest request = mock(CreateTrainingExerciseRequest.class);
+        when(request.name()).thenReturn("Bankdrücken");
+        when(request.sets()).thenReturn(List.of(new SetEntryRequest(100.0, 10)));
+
+        TrainingExercise result = service.addExercise("user", "plan", "folder", request);
+
+        assertEquals("Bankdrücken", result.getName());
+        verify(exerciseRepository).save(any());
     }
 
     @Test
-    void updatePlan_forbidden() {
-        TrainingPlan plan = new TrainingPlan("owner", "Plan");
+    void addExercise_forbidden() {
+        TrainingFolder folder = new TrainingFolder("plan", "Brust", 0);
+        folder.setUserId("owner");
 
-        when(planRepository.findById("id")).thenReturn(Optional.of(plan));
+        when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
+
+        CreateTrainingExerciseRequest request = mock(CreateTrainingExerciseRequest.class);
 
         assertThrows(ForbiddenException.class,
-                () -> service.updatePlan("id", "andererUser", mock()));
+                () -> service.addExercise("user", "plan", "folder", request));
     }
 
     @Test
-    void deletePlan_success() {
-        TrainingPlan plan = new TrainingPlan("user", "Plan");
+    void getExercises_success() {
+        TrainingFolder folder = new TrainingFolder("plan", "Brust", 0);
+        folder.setUserId("user");
 
-        when(planRepository.findById("id")).thenReturn(Optional.of(plan));
-        when(folderRepository.findByUserIdAndTrainingPlanIdOrderByOrderAsc(any(), any()))
-                .thenReturn(List.of(new TrainingFolder("id", "Brust", null, 0)));
+        when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
 
-        service.deletePlan("id", "user");
+        Page<TrainingExercise> page = new PageImpl<>(List.of(new TrainingExercise()));
+        when(exerciseRepository.findByUserIdAndFolderId(eq("user"), eq("folder"), any()))
+                .thenReturn(page);
 
-        verify(folderRepository).deleteAll(any());
-        verify(planRepository).delete(plan);
+        Page<TrainingExercise> result = service.getExercisesByFolder(
+                "user", "plan", "folder", PageRequest.of(0, 10)
+        );
+
+        assertEquals(1, result.getContent().size());
+    }
+
+    @Test
+    void getExercises_notFound() {
+        when(folderRepository.findById("folder")).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class,
+                () -> service.getExercisesByFolder("user", "plan", "folder", PageRequest.of(0, 10)));
+    }
+
+    @Test
+    void getExercises_forbidden() {
+        TrainingFolder folder = new TrainingFolder("plan", "Brust", 0);
+        folder.setUserId("owner");
+
+        when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
+
+        assertThrows(ForbiddenException.class,
+                () -> service.getExercisesByFolder("user", "plan", "folder", PageRequest.of(0, 10)));
+    }
+
+    @Test
+    void deleteExercise_notFound() {
+        when(exerciseRepository.findById("id")).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class,
+                () -> service.deleteExercise("id", "user"));
+    }
+
+    @Test
+    void deleteExercise_forbidden() {
+        TrainingExercise ex = new TrainingExercise();
+        ex.setUserId("owner");
+
+        when(exerciseRepository.findById("id")).thenReturn(Optional.of(ex));
+
+        assertThrows(ForbiddenException.class,
+                () -> service.deleteExercise("id", "user"));
     }
 }
