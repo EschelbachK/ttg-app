@@ -5,6 +5,7 @@ import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -26,27 +27,23 @@ public class ExerciseCatalogService {
             EquipmentType equipment,
             MovementPattern pattern,
             List<String> tags,
+            int page,
+            int size,
             String sort
     ) {
 
-        List<ExerciseCatalog> exercises;
+        List<ExerciseCatalog> exercises = repository.findAll(PageRequest.of(page, size)).getContent();
 
-        if (bodyRegion != null && equipment != null && pattern != null) {
-            exercises = repository.findByBodyRegionAndEquipmentAndMovementPattern(bodyRegion, equipment, pattern);
-        } else if (bodyRegion != null && equipment != null) {
-            exercises = repository.findByBodyRegionAndEquipment(bodyRegion, equipment);
-        } else if (bodyRegion != null && pattern != null) {
-            exercises = repository.findByBodyRegionAndMovementPattern(bodyRegion, pattern);
-        } else if (equipment != null && pattern != null) {
-            exercises = repository.findByEquipmentAndMovementPattern(equipment, pattern);
-        } else if (bodyRegion != null) {
-            exercises = repository.findByBodyRegion(bodyRegion);
-        } else if (equipment != null) {
-            exercises = repository.findByEquipment(equipment);
-        } else if (pattern != null) {
-            exercises = repository.findByMovementPattern(pattern);
-        } else {
-            exercises = repository.findAll();
+        if (bodyRegion != null) {
+            exercises = exercises.stream().filter(e -> e.getBodyRegion() == bodyRegion).toList();
+        }
+
+        if (equipment != null) {
+            exercises = exercises.stream().filter(e -> e.getEquipment() == equipment).toList();
+        }
+
+        if (pattern != null) {
+            exercises = exercises.stream().filter(e -> e.getMovementPattern() == pattern).toList();
         }
 
         if (tags != null && !tags.isEmpty()) {
@@ -61,23 +58,21 @@ public class ExerciseCatalogService {
             exercises.sort(Comparator.comparing(ExerciseCatalog::getName));
         }
 
-        return exercises.stream()
-                .map(e -> ExerciseCatalogResponse.builder()
-                        .id(e.getId())
-                        .name(e.getName())
-                        .imageUrl(e.getImageUrl())
-                        .animationUrl(e.getAnimationUrl())
-                        .thumbnail(e.getThumbnail())
-                        .bodyRegion(e.getBodyRegion())
-                        .equipment(e.getEquipment())
-                        .primaryMuscle(e.getPrimaryMuscle())
-                        .secondaryMuscles(e.getSecondaryMuscles())
-                        .exerciseType(e.getExerciseType())
-                        .difficulty(e.getDifficulty())
-                        .movementPattern(e.getMovementPattern())
-                        .tags(e.getTags())
-                        .build())
-                .toList();
+        return exercises.stream().map(e -> ExerciseCatalogResponse.builder()
+                .id(e.getId())
+                .name(e.getName())
+                .imageUrl(e.getImageUrl())
+                .animationUrl(e.getAnimationUrl())
+                .thumbnail(e.getThumbnail())
+                .bodyRegion(e.getBodyRegion())
+                .equipment(e.getEquipment())
+                .primaryMuscle(e.getPrimaryMuscle())
+                .secondaryMuscles(e.getSecondaryMuscles())
+                .exerciseType(e.getExerciseType())
+                .difficulty(e.getDifficulty())
+                .movementPattern(e.getMovementPattern())
+                .tags(e.getTags())
+                .build()).toList();
     }
 
     public List<ExerciseCatalogResponse> searchExercises(String query) {
