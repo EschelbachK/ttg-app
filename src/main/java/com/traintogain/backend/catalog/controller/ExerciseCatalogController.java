@@ -38,27 +38,25 @@ public class ExerciseCatalogController {
             @RequestParam(required = false) EquipmentType equipment,
             @RequestParam(required = false) MovementPattern pattern,
             @RequestParam(required = false) List<String> tags,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
             @RequestParam(required = false) String sort
     ) {
-        return service.getExercises(bodyRegion, equipment, pattern, tags, sort);
+        return service.getExercises(bodyRegion, equipment, pattern, tags, page, size, sort);
     }
 
     @GetMapping("/all")
     public List<ExerciseCatalogResponse> getAllExercises() {
-        return service.getExercises(null, null, null, null, null);
+        return service.getExercises(null, null, null, null, 0, Integer.MAX_VALUE, null);
     }
 
     @GetMapping("/search")
-    public List<ExerciseCatalogResponse> searchExercises(
-            @RequestParam String q
-    ) {
+    public List<ExerciseCatalogResponse> searchExercises(@RequestParam String q) {
         return service.searchExercises(q);
     }
 
     @GetMapping("/{id}")
-    public ExerciseCatalogDetailsResponse getExercise(
-            @PathVariable String id
-    ) {
+    public ExerciseCatalogDetailsResponse getExercise(@PathVariable String id) {
         return service.getExercise(id);
     }
 
