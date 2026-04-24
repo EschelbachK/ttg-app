@@ -30,69 +30,94 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
         try (InputStream input = resource.getInputStream()) {
 
             List<ExerciseCatalog> exercises =
-                    objectMapper.readValue(input, new TypeReference<List<ExerciseCatalog>>() {});
+                    objectMapper.readValue(input, new TypeReference<>() {});
 
-            exercises.forEach(this::enrich);
+            exercises.forEach(e -> {
+
+                if (e.getPrimaryMuscle() == null) {
+                    e.setPrimaryMuscle(Muscle.BRUST);
+                }
+
+                if (e.getExerciseType() == null) {
+                    e.setExerciseType(ExerciseType.GRUNDUEBUNG);
+                }
+
+                if (e.getDifficulty() == null) {
+                    e.setDifficulty(Difficulty.MITTEL);
+                }
+
+                if (e.getMovementPattern() == null) {
+                    e.setMovementPattern(detectPattern(e));
+                }
+
+                if (e.getTags() == null || e.getTags().isEmpty()) {
+                    e.setTags(generateTags(e));
+                }
+
+                if (e.getThumbnail() == null) {
+                    e.setThumbnail(generateThumbnail(e));
+                }
+
+                if (e.getImageUrl() == null) {
+                    e.setImageUrl(e.getThumbnail());
+                }
+
+                if (e.getAnimationUrl() == null) {
+                    e.setAnimationUrl(null);
+                }
+            });
 
             repository.saveAll(exercises);
         }
     }
 
-    private void enrich(ExerciseCatalog e) {
+    private MovementPattern detectPattern(ExerciseCatalog e) {
 
-        if (e.getPrimaryMuscle() == null) {
-            e.setPrimaryMuscle(Muscle.BRUST);
+        String name = e.getName().toLowerCase();
+
+        if (name.contains("press") || name.contains("drücken") || name.contains("push")) {
+            return MovementPattern.PUSH;
         }
 
-        if (e.getExerciseType() == null) {
-            e.setExerciseType(ExerciseType.GRUNDUEBUNG);
+        if (name.contains("row") || name.contains("rudern") || name.contains("pull") || name.contains("klimmzug")) {
+            return MovementPattern.PULL;
         }
 
-        if (e.getDifficulty() == null) {
-            e.setDifficulty(Difficulty.MITTEL);
+        if (name.contains("squat") || name.contains("kniebeuge")) {
+            return MovementPattern.SQUAT;
         }
 
-        if (e.getMovementPattern() == null) {
-            e.setMovementPattern(mapPattern(e));
+        if (name.contains("deadlift") || name.contains("kreuzheben")) {
+            return MovementPattern.HINGE;
         }
 
-        if (e.getTags() == null || e.getTags().isEmpty()) {
-            e.setTags(generateTags(e));
+        if (name.contains("lunge") || name.contains("ausfallschritt")) {
+            return MovementPattern.LUNGE;
         }
 
-        if (e.getImageUrl() == null) {
-            e.setImageUrl("/images/" + e.getId() + ".png");
+        if (e.getBodyRegion() == BodyRegion.BAUCH) {
+            return MovementPattern.CORE;
         }
 
-        if (e.getAnimationUrl() == null) {
-            e.setAnimationUrl("/animations/" + e.getId() + ".gif");
-        }
-
-        if (e.getThumbnail() == null) {
-            e.setThumbnail("/thumbnails/" + e.getId() + ".jpg");
-        }
-    }
-
-    private MovementPattern mapPattern(ExerciseCatalog e) {
-        return switch (e.getBodyRegion()) {
-            case BRUST, SCHULTERN, TRIZEPS -> MovementPattern.PUSH;
-            case RUECKEN, BIZEPS -> MovementPattern.PULL;
-            case BEINE -> MovementPattern.SQUAT;
-            case BAUCH -> MovementPattern.CORE;
-            case GANZKOERPER, CARDIO -> MovementPattern.FULL_BODY;
-            default -> MovementPattern.FULL_BODY;
-        };
+        return MovementPattern.FULL_BODY;
     }
 
     private List<String> generateTags(ExerciseCatalog e) {
 
         List<String> tags = new ArrayList<>();
 
-        tags.add(e.getPrimaryMuscle().name().toLowerCase());
-        tags.add(e.getEquipment().name().toLowerCase());
+        tags.add(e.getDifficulty().name().toLowerCase());
         tags.add(e.getExerciseType().name().toLowerCase());
-        tags.add(e.getMovementPattern().name().toLowerCase());
+        tags.add(e.getBodyRegion().name().toLowerCase());
+
+        if (e.getEquipment() != null) {
+            tags.add(e.getEquipment().name().toLowerCase());
+        }
 
         return tags;
+    }
+
+    private String generateThumbnail(ExerciseCatalog e) {
+        return "/images/exercises/" + e.getId() + ".png";
     }
 }
