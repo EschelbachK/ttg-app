@@ -125,6 +125,9 @@ public class ExerciseCatalogService {
                 .difficulty(e.getDifficulty())
                 .movementPattern(e.getMovementPattern())
                 .tags(e.getTags())
+                .instructions(e.getInstructions())
+                .tips(e.getTips())
+                .commonMistakes(e.getCommonMistakes())
                 .build();
     }
 
