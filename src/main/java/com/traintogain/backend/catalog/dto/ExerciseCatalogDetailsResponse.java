@@ -11,29 +11,25 @@ import java.util.List;
 public class ExerciseCatalogDetailsResponse {
 
     private String id;
-
     private String name;
 
     private String imageUrl;
-
     private String animationUrl;
-
     private String thumbnail;
 
     private BodyRegion bodyRegion;
-
     private EquipmentType equipment;
 
     private Muscle primaryMuscle;
-
     private List<Muscle> secondaryMuscles;
 
     private ExerciseType exerciseType;
-
     private Difficulty difficulty;
-
     private MovementPattern movementPattern;
 
     private List<String> tags;
 
+    private List<String> instructions;
+    private List<String> tips;
+    private List<String> commonMistakes;
 }
