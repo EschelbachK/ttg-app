@@ -1,0 +1,675 @@
+{
+  "id": "bench_press",
+  "name": "Bankdrücken",
+  "bodyRegion": "BRUST",
+  "equipment": "LANGHANTEL",
+  "primaryMuscle": "BRUST",
+  "secondaryMuscles": ["TRIZEPS", "SCHULTERN"],
+  "exerciseType": "GRUNDUEBUNG",
+  "difficulty": "MITTEL",
+  "movementPattern": "PUSH",
+  "tags": ["push", "brust", "compound"],
+  "thumbnail": "",
+  "imageUrl": "",
+  "animationUrl": "",
+  "instructions": [
+    "Lege dich flach auf die Bank",
+    "Greife die Langhantel schulterbreit",
+    "Senke die Hantel kontrolliert zur Brust",
+    "Drücke sie explosiv nach oben"
+  ],
+  "tips": [
+    "Schulterblätter nach hinten ziehen",
+    "Core anspannen",
+    "Füße fest am Boden"
+  ],
+  "commonMistakes": [
+    "Ellenbogen zu weit außen",
+    "Zu schnelles Absenken",
+    "Kein stabiler Stand"
+  ]
+},
+{
+"id": "incline_bench_press",
+"name": "Schrägbankdrücken",
+"bodyRegion": "BRUST",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "BRUST",
+"secondaryMuscles": ["TRIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "PUSH",
+"tags": ["upper_chest", "push"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Stelle die Bank schräg ein",
+"Senke die Hantel zur oberen Brust",
+"Drücke sie kontrolliert nach oben"
+],
+"tips": [
+"Nicht zu steil einstellen",
+"Kontrollierte Bewegung"
+],
+"commonMistakes": [
+"Zu viel Gewicht",
+"Schwung holen"
+]
+},
+{
+"id": "decline_bench_press",
+"name": "Negativbankdrücken",
+"bodyRegion": "BRUST",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "BRUST",
+"secondaryMuscles": ["TRIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "PUSH",
+"tags": ["lower_chest"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Lege dich auf die Negativbank",
+"Senke die Hantel zur unteren Brust",
+"Drücke sie nach oben"
+],
+"tips": ["Stabil liegen", "Core anspannen"],
+"commonMistakes": ["Zu schnell", "Falsche Griffbreite"]
+},
+{
+"id": "dumbbell_bench_press",
+"name": "Kurzhantel Bankdrücken",
+"bodyRegion": "BRUST",
+"equipment": "KURZHANTEL",
+"primaryMuscle": "BRUST",
+"secondaryMuscles": ["TRIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "PUSH",
+"tags": ["stability", "push"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Halte zwei Kurzhanteln",
+"Senke sie seitlich ab",
+"Drücke sie nach oben zusammen"
+],
+"tips": ["Stabilisieren", "Langsam absenken"],
+"commonMistakes": ["Zu weit auseinander", "Schwung"]
+},
+{
+"id": "push_up",
+"name": "Liegestütze",
+"bodyRegion": "BRUST",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "BRUST",
+"secondaryMuscles": ["TRIZEPS"],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "ANFAENGER",
+"movementPattern": "PUSH",
+"tags": ["bodyweight"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Körper gerade halten",
+"Brust Richtung Boden senken",
+"Wieder hochdrücken"
+],
+"tips": ["Core anspannen"],
+"commonMistakes": ["Hohlkreuz", "Ellbogen falsch"]
+},
+{
+"id": "deadlift",
+"name": "Kreuzheben",
+"bodyRegion": "RUECKEN",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BEINE"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "FORTGESCHRITTEN",
+"movementPattern": "HINGE",
+"tags": ["posterior_chain"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Greife die Hantel am Boden",
+"Rücken gerade halten",
+"Hüfte strecken"
+],
+"tips": ["Hantel nah am Körper"],
+"commonMistakes": ["Rundrücken"]
+}
+{
+"id": "romanian_deadlift",
+"name": "Rumänisches Kreuzheben",
+"bodyRegion": "RUECKEN",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BEINE"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "HINGE",
+"tags": ["hamstrings", "posterior_chain"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Halte die Hantel vor dem Körper",
+"Schiebe die Hüfte nach hinten",
+"Senke die Hantel entlang der Beine",
+"Kehre kontrolliert zurück"
+],
+"tips": [
+"Rücken gerade halten",
+"Bewegung aus der Hüfte"
+],
+"commonMistakes": [
+"Rundrücken",
+"Zu tiefe Kniebeugung"
+]
+},
+{
+"id": "barbell_row",
+"name": "Langhantelrudern",
+"bodyRegion": "RUECKEN",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "PULL",
+"tags": ["back", "row"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Beuge dich nach vorne",
+"Ziehe die Hantel zum Bauch",
+"Senke sie kontrolliert"
+],
+"tips": [
+"Ellbogen nah am Körper",
+"Core stabil halten"
+],
+"commonMistakes": [
+"Schwung holen",
+"Rundrücken"
+]
+},
+{
+"id": "lat_pulldown_wide",
+"name": "Latziehen weiter Griff",
+"bodyRegion": "RUECKEN",
+"equipment": "KABELZUG",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PULL",
+"tags": ["lats"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Greife die Stange weit",
+"Ziehe sie zur Brust",
+"Lasse sie kontrolliert hoch"
+],
+"tips": ["Brust raus", "Langsam zurück"],
+"commonMistakes": ["Hinter den Kopf ziehen"]
+},
+{
+"id": "seated_row",
+"name": "Kabelrudern",
+"bodyRegion": "RUECKEN",
+"equipment": "KABELZUG",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PULL",
+"tags": ["mid_back"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Ziehe den Griff zum Bauch",
+"Halte Rücken gerade",
+"Lasse langsam los"
+],
+"tips": ["Schulterblätter zusammenziehen"],
+"commonMistakes": ["Rundrücken"]
+},
+{
+"id": "pull_up",
+"name": "Klimmzüge",
+"bodyRegion": "RUECKEN",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BIZEPS"],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "MITTEL",
+"movementPattern": "PULL",
+"tags": ["bodyweight"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Hänge an der Stange",
+"Ziehe dich hoch",
+"Lasse dich kontrolliert runter"
+],
+"tips": ["Keine Schwungbewegung"],
+"commonMistakes": ["Halbe Wiederholungen"]
+},
+{
+"id": "squat",
+"name": "Kniebeuge",
+"bodyRegion": "BEINE",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "QUADS",
+"secondaryMuscles": ["GLUTES"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "SQUAT",
+"tags": ["legs", "compound"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Stelle dich schulterbreit hin",
+"Gehe tief in die Hocke",
+"Drücke dich nach oben"
+],
+"tips": ["Knie nach außen"],
+"commonMistakes": ["Rundrücken"]
+},
+{
+"id": "leg_press",
+"name": "Beinpresse",
+"bodyRegion": "BEINE",
+"equipment": "MASCHINE",
+"primaryMuscle": "QUADS",
+"secondaryMuscles": ["GLUTES"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PUSH",
+"tags": ["machine"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Füße auf die Plattform",
+"Gewicht absenken",
+"Wieder hochdrücken"
+],
+"tips": ["Nicht durchstrecken"],
+"commonMistakes": ["Zu tief gehen"]
+}
+{
+"id": "leg_extension",
+"name": "Beinstrecker",
+"bodyRegion": "BEINE",
+"equipment": "MASCHINE",
+"primaryMuscle": "QUADS",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PUSH",
+"tags": ["quads"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Setze dich in die Maschine",
+"Strecke die Beine nach vorne",
+"Senke sie langsam ab"
+],
+"tips": ["Kontrollierte Bewegung"],
+"commonMistakes": ["Schwung holen"]
+},
+{
+"id": "leg_curl",
+"name": "Beinbeuger",
+"bodyRegion": "BEINE",
+"equipment": "MASCHINE",
+"primaryMuscle": "HAMSTRINGS",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "HINGE",
+"tags": ["hamstrings"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Beine nach hinten ziehen",
+"Langsam zurückführen"
+],
+"tips": ["Langsam ausführen"],
+"commonMistakes": ["Zu schnell"]
+},
+{
+"id": "standing_calf_raise",
+"name": "Wadenheben stehend",
+"bodyRegion": "BEINE",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "WADEN",
+"secondaryMuscles": [],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "ANFAENGER",
+"movementPattern": "PUSH",
+"tags": ["calves"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Auf die Zehenspitzen gehen",
+"Langsam absenken"
+],
+"tips": ["Volle Range of Motion"],
+"commonMistakes": ["Zu kurze Bewegung"]
+},
+{
+"id": "overhead_press",
+"name": "Schulterdrücken Langhantel",
+"bodyRegion": "SCHULTERN",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "SCHULTERN",
+"secondaryMuscles": ["TRIZEPS"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "PUSH",
+"tags": ["shoulders"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Hantel auf Schulterhöhe",
+"Über Kopf drücken",
+"Langsam absenken"
+],
+"tips": ["Core stabil halten"],
+"commonMistakes": ["Hohlkreuz"]
+},
+{
+"id": "lateral_raise",
+"name": "Seitheben",
+"bodyRegion": "SCHULTERN",
+"equipment": "KURZHANTEL",
+"primaryMuscle": "SCHULTERN",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "LATERAL",
+"tags": ["side_delts"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Arme seitlich anheben",
+"Bis Schulterhöhe",
+"Langsam absenken"
+],
+"tips": ["Leicht gebeugte Arme"],
+"commonMistakes": ["Schwung holen"]
+},
+{
+"id": "rear_delt_fly",
+"name": "Reverse Fly",
+"bodyRegion": "SCHULTERN",
+"equipment": "KURZHANTEL",
+"primaryMuscle": "SCHULTERN",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PULL",
+"tags": ["rear_delts"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Oberkörper nach vorne",
+"Arme nach außen ziehen"
+],
+"tips": ["Langsam ausführen"],
+"commonMistakes": ["Schwung"]
+},
+{
+"id": "barbell_curl",
+"name": "Langhantel Curl",
+"bodyRegion": "BIZEPS",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "BIZEPS",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PULL",
+"tags": ["biceps"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Hantel nach oben curlen",
+"Langsam absenken"
+],
+"tips": ["Ellbogen fixieren"],
+"commonMistakes": ["Schwung holen"]
+},
+{
+"id": "hammer_curl",
+"name": "Hammer Curl",
+"bodyRegion": "BIZEPS",
+"equipment": "KURZHANTEL",
+"primaryMuscle": "BIZEPS",
+"secondaryMuscles": ["UNTERARME"],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PULL",
+"tags": ["forearms"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Hanteln neutral halten",
+"Nach oben curlen"
+],
+"tips": ["Langsam absenken"],
+"commonMistakes": ["Schwung"]
+}
+{
+"id": "triceps_pushdown",
+"name": "Trizeps Kabel",
+"bodyRegion": "TRIZEPS",
+"equipment": "KABELZUG",
+"primaryMuscle": "TRIZEPS",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "ANFAENGER",
+"movementPattern": "PUSH",
+"tags": ["triceps"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Griff nach unten drücken",
+"Ellbogen fixiert halten"
+],
+"tips": ["Langsam zurück"],
+"commonMistakes": ["Ellbogen bewegen"]
+},
+{
+"id": "skullcrusher",
+"name": "Skullcrusher",
+"bodyRegion": "TRIZEPS",
+"equipment": "LANGHANTEL",
+"primaryMuscle": "TRIZEPS",
+"secondaryMuscles": [],
+"exerciseType": "ISOLATIONSUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "PUSH",
+"tags": ["triceps"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Hantel zur Stirn senken",
+"Nach oben drücken"
+],
+"tips": ["Kontrolliert"],
+"commonMistakes": ["Zu schnell"]
+},
+{
+"id": "plank",
+"name": "Plank",
+"bodyRegion": "BAUCH",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "CORE",
+"secondaryMuscles": [],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "ANFAENGER",
+"movementPattern": "STATIC",
+"tags": ["core"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Körper gerade halten",
+"Spannung halten"
+],
+"tips": ["Nicht durchhängen"],
+"commonMistakes": ["Hüfte zu tief"]
+},
+{
+"id": "crunch",
+"name": "Crunch",
+"bodyRegion": "BAUCH",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "BAUCH",
+"secondaryMuscles": [],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "ANFAENGER",
+"movementPattern": "FLEXION",
+"tags": ["abs"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Oberkörper anheben",
+"Langsam absenken"
+],
+"tips": ["Nicht ziehen"],
+"commonMistakes": ["Nacken ziehen"]
+},
+{
+"id": "hanging_leg_raise",
+"name": "Hanging Leg Raise",
+"bodyRegion": "BAUCH",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "BAUCH",
+"secondaryMuscles": [],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "MITTEL",
+"movementPattern": "FLEXION",
+"tags": ["abs"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Beine nach oben ziehen",
+"Langsam absenken"
+],
+"tips": ["Nicht schwingen"],
+"commonMistakes": ["Momentum"]
+},
+{
+"id": "treadmill",
+"name": "Laufband",
+"bodyRegion": "CARDIO",
+"equipment": "MASCHINE",
+"primaryMuscle": "BEINE",
+"secondaryMuscles": [],
+"exerciseType": "CARDIO",
+"difficulty": "ANFAENGER",
+"movementPattern": "CARDIO",
+"tags": ["cardio"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Tempo einstellen",
+"Laufen"
+],
+"tips": ["Auf Haltung achten"],
+"commonMistakes": ["Zu schnell starten"]
+},
+{
+"id": "rowing_machine",
+"name": "Rudergerät",
+"bodyRegion": "CARDIO",
+"equipment": "MASCHINE",
+"primaryMuscle": "RUECKEN",
+"secondaryMuscles": ["BEINE"],
+"exerciseType": "CARDIO",
+"difficulty": "ANFAENGER",
+"movementPattern": "PULL",
+"tags": ["cardio"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Zugbewegung ausführen",
+"Beine + Arme koordinieren"
+],
+"tips": ["Rhythmus halten"],
+"commonMistakes": ["Nur Arme nutzen"]
+},
+{
+"id": "burpee",
+"name": "Burpee",
+"bodyRegion": "GANZKOERPER",
+"equipment": "KOERPERGEWICHT",
+"primaryMuscle": "GANZKOERPER",
+"secondaryMuscles": [],
+"exerciseType": "BODYWEIGHT",
+"difficulty": "MITTEL",
+"movementPattern": "FULL_BODY",
+"tags": ["hiit"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"In Liegestütz gehen",
+"Hochspringen"
+],
+"tips": ["Sauber ausführen"],
+"commonMistakes": ["Unsicher landen"]
+},
+{
+"id": "kettlebell_swing",
+"name": "Kettlebell Swing",
+"bodyRegion": "GANZKOERPER",
+"equipment": "SONSTIGES",
+"primaryMuscle": "GLUTES",
+"secondaryMuscles": ["CORE"],
+"exerciseType": "GRUNDUEBUNG",
+"difficulty": "MITTEL",
+"movementPattern": "HINGE",
+"tags": ["power"],
+"thumbnail": "",
+"imageUrl": "",
+"animationUrl": "",
+"instructions": [
+"Hüfte explosiv strecken",
+"Kettlebell schwingen"
+],
+"tips": ["Hüfte nutzen"],
+"commonMistakes": ["Arme ziehen"]
+}
+]
