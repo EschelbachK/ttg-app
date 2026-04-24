@@ -18,16 +18,22 @@ public class ExerciseCatalogDetailsResponse {
 
     private String animationUrl;
 
+    private String thumbnail;
+
     private BodyRegion bodyRegion;
 
     private EquipmentType equipment;
 
-    private Muscle primaryMuskel;
+    private Muscle primaryMuscle;
 
-    private List<Muscle> secondaryMuskeln;
+    private List<Muscle> secondaryMuscles;
 
-    private ExerciseType uebungstyp;
+    private ExerciseType exerciseType;
 
-    private Difficulty schwierigkeit;
+    private Difficulty difficulty;
+
+    private MovementPattern movementPattern;
+
+    private List<String> tags;
 
 }
