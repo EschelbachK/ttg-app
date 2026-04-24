@@ -5,39 +5,36 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
-
 public interface ExerciseCatalogRepository extends MongoRepository<ExerciseCatalog, String> {
 
-    Page<ExerciseCatalog> findAll(Pageable pageable);
+    Page<ExerciseCatalog> findByBodyRegion(BodyRegion bodyRegion, Pageable pageable);
 
-    List<ExerciseCatalog> findByBodyRegion(BodyRegion bodyRegion);
+    Page<ExerciseCatalog> findByEquipment(EquipmentType equipment, Pageable pageable);
 
-    List<ExerciseCatalog> findByEquipment(EquipmentType equipment);
+    Page<ExerciseCatalog> findByMovementPattern(MovementPattern movementPattern, Pageable pageable);
 
-    List<ExerciseCatalog> findByMovementPattern(MovementPattern movementPattern);
-
-    List<ExerciseCatalog> findByBodyRegionAndEquipment(
-            BodyRegion bodyRegion,
-            EquipmentType equipment
-    );
-
-    List<ExerciseCatalog> findByBodyRegionAndMovementPattern(
-            BodyRegion bodyRegion,
-            MovementPattern movementPattern
-    );
-
-    List<ExerciseCatalog> findByEquipmentAndMovementPattern(
-            EquipmentType equipment,
-            MovementPattern movementPattern
-    );
-
-    List<ExerciseCatalog> findByBodyRegionAndEquipmentAndMovementPattern(
+    Page<ExerciseCatalog> findByBodyRegionAndEquipment(
             BodyRegion bodyRegion,
             EquipmentType equipment,
-            MovementPattern movementPattern
+            Pageable pageable
     );
 
-    List<ExerciseCatalog> findByNameContainingIgnoreCase(String name);
+    Page<ExerciseCatalog> findByBodyRegionAndMovementPattern(
+            BodyRegion bodyRegion,
+            MovementPattern movementPattern,
+            Pageable pageable
+    );
 
+    Page<ExerciseCatalog> findByEquipmentAndMovementPattern(
+            EquipmentType equipment,
+            MovementPattern movementPattern,
+            Pageable pageable
+    );
+
+    Page<ExerciseCatalog> findByBodyRegionAndEquipmentAndMovementPattern(
+            BodyRegion bodyRegion,
+            EquipmentType equipment,
+            MovementPattern movementPattern,
+            Pageable pageable
+    );
 }
