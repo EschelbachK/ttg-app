@@ -1,123 +1,74 @@
-package com.traintogain.backend.catalog.seed;
+package com.traintogain.backend.catalog.seeder;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.traintogain.backend.catalog.model.*;
+import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class ExerciseCatalogSeeder implements CommandLineRunner {
+public class ExerciseCatalogSeeder {
 
     private final ExerciseCatalogRepository repository;
     private final ObjectMapper objectMapper;
 
-    @Override
-    public void run(String... args) throws Exception {
+    @EventListener(ApplicationReadyEvent.class)
+    public void seed() {
 
-        if (repository.count() > 0) return;
+        try (InputStream inputStream = new ClassPathResource("exercise-catalog.json").getInputStream()) {
 
-        ClassPathResource resource = new ClassPathResource("catalog/exercises.json");
+            List<ExerciseCatalog> incoming = objectMapper.readValue(
+                    inputStream,
+                    new TypeReference<List<ExerciseCatalog>>() {}
+            );
 
-        try (InputStream input = resource.getInputStream()) {
+            Map<String, ExerciseCatalog> existingMap = repository.findAll()
+                    .stream()
+                    .collect(Collectors.toMap(ExerciseCatalog::getId, e -> e));
 
-            List<ExerciseCatalog> exercises =
-                    objectMapper.readValue(input, new TypeReference<>() {});
+            List<ExerciseCatalog> toSave = incoming.stream()
+                    .map(e -> {
 
-            exercises.forEach(e -> {
+                        ExerciseCatalog existing = existingMap.get(e.getId());
 
-                if (e.getPrimaryMuscle() == null) {
-                    e.setPrimaryMuscle(Muscle.BRUST);
-                }
+                        if (existing == null) {
+                            return e;
+                        }
 
-                if (e.getExerciseType() == null) {
-                    e.setExerciseType(ExerciseType.GRUNDUEBUNG);
-                }
+                        existing.setName(e.getName());
+                        existing.setBodyRegion(e.getBodyRegion());
+                        existing.setEquipment(e.getEquipment());
+                        existing.setPrimaryMuscle(e.getPrimaryMuscle());
+                        existing.setSecondaryMuscles(e.getSecondaryMuscles());
+                        existing.setExerciseType(e.getExerciseType());
+                        existing.setDifficulty(e.getDifficulty());
+                        existing.setMovementPattern(e.getMovementPattern());
+                        existing.setTags(e.getTags());
+                        existing.setThumbnail(e.getThumbnail());
+                        existing.setImageUrl(e.getImageUrl());
+                        existing.setAnimationUrl(e.getAnimationUrl());
+                        existing.setInstructions(e.getInstructions());
+                        existing.setTips(e.getTips());
+                        existing.setCommonMistakes(e.getCommonMistakes());
 
-                if (e.getDifficulty() == null) {
-                    e.setDifficulty(Difficulty.MITTEL);
-                }
+                        return existing;
+                    })
+                    .toList();
 
-                if (e.getMovementPattern() == null) {
-                    e.setMovementPattern(detectPattern(e));
-                }
+            repository.saveAll(toSave);
 
-                if (e.getTags() == null || e.getTags().isEmpty()) {
-                    e.setTags(generateTags(e));
-                }
-
-                if (e.getThumbnail() == null) {
-                    e.setThumbnail(generateThumbnail(e));
-                }
-
-                if (e.getImageUrl() == null) {
-                    e.setImageUrl(e.getThumbnail());
-                }
-
-                if (e.getAnimationUrl() == null) {
-                    e.setAnimationUrl(null);
-                }
-            });
-
-            repository.saveAll(exercises);
+        } catch (Exception e) {
+            throw new RuntimeException("failed to seed exercise catalog", e);
         }
-    }
-
-    private MovementPattern detectPattern(ExerciseCatalog e) {
-
-        String name = e.getName().toLowerCase();
-
-        if (name.contains("press") || name.contains("drücken") || name.contains("push")) {
-            return MovementPattern.PUSH;
-        }
-
-        if (name.contains("row") || name.contains("rudern") || name.contains("pull") || name.contains("klimmzug")) {
-            return MovementPattern.PULL;
-        }
-
-        if (name.contains("squat") || name.contains("kniebeuge")) {
-            return MovementPattern.SQUAT;
-        }
-
-        if (name.contains("deadlift") || name.contains("kreuzheben")) {
-            return MovementPattern.HINGE;
-        }
-
-        if (name.contains("lunge") || name.contains("ausfallschritt")) {
-            return MovementPattern.LUNGE;
-        }
-
-        if (e.getBodyRegion() == BodyRegion.BAUCH) {
-            return MovementPattern.CORE;
-        }
-
-        return MovementPattern.FULL_BODY;
-    }
-
-    private List<String> generateTags(ExerciseCatalog e) {
-
-        List<String> tags = new ArrayList<>();
-
-        tags.add(e.getDifficulty().name().toLowerCase());
-        tags.add(e.getExerciseType().name().toLowerCase());
-        tags.add(e.getBodyRegion().name().toLowerCase());
-
-        if (e.getEquipment() != null) {
-            tags.add(e.getEquipment().name().toLowerCase());
-        }
-
-        return tags;
-    }
-
-    private String generateThumbnail(ExerciseCatalog e) {
-        return "/images/exercises/" + e.getId() + ".png";
     }
 }

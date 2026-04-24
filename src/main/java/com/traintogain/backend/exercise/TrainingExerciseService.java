@@ -17,13 +17,19 @@ public class TrainingExerciseService {
 
     private final TrainingExerciseRepository trainingExerciseRepository;
     private final TrainingFolderRepository trainingFolderRepository;
+    private final ExerciseReferenceResolver referenceResolver;
+    private final ExerciseValidationService validationService;
 
     public TrainingExerciseService(
             TrainingExerciseRepository trainingExerciseRepository,
-            TrainingFolderRepository trainingFolderRepository
+            TrainingFolderRepository trainingFolderRepository,
+            ExerciseReferenceResolver referenceResolver,
+            ExerciseValidationService validationService
     ) {
         this.trainingExerciseRepository = trainingExerciseRepository;
         this.trainingFolderRepository = trainingFolderRepository;
+        this.referenceResolver = referenceResolver;
+        this.validationService = validationService;
     }
 
     public TrainingExercise addExercise(
@@ -41,6 +47,13 @@ public class TrainingExerciseService {
             throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe");
         }
 
+        ExerciseReference ref = referenceResolver.resolve(request.exerciseId());
+
+        validationService.validateExercise(
+                ref.getFamily().name(),
+                ref.getBasePattern().name()
+        );
+
         List<SetEntry> sets = request.sets() != null
                 ? request.sets().stream()
                 .map(s -> new SetEntry(s.weight(), s.repetitions()))
@@ -50,6 +63,7 @@ public class TrainingExerciseService {
         TrainingExercise exercise = new TrainingExercise();
         exercise.setUserId(userId);
         exercise.setFolderId(folderId);
+        exercise.setExerciseId(request.exerciseId());
         exercise.setName(request.name());
         exercise.setSets(sets);
 
@@ -71,14 +85,28 @@ public class TrainingExerciseService {
             throw new ForbiddenException("Kein Zugriff");
         }
 
-        // 🔥 FIX: record richtig verwenden
+        if (request.getExerciseId() != null) {
+
+            ExerciseReference ref = referenceResolver.resolve(request.getExerciseId());
+
+            validationService.validateExercise(
+                    ref.getFamily().name(),
+                    ref.getBasePattern().name()
+            );
+
+            exercise.setExerciseId(request.getExerciseId());
+        }
+
+        if (request.getName() != null) {
+            exercise.setName(request.getName());
+        }
+
         List<SetEntry> sets = request.getSets() != null
                 ? request.getSets().stream()
                 .map(s -> new SetEntry(s.weight(), s.repetitions()))
                 .toList()
-                : List.of();
+                : exercise.getSets();
 
-        // 🔥 CRITICAL
         exercise.setSets(sets);
 
         return trainingExerciseRepository.save(exercise);

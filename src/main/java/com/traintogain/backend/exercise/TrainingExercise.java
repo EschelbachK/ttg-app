@@ -18,6 +18,9 @@ public class TrainingExercise {
     @Indexed
     private String folderId;
 
+    @Indexed
+    private String exerciseId;
+
     private String name;
 
     private List<SetEntry> sets;
@@ -25,12 +28,14 @@ public class TrainingExercise {
     public String getId() { return id; }
     public String getUserId() { return userId; }
     public String getFolderId() { return folderId; }
+    public String getExerciseId() { return exerciseId; }
     public String getName() { return name; }
     public List<SetEntry> getSets() { return sets; }
 
     public void setId(String id) { this.id = id; }
     public void setUserId(String userId) { this.userId = userId; }
     public void setFolderId(String folderId) { this.folderId = folderId; }
+    public void setExerciseId(String exerciseId) { this.exerciseId = exerciseId; }
     public void setName(String name) { this.name = name; }
     public void setSets(List<SetEntry> sets) { this.sets = sets; }
 
@@ -38,8 +43,9 @@ public class TrainingExercise {
         TrainingExercise copy = new TrainingExercise();
         copy.setUserId(this.userId);
         copy.setFolderId(newFolderId);
+        copy.setExerciseId(this.exerciseId);
         copy.setName(this.name);
-        copy.setSets(this.sets); // optional deep copy später
+        copy.setSets(this.sets);
         return copy;
     }
 }

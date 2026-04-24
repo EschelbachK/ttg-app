@@ -12,6 +12,8 @@ public class UpdateTrainingExerciseRequest {
     @NotBlank
     private String name;
 
+    private String exerciseId;
+
     private BodyRegion bodyRegion;
     private String notes;
 
@@ -22,6 +24,10 @@ public class UpdateTrainingExerciseRequest {
 
     public String getName() {
         return name;
+    }
+
+    public String getExerciseId() {
+        return exerciseId;
     }
 
     public BodyRegion getBodyRegion() {

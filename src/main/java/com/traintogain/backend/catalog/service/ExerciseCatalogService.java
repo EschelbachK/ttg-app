@@ -54,7 +54,7 @@ public class ExerciseCatalogService {
             result = repository.findAll(pageable);
         }
 
-        List<ExerciseCatalog> exercises = new ArrayList<>(result.getContent());
+        List<ExerciseCatalog> exercises = result.getContent();
 
         if (tags != null && !tags.isEmpty()) {
             exercises = exercises.stream()
@@ -62,13 +62,16 @@ public class ExerciseCatalogService {
                     .toList();
         }
 
+        Comparator<ExerciseCatalog> comparator = Comparator.comparing(ExerciseCatalog::getName);
+
         if ("name_desc".equals(sort)) {
-            exercises.sort(Comparator.comparing(ExerciseCatalog::getName).reversed());
-        } else {
-            exercises.sort(Comparator.comparing(ExerciseCatalog::getName));
+            comparator = comparator.reversed();
         }
 
-        return exercises.stream().map(this::mapToResponse).toList();
+        return exercises.stream()
+                .sorted(comparator)
+                .map(this::mapToResponse)
+                .toList();
     }
 
     public List<ExerciseCatalogResponse> searchExercises(String query) {
@@ -76,7 +79,7 @@ public class ExerciseCatalogService {
         String q = query.toLowerCase();
 
         return repository.findAll().stream()
-                .map(e -> Map.entry(e, score(e, q)))
+                .map(e -> new AbstractMap.SimpleEntry<>(e, score(e, q)))
                 .filter(entry -> entry.getValue() > 0)
                 .sorted(Map.Entry.<ExerciseCatalog, Integer>comparingByValue().reversed())
                 .map(entry -> mapToResponse(entry.getKey()))
@@ -89,7 +92,8 @@ public class ExerciseCatalogService {
 
         if (e.getName().toLowerCase().contains(q)) score += 100;
 
-        if (e.getPrimaryMuscle().name().toLowerCase().contains(q)) score += 50;
+        if (e.getPrimaryMuscle() != null &&
+                e.getPrimaryMuscle().name().toLowerCase().contains(q)) score += 50;
 
         if (e.getTags() != null) {
             for (String tag : e.getTags()) {

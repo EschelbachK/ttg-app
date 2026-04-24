@@ -2,12 +2,22 @@ package com.traintogain.backend.catalog.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "exercise_catalog")
+@CompoundIndexes({
+        @CompoundIndex(name = "body_equipment_pattern_idx", def = "{'bodyRegion':1,'equipment':1,'movementPattern':1}"),
+        @CompoundIndex(name = "body_idx", def = "{'bodyRegion':1}"),
+        @CompoundIndex(name = "equipment_idx", def = "{'equipment':1}"),
+        @CompoundIndex(name = "pattern_idx", def = "{'movementPattern':1}"),
+        @CompoundIndex(name = "name_idx", def = "{'name':1}"),
+        @CompoundIndex(name = "family_idx", def = "{'family':1}"),
+        @CompoundIndex(name = "base_pattern_idx", def = "{'basePattern':1}")
+})
 @Getter
 @Setter
 @Builder
@@ -27,29 +37,49 @@ public class ExerciseCatalog {
     @Indexed
     private EquipmentType equipment;
 
-    private String imageUrl;
-
-    private String animationUrl;
-
     @Indexed
     private Muscle primaryMuscle;
 
-    private List<Muscle> secondaryMuscles;
+    @Builder.Default
+    private List<Muscle> secondaryMuscles = new ArrayList<>();
 
+    @Indexed
     private ExerciseType exerciseType;
 
+    @Indexed
     private Difficulty difficulty;
 
     @Indexed
     private MovementPattern movementPattern;
 
-    private List<String> tags;
+    // 🔥 NEW: SYSTEM CORE (UI + LOGIC SEPARATION)
 
-    private String thumbnail;
+    @Indexed
+    private String family;
 
-    private List<String> instructions;
+    @Indexed
+    private String basePattern;
 
-    private List<String> tips;
+    // media
+    @Builder.Default
+    private String imageUrl = "";
 
-    private List<String> commonMistakes;
+    @Builder.Default
+    private String animationUrl = "";
+
+    @Builder.Default
+    private String thumbnail = "";
+
+    // UX content
+    @Builder.Default
+    private List<String> tags = new ArrayList<>();
+
+    @Builder.Default
+    private List<String> instructions = new ArrayList<>();
+
+    @Builder.Default
+    private List<String> tips = new ArrayList<>();
+
+    @Builder.Default
+    private List<String> commonMistakes = new ArrayList<>();
 }

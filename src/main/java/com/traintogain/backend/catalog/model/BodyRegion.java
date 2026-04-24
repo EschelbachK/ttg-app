@@ -2,15 +2,15 @@ package com.traintogain.backend.catalog.model;
 
 public enum BodyRegion {
 
-    BRUST,
-    RUECKEN,
-    BEINE,
-    SCHULTERN,
-    BIZEPS,
-    TRIZEPS,
-    BAUCH,
-    NACKEN,
-    UNTERARME,
+    CHEST,
+    BACK,
+    LEGS,
+    SHOULDERS,
+    BICEPS,
+    TRICEPS,
+    CORE,
+    NECK,
+    FOREARMS,
     CARDIO,
-    GANZKOERPER
+    FULL_BODY
 }

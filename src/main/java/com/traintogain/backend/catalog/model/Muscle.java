@@ -1,19 +1,32 @@
 package com.traintogain.backend.catalog.model;
 
 public enum Muscle {
-    WADEN,
-    NACKEN,
-    BRUST,
+
+    CHEST,
+    UPPER_CHEST,
+    LOWER_CHEST,
+
+    BACK,
+    LATS,
+    TRAPS,
+    LOWER_BACK,
+
+    SHOULDERS_FRONT,
+    SHOULDERS_SIDE,
+    SHOULDERS_REAR,
+
+    BICEPS,
+    TRICEPS,
+
+    CORE,
+
     QUADS,
     HAMSTRINGS,
-    UNTERARME,
     GLUTES,
-    RUECKEN,
-    BIZEPS,
-    TRIZEPS,
-    BAUCH,
-    SCHULTERN,
-    BEINE,
-    CORE,
-    GANZKOERPER
+    CALVES,
+
+    ADDUCTORS,
+    ABDUCTORS,
+
+    FOREARMS
 }

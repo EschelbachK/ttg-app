@@ -2,13 +2,13 @@ package com.traintogain.backend.catalog.model;
 
 public enum EquipmentType {
 
-    LANGHANTEL,
-    KURZHANTEL,
-    MASCHINE,
-    KABELZUG,
-    KOERPERGEWICHT,
+    BARBELL,
+    DUMBBELL,
+    MACHINE,
+    CABLE,
+    BODYWEIGHT,
     KETTLEBELL,
-    BAND,
-    CARDIO_MACHINE,
-    SONSTIGES
+    RESISTANCE_BAND,
+    CARDIO,
+    OTHER
 }

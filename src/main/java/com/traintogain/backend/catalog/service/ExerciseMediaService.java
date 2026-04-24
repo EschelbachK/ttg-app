@@ -1,21 +1,49 @@
 package com.traintogain.backend.catalog.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ExerciseMediaService {
 
-    private static final String BASE_URL = "https://cdn.traintogain.com/exercises/";
+    @Value("${media.base-url}")
+    private String baseUrl;
 
-    public String getThumbnail(String id, String fallback) {
-        return fallback != null ? fallback : BASE_URL + id + "/thumb.webp";
+    @Value("${media.default-image}")
+    private String defaultImage;
+
+    @Value("${media.default-animation}")
+    private String defaultAnimation;
+
+    @Value("${media.default-thumbnail}")
+    private String defaultThumbnail;
+
+    public String getImage(String id, String file) {
+        return resolve(id, file, defaultImage);
     }
 
-    public String getImage(String id, String fallback) {
-        return fallback != null ? fallback : BASE_URL + id + "/image.webp";
+    public String getAnimation(String id, String file) {
+        return resolve(id, file, defaultAnimation);
     }
 
-    public String getAnimation(String id, String fallback) {
-        return fallback != null ? fallback : BASE_URL + id + "/animation.mp4";
+    public String getThumbnail(String id, String file) {
+        return resolve(id, file, defaultThumbnail);
+    }
+
+    private String resolve(String id, String file, String fallback) {
+        String base = normalize(baseUrl);
+
+        if (file != null && !file.isBlank()) {
+            return base + "/exercises/" + id + "/" + file;
+        }
+
+        return base + "/" + fallback;
+    }
+
+    private String normalize(String url) {
+        if (url.endsWith("/")) {
+            return url.substring(0, url.length() - 1);
+        }
+        return url;
     }
 }

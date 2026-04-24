@@ -10,6 +10,9 @@ public record CreateTrainingExerciseRequest(
         @NotBlank(message = "Übungsname darf nicht leer sein!")
         String name,
 
+        @NotBlank(message = "ExerciseId darf nicht leer sein!")
+        String exerciseId,
+
         BodyRegion bodyRegion,
 
         List<@Valid SetEntryRequest> sets

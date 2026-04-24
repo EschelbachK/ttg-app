@@ -1,0 +1,2890 @@
+[
+  {
+    "id": "bench_press",
+    "name": "Bankdrücken",
+    "family": "BENCH_PRESS",
+    "basePattern": "HORIZONTAL_PUSH",
+    "movementPattern": "PUSH",
+    "bodyRegion": "CHEST",
+    "equipment": "BARBELL",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": ["TRICEPS", "SHOULDERS"],
+    "exerciseType": "COMPOUND",
+    "difficulty": "INTERMEDIATE",
+    "tags": ["compound", "strength"],
+    "imageUrl": "bench_press.jpg",
+    "animationUrl": "bench_press.gif",
+    "thumbnail": "bench_press_thumb.jpg",
+    "instructions": [
+      "Langhantel kontrolliert absenken bis zur unteren Brust.",
+      "Explosiv nach oben drücken, ohne die Spannung zu verlieren."
+    ],
+    "tips": [
+      "Schulterblätter aktiv nach hinten und unten fixieren, um die Schulter zu schützen.",
+      "Fester Fußdruck sorgt für stabile Ganzkörperspannung.",
+      "Die Stange in einer leicht diagonalen Linie bewegen, nicht senkrecht."
+    ],
+    "commonMistakes": [
+      "Ellenbogen zu weit außen positioniert.",
+      "Verlust der Körperspannung im unteren Rücken.",
+      "Zu schnelles und unkontrolliertes Absenken der Stange."
+    ]
+  },
+  {
+    "id": "incline_bench_press",
+    "name": "Schrägbankdrücken",
+    "family": "BENCH_PRESS",
+    "basePattern": "INCLINE_PUSH",
+    "movementPattern": "PUSH",
+    "bodyRegion": "CHEST",
+    "equipment": "BARBELL",
+    "primaryMuscle": "UPPER_CHEST",
+    "secondaryMuscles": ["TRICEPS"],
+    "exerciseType": "COMPOUND",
+    "difficulty": "INTERMEDIATE",
+    "tags": ["upper_chest"],
+    "imageUrl": "incline_bench_press.jpg",
+    "animationUrl": "incline_bench_press.gif",
+    "thumbnail": "incline_bench_press_thumb.jpg",
+    "instructions": [
+      "Bank auf ca. 30° einstellen und stabil positionieren.",
+      "Langhantel kontrolliert zur oberen Brust führen."
+    ],
+    "tips": [
+      "Nicht zu steil einstellen, um Schulterstress zu vermeiden.",
+      "Ellbogen leicht unter der Stange führen für optimale Gelenkbelastung.",
+      "Kontrollierte Bewegung ohne Schwung ausführen."
+    ],
+    "commonMistakes": [
+      "Zu steile Bankposition.",
+      "Schultern kippen nach vorne.",
+      "Verlust der Spannung im oberen Rücken."
+    ]
+  },
+  {
+    "id": "decline_bench_press",
+    "name": "Negativbankdrücken",
+    "family": "BENCH_PRESS",
+    "basePattern": "DECLINE_PUSH",
+    "movementPattern": "PUSH",
+    "bodyRegion": "CHEST",
+    "equipment": "BARBELL",
+    "primaryMuscle": "LOWER_CHEST",
+    "secondaryMuscles": ["TRICEPS"],
+    "exerciseType": "COMPOUND",
+    "difficulty": "INTERMEDIATE",
+    "tags": ["lower_chest"],
+    "imageUrl": "decline_bench_press.jpg",
+    "animationUrl": "decline_bench_press.gif",
+    "thumbnail": "decline_bench_press_thumb.jpg",
+    "instructions": [
+      "Langhantel kontrolliert zur unteren Brust absenken.",
+      "Kraftvoll nach oben drücken ohne Schwung."
+    ],
+    "tips": [
+      "Rumpfspannung während der gesamten Bewegung halten.",
+      "Keine Bounce-Bewegung aus der unteren Position.",
+      "Schulterblätter bleiben stabil fixiert."
+    ],
+    "commonMistakes": [
+      "Hüfte verliert Kontakt zur Bank.",
+      "Unkontrolliertes Abfedern am unteren Punkt.",
+      "Instabiler Aufbau der Position."
+    ]
+  },
+  {
+    "id": "dumbbell_fly_flat",
+    "name": "Kurzhantel Fly flach",
+    "family": "CHEST_FLY",
+    "basePattern": "HORIZONTAL_ADDUCTION",
+    "movementPattern": "PUSH",
+    "bodyRegion": "CHEST",
+    "equipment": "DUMBBELL",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [],
+    "exerciseType": "ISOLATION",
+    "difficulty": "BEGINNER",
+    "tags": ["stretch", "isolation"],
+    "imageUrl": "dumbbell_fly_flat.jpg",
+    "animationUrl": "dumbbell_fly_flat.gif",
+    "thumbnail": "dumbbell_fly_flat_thumb.jpg",
+    "instructions": [
+      "Arme kontrolliert seitlich öffnen.",
+      "Brust aktiv zusammenführen."
+    ],
+    "tips": [
+      "Leichte Ellbogenbeugung während der gesamten Bewegung beibehalten.",
+      "Dehnung langsam aufbauen, keine ruckartige Bewegung.",
+      "Schultern stabil halten und nicht überstrecken."
+    ],
+    "commonMistakes": [
+      "Zu tiefe Absenkung der Arme.",
+      "Verlust der Schulterstabilität.",
+      "Zu schnelles Zusammenführen der Arme."
+    ]
+  },
+    {
+      "id": "dumbbell_bench_press",
+      "name": "Kurzhantel Bankdrücken",
+      "family": "BENCH_PRESS_DUMBBELL",
+      "basePattern": "HORIZONTAL_PUSH",
+      "movementPattern": "PUSH",
+      "bodyRegion": "CHEST",
+      "equipment": "DUMBBELL",
+      "primaryMuscle": "CHEST",
+      "secondaryMuscles": ["TRICEPS"],
+      "exerciseType": "COMPOUND",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["dumbbell", "stability"],
+      "imageUrl": "dumbbell_bench_press.jpg",
+      "animationUrl": "dumbbell_bench_press.gif",
+      "thumbnail": "dumbbell_bench_press_thumb.jpg",
+      "instructions": [
+        "Kurzhanteln kontrolliert bis auf Brusthöhe absenken.",
+        "Stabil nach oben drücken ohne Zusammenfallen der Ellbogen."
+      ],
+      "tips": [
+        "Mehr Bewegungsfreiheit als Langhantel, aktiv kontrollieren.",
+        "Beide Arme symmetrisch führen, keine Dominanzseite.",
+        "Schulterblätter bleiben stabil und leicht retrahiert."
+      ],
+      "commonMistakes": [
+        "ungleiche Armführung.",
+        "zu schnelles Absenken der Gewichte.",
+        "Verlust der Spannung oben."
+      ]
+    },
+    {
+      "id": "cable_crossover",
+      "name": "Cable Crossover",
+      "family": "CHEST_FLY",
+      "basePattern": "CABLE_ADDUCTION",
+      "movementPattern": "PUSH",
+      "bodyRegion": "CHEST",
+      "equipment": "CABLE",
+      "primaryMuscle": "CHEST",
+      "secondaryMuscles": [],
+      "exerciseType": "ISOLATION",
+      "difficulty": "BEGINNER",
+      "tags": ["constant_tension"],
+      "imageUrl": "cable_crossover.jpg",
+      "animationUrl": "cable_crossover.gif",
+      "thumbnail": "cable_crossover_thumb.jpg",
+      "instructions": [
+        "Griffe kontrolliert vor der Brust zusammenführen.",
+        "Langsam und kontrolliert zurückführen."
+      ],
+      "tips": [
+        "Konstante Spannung über den gesamten Bewegungsradius halten.",
+        "Brust aktiv am Endpunkt maximal kontrahieren.",
+        "Keine Schwungbewegung einsetzen."
+      ],
+      "commonMistakes": [
+        "Momentum statt Muskelkontrolle.",
+        "zu schnelle Rückführung der Arme.",
+        "Schultern übernehmen die Bewegung."
+      ]
+    },
+    {
+      "id": "incline_dumbbell_press",
+      "name": "Schrägbank Kurzhanteldrücken",
+      "family": "BENCH_PRESS",
+      "basePattern": "INCLINE_PUSH",
+      "movementPattern": "PUSH",
+      "bodyRegion": "CHEST",
+      "equipment": "DUMBBELL",
+      "primaryMuscle": "UPPER_CHEST",
+      "secondaryMuscles": ["TRICEPS"],
+      "exerciseType": "COMPOUND",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["upper_chest"],
+      "imageUrl": "incline_dumbbell_press.jpg",
+      "animationUrl": "incline_dumbbell_press.gif",
+      "thumbnail": "incline_dumbbell_press_thumb.jpg",
+      "instructions": [
+        "Kurzhanteln kontrolliert nach oben drücken.",
+        "Langsam und stabil absenken."
+      ],
+      "tips": [
+        "Bankwinkel nicht zu hoch einstellen (optimal ~30°).",
+        "Ellbogen leicht unter den Handgelenken führen.",
+        "Bewegung kontrolliert ohne Schwung ausführen."
+      ],
+      "commonMistakes": [
+        "zu steiler Winkel.",
+        "Schultern wandern nach vorne.",
+        "unkontrollierte Endphase."
+      ]
+    },
+    {
+      "id": "machine_chest_press",
+      "name": "Brustpresse Maschine",
+      "family": "BENCH_PRESS",
+      "basePattern": "HORIZONTAL_PUSH",
+      "movementPattern": "PUSH",
+      "bodyRegion": "CHEST",
+      "equipment": "MACHINE",
+      "primaryMuscle": "CHEST",
+      "secondaryMuscles": ["TRICEPS"],
+      "exerciseType": "COMPOUND",
+      "difficulty": "BEGINNER",
+      "tags": ["machine", "stability"],
+      "imageUrl": "machine_chest_press.jpg",
+      "animationUrl": "machine_chest_press.gif",
+      "thumbnail": "machine_chest_press_thumb.jpg",
+      "instructions": [
+        "Geführte Bewegung kontrolliert nach vorne drücken.",
+        "Langsam in die Ausgangsposition zurückkehren."
+      ],
+      "tips": [
+        "Sitzhöhe korrekt einstellen für optimale Brustlinie.",
+        "Kein vollständiges Durchstrecken der Ellbogen.",
+        "Konstante Spannung über die gesamte Bewegung halten."
+      ],
+      "commonMistakes": [
+        "zu schnelles Durchdrücken.",
+        "falsche Sitzposition.",
+        "Verlust der Kontrolle am Endpunkt."
+      ]
+    },
+    {
+      "id": "pec_deck_fly",
+      "name": "Butterfly Maschine",
+      "family": "CHEST_FLY",
+      "basePattern": "HORIZONTAL_ADDUCTION",
+      "movementPattern": "PUSH",
+      "bodyRegion": "CHEST",
+      "equipment": "MACHINE",
+      "primaryMuscle": "CHEST",
+      "secondaryMuscles": [],
+      "exerciseType": "ISOLATION",
+      "difficulty": "BEGINNER",
+      "tags": ["isolation", "machine"],
+      "imageUrl": "pec_deck_fly.jpg",
+      "animationUrl": "pec_deck_fly.gif",
+      "thumbnail": "pec_deck_fly_thumb.jpg",
+      "instructions": [
+        "Arme kontrolliert zusammenführen.",
+        "Langsam in die Dehnung zurückgehen."
+      ],
+      "tips": [
+        "Brust aktiv zusammenpressen am Endpunkt.",
+        "Bewegung nicht mit Schultern ausführen.",
+        "Langsame exzentrische Phase betonen."
+      ],
+      "commonMistakes": [
+        "zu schnelles Zurückführen.",
+        "Schultern übernehmen die Bewegung.",
+        "fehlende Kontrolle im Stretch."
+      ]
+    },
+    {
+      "id": "push_up",
+      "name": "Liegestütze",
+      "family": "BODYWEIGHT_CHEST",
+      "basePattern": "HORIZONTAL_PUSH",
+      "movementPattern": "PUSH",
+      "bodyRegion": "CHEST",
+      "equipment": "BODYWEIGHT",
+      "primaryMuscle": "CHEST",
+      "secondaryMuscles": ["TRICEPS", "SHOULDERS"],
+      "exerciseType": "BODYWEIGHT",
+      "difficulty": "BEGINNER",
+      "tags": ["bodyweight", "basic"],
+      "imageUrl": "push_up.jpg",
+      "animationUrl": "push_up.gif",
+      "thumbnail": "push_up_thumb.jpg",
+      "instructions": [
+        "Körper gerade halten und kontrolliert absenken.",
+        "Kraftvoll wieder nach oben drücken."
+      ],
+      "tips": [
+        "Körperspannung durchgehend aktiv halten.",
+        "Ellbogen leicht nach hinten führen.",
+        "Keine Hüftabsenkung zulassen."
+      ],
+      "commonMistakes": [
+        "Hüfte hängt durch.",
+        "zu kurze Bewegungsamplitude.",
+        "fehlende Core-Spannung."
+      ]
+    },
+      {
+        "id": "deadlift",
+        "name": "Kreuzheben",
+        "family": "DEADLIFT",
+        "basePattern": "HIP_HINGE",
+        "movementPattern": "HINGE",
+        "bodyRegion": "BACK",
+        "equipment": "BARBELL",
+        "primaryMuscle": "BACK",
+        "secondaryMuscles": ["GLUTES", "HAMSTRINGS"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "ADVANCED",
+        "tags": ["strength", "posterior_chain"],
+        "imageUrl": "deadlift.jpg",
+        "animationUrl": "deadlift.gif",
+        "thumbnail": "deadlift_thumb.jpg",
+        "instructions": [
+          "Hantel nah am Körper vom Boden anheben.",
+          "Kontrolliert aufrichten bis zur vollständigen Streckung."
+        ],
+        "tips": [
+          "Core vor dem Zug maximal aktivieren (Bracing).",
+          "Rücken neutral halten während der gesamten Bewegung.",
+          "Boden aktiv wegdrücken statt nur hochziehen."
+        ],
+        "commonMistakes": [
+          "Rundrücken beim Anheben.",
+          "Stange zu weit vom Körper entfernt.",
+          "fehlende Core-Spannung."
+        ]
+      },
+      {
+        "id": "romanian_deadlift",
+        "name": "Rumänisches Kreuzheben",
+        "family": "DEADLIFT",
+        "basePattern": "HIP_HINGE",
+        "movementPattern": "HINGE",
+        "bodyRegion": "BACK",
+        "equipment": "BARBELL",
+        "primaryMuscle": "HAMSTRINGS",
+        "secondaryMuscles": ["GLUTES"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "INTERMEDIATE",
+        "tags": ["hamstrings", "hinge"],
+        "imageUrl": "romanian_deadlift.jpg",
+        "animationUrl": "romanian_deadlift.gif",
+        "thumbnail": "romanian_deadlift_thumb.jpg",
+        "instructions": [
+          "Hüfte kontrolliert nach hinten schieben.",
+          "Langhantel entlang der Beine führen."
+        ],
+        "tips": [
+          "Leichte Kniebeugung konstant halten.",
+          "Hamstring-Dehnung aktiv kontrollieren.",
+          "Rücken neutral und stabil halten."
+        ],
+        "commonMistakes": [
+          "zu starkes Absenken mit rundem Rücken.",
+          "Knie zu stark gebeugt (verliert Hinge-Charakter).",
+          "Stange entfernt vom Körper."
+        ]
+      },
+      {
+        "id": "barbell_row",
+        "name": "Langhantelrudern",
+        "family": "ROW",
+        "basePattern": "HORIZONTAL_PULL",
+        "movementPattern": "PULL",
+        "bodyRegion": "BACK",
+        "equipment": "BARBELL",
+        "primaryMuscle": "BACK",
+        "secondaryMuscles": ["BICEPS"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "INTERMEDIATE",
+        "tags": ["row", "strength"],
+        "imageUrl": "barbell_row.jpg",
+        "animationUrl": "barbell_row.gif",
+        "thumbnail": "barbell_row_thumb.jpg",
+        "instructions": [
+          "Stange kontrolliert zum Bauch ziehen.",
+          "Langsam wieder ablassen."
+        ],
+        "tips": [
+          "Oberkörper stabil halten ohne Schwung.",
+          "Ellbogen eng am Körper führen.",
+          "Rücken konstant neutral halten."
+        ],
+        "commonMistakes": [
+          "Schwung aus dem unteren Rücken.",
+          "Rundrücken.",
+          "zu hohes Ziehen Richtung Brust statt Bauch."
+        ]
+      },
+      {
+        "id": "t_bar_row",
+        "name": "T-Bar Rudern",
+        "family": "ROW",
+        "basePattern": "HORIZONTAL_PULL",
+        "movementPattern": "PULL",
+        "bodyRegion": "BACK",
+        "equipment": "BARBELL",
+        "primaryMuscle": "BACK",
+        "secondaryMuscles": ["BICEPS"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "INTERMEDIATE",
+        "tags": ["thickness", "row"],
+        "imageUrl": "t_bar_row.jpg",
+        "animationUrl": "t_bar_row.gif",
+        "thumbnail": "t_bar_row_thumb.jpg",
+        "instructions": [
+          "Gewicht kontrolliert zur Brust/Bauchzone ziehen.",
+          "Langsam zurückführen."
+        ],
+        "tips": [
+          "Brust stabil und aufrecht halten.",
+          "Ellbogen gezielt nach hinten führen.",
+          "Kein ruckartiges Ziehen."
+        ],
+        "commonMistakes": [
+          "Momentum statt Muskelarbeit.",
+          "zu starkes Aufrichten im Zug.",
+          "instabile Rumpfspannung."
+        ]
+      },
+      {
+        "id": "lat_pulldown_wide",
+        "name": "Latziehen weiter Griff",
+        "family": "LAT_PULLDOWN",
+        "basePattern": "VERTICAL_PULL",
+        "movementPattern": "PULL",
+        "bodyRegion": "BACK",
+        "equipment": "CABLE",
+        "primaryMuscle": "LATS",
+        "secondaryMuscles": ["BICEPS"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "BEGINNER",
+        "tags": ["lat", "width"],
+        "imageUrl": "lat_pulldown_wide.jpg",
+        "animationUrl": "lat_pulldown_wide.gif",
+        "thumbnail": "lat_pulldown_wide_thumb.jpg",
+        "instructions": [
+          "Stange kontrolliert zur oberen Brust ziehen.",
+          "Langsam nach oben führen."
+        ],
+        "tips": [
+          "Lat aktiv isoliert ansteuern.",
+          "Nicht hinter den Kopf ziehen.",
+          "Oberkörper stabil ohne Schwung."
+        ],
+        "commonMistakes": [
+          "Schwung aus dem Oberkörper.",
+          "Ziehen hinter den Kopf.",
+          "fehlende Lat-Aktivierung."
+        ]
+      },
+      {
+        "id": "lat_pulldown_close",
+        "name": "Latziehen enger Griff",
+        "family": "LAT_PULLDOWN",
+        "basePattern": "VERTICAL_PULL",
+        "movementPattern": "PULL",
+        "bodyRegion": "BACK",
+        "equipment": "CABLE",
+        "primaryMuscle": "LATS",
+        "secondaryMuscles": ["BICEPS"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "BEGINNER",
+        "tags": ["lat", "thickness"],
+        "imageUrl": "lat_pulldown_close.jpg",
+        "animationUrl": "lat_pulldown_close.gif",
+        "thumbnail": "lat_pulldown_close_thumb.jpg",
+        "instructions": [
+          "Griff eng führen und zur Brust ziehen.",
+          "Kontrolliert zurücklassen."
+        ],
+        "tips": [
+          "Ellbogen aktiv nach unten führen.",
+          "Brust leicht angehoben halten.",
+          "Keine Rücklage durch Schwung."
+        ],
+        "commonMistakes": [
+          "zu starkes Zurücklehnen.",
+          "Schwung statt Kontrolle.",
+          "Ellbogen gehen nach außen statt unten."
+        ]
+      },
+      {
+        "id": "seated_row",
+        "name": "Kabelrudern sitzend",
+        "family": "ROW",
+        "basePattern": "HORIZONTAL_PULL",
+        "movementPattern": "PULL",
+        "bodyRegion": "BACK",
+        "equipment": "CABLE",
+        "primaryMuscle": "BACK",
+        "secondaryMuscles": ["BICEPS"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "BEGINNER",
+        "tags": ["control", "row"],
+        "imageUrl": "seated_row.jpg",
+        "animationUrl": "seated_row.gif",
+        "thumbnail": "seated_row_thumb.jpg",
+        "instructions": [
+          "Griff kontrolliert zum Bauch ziehen.",
+          "Langsam wieder strecken."
+        ],
+        "tips": [
+          "Schulterblätter aktiv zusammenziehen.",
+          "Aufrechte Sitzposition halten.",
+          "Keine Rückwärtsbewegung des Oberkörpers."
+        ],
+        "commonMistakes": [
+          "Rückenschwung.",
+          "Schultern ziehen nach vorne.",
+          "fehlende Kontrolle in der Streckung."
+        ]
+      },
+      {
+        "id": "good_morning",
+        "name": "Good Morning",
+        "family": "HINGE_ACCESSORY",
+        "basePattern": "HIP_HINGE",
+        "movementPattern": "HINGE",
+        "bodyRegion": "BACK",
+        "equipment": "BARBELL",
+        "primaryMuscle": "HAMSTRINGS",
+        "secondaryMuscles": ["GLUTES", "BACK"],
+        "exerciseType": "COMPOUND",
+        "difficulty": "INTERMEDIATE",
+        "tags": ["hinge", "accessory"],
+        "imageUrl": "good_morning.jpg",
+        "animationUrl": "good_morning.gif",
+        "thumbnail": "good_morning_thumb.jpg",
+        "instructions": [
+          "Oberkörper kontrolliert nach vorne beugen.",
+          "Aus der Hüfte zurück aufrichten."
+        ],
+        "tips": [
+          "Hüftbewegung isoliert kontrollieren.",
+          "Rücken neutral und stabil halten.",
+          "Bewegung nur so tief wie kontrollierbar."
+        ],
+        "commonMistakes": [
+          "zu tiefe Ausführung ohne Kontrolle.",
+          "Rundrücken.",
+          "fehlende Core-Spannung."
+        ]
+      },
+        {
+          "id": "overhead_press",
+          "name": "Schulterdrücken Langhantel",
+          "family": "SHOULDER_PRESS",
+          "basePattern": "VERTICAL_PUSH",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "BARBELL",
+          "primaryMuscle": "SHOULDERS",
+          "secondaryMuscles": ["TRICEPS"],
+          "exerciseType": "COMPOUND",
+          "difficulty": "INTERMEDIATE",
+          "tags": ["strength", "press"],
+          "imageUrl": "overhead_press.jpg",
+          "animationUrl": "overhead_press.gif",
+          "thumbnail": "overhead_press_thumb.jpg",
+          "instructions": [
+            "Hantel kontrolliert über den Kopf drücken.",
+            "Langsam und stabil absenken."
+          ],
+          "tips": [
+            "Core fest anspannen für stabile Wirbelsäule.",
+            "Keine Überstreckung im unteren Rücken zulassen.",
+            "Gerade Drucklinie über Kopf halten."
+          ],
+          "commonMistakes": [
+            "Hohlkreuz entsteht durch fehlendes Bracing.",
+            "Gewicht wird zu weit vor den Körper gedrückt.",
+            "fehlende Stabilität im Rumpf."
+          ]
+        },
+        {
+          "id": "dumbbell_shoulder_press",
+          "name": "Schulterdrücken Kurzhantel",
+          "family": "SHOULDER_PRESS",
+          "basePattern": "VERTICAL_PUSH",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "DUMBBELL",
+          "primaryMuscle": "SHOULDERS",
+          "secondaryMuscles": ["TRICEPS"],
+          "exerciseType": "COMPOUND",
+          "difficulty": "INTERMEDIATE",
+          "tags": ["dumbbell", "press"],
+          "imageUrl": "dumbbell_shoulder_press.jpg",
+          "animationUrl": "dumbbell_shoulder_press.gif",
+          "thumbnail": "dumbbell_shoulder_press_thumb.jpg",
+          "instructions": [
+            "Kurzhanteln synchron nach oben drücken.",
+            "Kontrolliert in die Ausgangsposition zurückführen."
+          ],
+          "tips": [
+            "Symmetrische Bewegung beider Arme sicherstellen.",
+            "Keine seitliche Ausweichbewegung zulassen.",
+            "Kontrollierte Endstreckung ohne Durchdrücken."
+          ],
+          "commonMistakes": [
+            "ungleiche Armführung.",
+            "zu schnelles Absenken.",
+            "fehlende Stabilität im oberen Bereich."
+          ]
+        },
+        {
+          "id": "arnold_press",
+          "name": "Arnold Press",
+          "family": "SHOULDER_PRESS",
+          "basePattern": "ROTATIONAL_PRESS",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "DUMBBELL",
+          "primaryMuscle": "SHOULDERS",
+          "secondaryMuscles": [],
+          "exerciseType": "COMPOUND",
+          "difficulty": "INTERMEDIATE",
+          "tags": ["rotation", "hypertrophy"],
+          "imageUrl": "arnold_press.jpg",
+          "animationUrl": "arnold_press.gif",
+          "thumbnail": "arnold_press_thumb.jpg",
+          "instructions": [
+            "Rotation und Druckbewegung kombiniert ausführen.",
+            "Kontrolliert absenken mit Drehung zurück."
+          ],
+          "tips": [
+            "Rotation langsam und kontrolliert durchführen.",
+            "Leichtes Gewicht verwenden für saubere Technik.",
+            "Volle Range nur mit stabiler Schulter ausführen."
+          ],
+          "commonMistakes": [
+            "zu hohes Gewicht ohne Kontrolle.",
+            "unkontrollierte Rotation.",
+            "Schwung aus dem Rücken."
+          ]
+        },
+        {
+          "id": "lateral_raise",
+          "name": "Seitheben Kurzhantel",
+          "family": "LATERAL_RAISE",
+          "basePattern": "LATERAL_RAISE",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "DUMBBELL",
+          "primaryMuscle": "SHOULDERS_SIDE",
+          "secondaryMuscles": [],
+          "exerciseType": "ISOLATION",
+          "difficulty": "BEGINNER",
+          "tags": ["isolation", "width"],
+          "imageUrl": "lateral_raise.jpg",
+          "animationUrl": "lateral_raise.gif",
+          "thumbnail": "lateral_raise_thumb.jpg",
+          "instructions": [
+            "Arme kontrolliert seitlich bis Schulterhöhe anheben.",
+            "Langsam wieder absenken."
+          ],
+          "tips": [
+            "Leichte Ellbogenbeugung konstant halten.",
+            "Kein Schwung aus dem Rücken verwenden.",
+            "Bewegung exakt auf Schulterhöhe stoppen."
+          ],
+          "commonMistakes": [
+            "Schwung aus dem Oberkörper.",
+            "zu hohes Anheben über Schulterhöhe.",
+            "zu schweres Gewicht."
+          ]
+        },
+        {
+          "id": "front_raise",
+          "name": "Frontheben",
+          "family": "FRONT_DELTA",
+          "basePattern": "FRONT_RAISE",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "DUMBBELL",
+          "primaryMuscle": "SHOULDERS_FRONT",
+          "secondaryMuscles": [],
+          "exerciseType": "ISOLATION",
+          "difficulty": "BEGINNER",
+          "tags": ["front_delt"],
+          "imageUrl": "front_raise.jpg",
+          "animationUrl": "front_raise.gif",
+          "thumbnail": "front_raise_thumb.jpg",
+          "instructions": [
+            "Arme kontrolliert nach vorne anheben.",
+            "Langsam zurückführen."
+          ],
+          "tips": [
+            "Core stabil halten während der gesamten Bewegung.",
+            "Kein Schwung aus der Hüfte.",
+            "Kontrollierte exzentrische Phase."
+          ],
+          "commonMistakes": [
+            "zu schweres Gewicht.",
+            "Schwung aus dem Rücken.",
+            "unkontrolliertes Absenken."
+          ]
+        },
+        {
+          "id": "rear_delt_fly",
+          "name": "Reverse Fly",
+          "family": "REAR_DELTA",
+          "basePattern": "REAR_FLY",
+          "movementPattern": "PULL",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "DUMBBELL",
+          "primaryMuscle": "SHOULDERS_REAR",
+          "secondaryMuscles": [],
+          "exerciseType": "ISOLATION",
+          "difficulty": "BEGINNER",
+          "tags": ["rear_delt", "posture"],
+          "imageUrl": "rear_delt_fly.jpg",
+          "animationUrl": "rear_delt_fly.gif",
+          "thumbnail": "rear_delt_fly_thumb.jpg",
+          "instructions": [
+            "Arme kontrolliert nach hinten öffnen.",
+            "Langsam zurückführen."
+          ],
+          "tips": [
+            "Schulterblätter aktiv zusammenziehen.",
+            "Oberkörper stabil halten in Vorbeuge.",
+            "Bewegung langsam und kontrolliert ausführen."
+          ],
+          "commonMistakes": [
+            "Schwung statt Kontrolle.",
+            "zu aufrechter Oberkörper.",
+            "fehlende Spannung im oberen Rücken."
+          ]
+        },
+        {
+          "id": "machine_shoulder_press",
+          "name": "Schultermaschine",
+          "family": "SHOULDER_MACHINE",
+          "basePattern": "VERTICAL_PUSH",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "MACHINE",
+          "primaryMuscle": "SHOULDERS",
+          "secondaryMuscles": ["TRICEPS"],
+          "exerciseType": "COMPOUND",
+          "difficulty": "BEGINNER",
+          "tags": ["machine", "stability"],
+          "imageUrl": "machine_shoulder_press.jpg",
+          "animationUrl": "machine_shoulder_press.gif",
+          "thumbnail": "machine_shoulder_press_thumb.jpg",
+          "instructions": [
+            "Geführte Bewegung kontrolliert nach oben drücken.",
+            "Langsam in die Ausgangsposition zurückkehren."
+          ],
+          "tips": [
+            "Sitzhöhe korrekt einstellen für optimale Drucklinie.",
+            "Keine komplette Durchstreckung der Ellbogen.",
+            "Konstante Spannung über die gesamte Bewegung."
+          ],
+          "commonMistakes": [
+            "zu schnelles Arbeiten.",
+            "falsche Sitzposition.",
+            "Verlust der Spannung am Endpunkt."
+          ]
+        },
+        {
+          "id": "cable_lateral_raise",
+          "name": "Seitheben Kabel",
+          "family": "LATERAL_RAISE",
+          "basePattern": "LATERAL_RAISE",
+          "movementPattern": "PUSH",
+          "bodyRegion": "SHOULDERS",
+          "equipment": "CABLE",
+          "primaryMuscle": "SHOULDERS_SIDE",
+          "secondaryMuscles": [],
+          "exerciseType": "ISOLATION",
+          "difficulty": "BEGINNER",
+          "tags": ["constant_tension"],
+          "imageUrl": "cable_lateral_raise.jpg",
+          "animationUrl": "cable_lateral_raise.gif",
+          "thumbnail": "cable_lateral_raise_thumb.jpg",
+          "instructions": [
+            "Seitlich kontrolliert anheben.",
+            "Langsam zurückführen."
+          ],
+          "tips": [
+            "Konstante Spannung durch Kabelzug.",
+            "Kein Momentum verwenden.",
+            "Saubere Endposition ohne Schwung."
+          ],
+          "commonMistakes": [
+            "zu schnelle Ausführung.",
+            "Schwung aus dem Körper.",
+            "fehlende Kontrolle im Absenken."
+          ]
+        },
+          {
+            "id": "barbell_curl",
+            "name": "Langhantel Curl",
+            "family": "CURL_STRAIGHT_BAR",
+            "basePattern": "ELBOW_FLEXION",
+            "movementPattern": "PULL",
+            "bodyRegion": "BICEPS",
+            "equipment": "BARBELL",
+            "primaryMuscle": "BICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["strength", "basic"],
+            "imageUrl": "barbell_curl.jpg",
+            "animationUrl": "barbell_curl.gif",
+            "thumbnail": "barbell_curl_thumb.jpg",
+            "instructions": [
+              "Stange kontrolliert nach oben curlen.",
+              "Langsam und kontrolliert absenken."
+            ],
+            "tips": [
+              "Ellbogen fix am Körper halten.",
+              "Kein Schwung aus dem Rücken.",
+              "Volle Bewegungskontrolle über die gesamte Range."
+            ],
+            "commonMistakes": [
+              "Schwung aus der Hüfte.",
+              "zu schwere Gewichte.",
+              "unkontrolliertes Absenken."
+            ]
+          },
+          {
+            "id": "dumbbell_curl",
+            "name": "Kurzhantel Curl",
+            "family": "CURL_DUMBBELL",
+            "basePattern": "ELBOW_FLEXION",
+            "movementPattern": "PULL",
+            "bodyRegion": "BICEPS",
+            "equipment": "DUMBBELL",
+            "primaryMuscle": "BICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["dumbbell", "control"],
+            "imageUrl": "dumbbell_curl.jpg",
+            "animationUrl": "dumbbell_curl.gif",
+            "thumbnail": "dumbbell_curl_thumb.jpg",
+            "instructions": [
+              "Hanteln kontrolliert nach oben curlen.",
+              "Langsam zurückführen."
+            ],
+            "tips": [
+              "Saubere symmetrische Bewegung.",
+              "Handgelenke stabil halten.",
+              "Volle Range ohne Abkürzungen."
+            ],
+            "commonMistakes": [
+              "ungleiche Armführung.",
+              "zu schnelles Arbeiten.",
+              "fehlende Spannung unten."
+            ]
+          },
+          {
+            "id": "hammer_curl",
+            "name": "Hammer Curl",
+            "family": "CURL_VARIATIONS",
+            "basePattern": "ELBOW_FLEXION_NEUTRAL",
+            "movementPattern": "PULL",
+            "bodyRegion": "BICEPS",
+            "equipment": "DUMBBELL",
+            "primaryMuscle": "BICEPS",
+            "secondaryMuscles": ["FOREARMS"],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["brachialis", "forearms"],
+            "imageUrl": "hammer_curl.jpg",
+            "animationUrl": "hammer_curl.gif",
+            "thumbnail": "hammer_curl_thumb.jpg",
+            "instructions": [
+              "Neutralgriff kontrolliert nach oben curlen.",
+              "Langsam absenken."
+            ],
+            "tips": [
+              "Handgelenke neutral halten.",
+              "Ellbogen stabil am Körper fixieren.",
+              "Kein Schwung einsetzen."
+            ],
+            "commonMistakes": [
+              "zu schwere Last.",
+              "Schwungbewegung.",
+              "unkontrollierte Exzentrik."
+            ]
+          },
+          {
+            "id": "incline_dumbbell_curl",
+            "name": "Incline Curl",
+            "family": "CURL_VARIATIONS",
+            "basePattern": "ELBOW_FLEXION_STRETCH",
+            "movementPattern": "PULL",
+            "bodyRegion": "BICEPS",
+            "equipment": "DUMBBELL",
+            "primaryMuscle": "BICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "INTERMEDIATE",
+            "tags": ["stretch", "hypertrophy"],
+            "imageUrl": "incline_dumbbell_curl.jpg",
+            "animationUrl": "incline_dumbbell_curl.gif",
+            "thumbnail": "incline_dumbbell_curl_thumb.jpg",
+            "instructions": [
+              "Auf Schrägbank vollständig strecken.",
+              "Kontrolliert nach oben curlen."
+            ],
+            "tips": [
+              "Maximale Dehnung bewusst nutzen.",
+              "Ellbogen leicht hinter dem Körper lassen.",
+              "Langsame kontrollierte Ausführung."
+            ],
+            "commonMistakes": [
+              "zu hohes Gewicht.",
+              "Abkürzen der Dehnung.",
+              "Schwung aus dem Rücken."
+            ]
+          },
+          {
+            "id": "cable_curl",
+            "name": "Kabel Curl",
+            "family": "CURL_CABLE",
+            "basePattern": "ELBOW_FLEXION_CONSTANT",
+            "movementPattern": "PULL",
+            "bodyRegion": "BICEPS",
+            "equipment": "CABLE",
+            "primaryMuscle": "BICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["constant_tension"],
+            "imageUrl": "cable_curl.jpg",
+            "animationUrl": "cable_curl.gif",
+            "thumbnail": "cable_curl_thumb.jpg",
+            "instructions": [
+              "Am Kabelzug kontrolliert curlen.",
+              "Langsam zurückführen."
+            ],
+            "tips": [
+              "Konstante Spannung über gesamte Bewegung.",
+              "Ellbogen stabil fixieren.",
+              "Keine Momentum-Nutzung."
+            ],
+            "commonMistakes": [
+              "zu schnelles Ziehen.",
+              "Rückschwung.",
+              "fehlende Kontrolle unten."
+            ]
+          },
+          {
+            "id": "triceps_pushdown",
+            "name": "Trizeps Pushdown",
+            "family": "TRICEPS_PUSHDOWN",
+            "basePattern": "ELBOW_EXTENSION",
+            "movementPattern": "PUSH",
+            "bodyRegion": "TRICEPS",
+            "equipment": "CABLE",
+            "primaryMuscle": "TRICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["cable", "isolation"],
+            "imageUrl": "triceps_pushdown.jpg",
+            "animationUrl": "triceps_pushdown.gif",
+            "thumbnail": "triceps_pushdown_thumb.jpg",
+            "instructions": [
+              "Griff nach unten drücken bis zur Streckung.",
+              "Kontrolliert zurückführen."
+            ],
+            "tips": [
+              "Ellbogen eng am Körper fixieren.",
+              "Nur Unterarm bewegt sich.",
+              "Volle Streckung unten bewusst halten."
+            ],
+            "commonMistakes": [
+              "Ellbogen wandern nach vorne.",
+              "zu viel Körperbewegung.",
+              "fehlende Endkontraktion."
+            ]
+          },
+          {
+            "id": "skullcrusher",
+            "name": "Skullcrusher",
+            "family": "TRICEPS_EXTENSION",
+            "basePattern": "ELBOW_EXTENSION_OVERHEAD",
+            "movementPattern": "PUSH",
+            "bodyRegion": "TRICEPS",
+            "equipment": "BARBELL",
+            "primaryMuscle": "TRICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "INTERMEDIATE",
+            "tags": ["lying_extension"],
+            "imageUrl": "skullcrusher.jpg",
+            "animationUrl": "skullcrusher.gif",
+            "thumbnail": "skullcrusher_thumb.jpg",
+            "instructions": [
+              "Langhantel kontrolliert Richtung Stirn senken.",
+              "Strecken ohne Ellbogenbewegung."
+            ],
+            "tips": [
+              "Ellbogen stabil fixieren.",
+              "Bewegung nur im Unterarm.",
+              "Saubere Kontrolle in der exzentrischen Phase."
+            ],
+            "commonMistakes": [
+              "Ellbogen wandern nach außen.",
+              "zu viel Gewicht.",
+              "unkontrollierte Absenkung."
+            ]
+          },
+          {
+            "id": "overhead_triceps_extension",
+            "name": "Überkopf Trizeps Extension",
+            "family": "TRICEPS_EXTENSION",
+            "basePattern": "ELBOW_EXTENSION_OVERHEAD",
+            "movementPattern": "PUSH",
+            "bodyRegion": "TRICEPS",
+            "equipment": "DUMBBELL",
+            "primaryMuscle": "TRICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["overhead", "stretch"],
+            "imageUrl": "overhead_triceps_extension.jpg",
+            "animationUrl": "overhead_triceps_extension.gif",
+            "thumbnail": "overhead_triceps_extension_thumb.jpg",
+            "instructions": [
+              "Überkopf strecken und kontrolliert beugen.",
+              "Stabil wieder nach oben führen."
+            ],
+            "tips": [
+              "Ellbogen eng und stabil halten.",
+              "Volle Streckung oben erreichen.",
+              "Langsame kontrollierte Bewegung."
+            ],
+            "commonMistakes": [
+              "zu schweres Gewicht.",
+              "Ellbogen öffnen sich.",
+              "fehlende Core-Stabilität."
+            ]
+          },
+          {
+            "id": "triceps_kickback",
+            "name": "Trizeps Kickback",
+            "family": "TRICEPS_EXTENSION",
+            "basePattern": "ELBOW_EXTENSION_HINGE",
+            "movementPattern": "PUSH",
+            "bodyRegion": "TRICEPS",
+            "equipment": "DUMBBELL",
+            "primaryMuscle": "TRICEPS",
+            "secondaryMuscles": [],
+            "exerciseType": "ISOLATION",
+            "difficulty": "BEGINNER",
+            "tags": ["isolation"],
+            "imageUrl": "triceps_kickback.jpg",
+            "animationUrl": "triceps_kickback.gif",
+            "thumbnail": "triceps_kickback_thumb.jpg",
+            "instructions": [
+              "Arm nach hinten strecken.",
+              "Langsam zurückführen."
+            ],
+            "tips": [
+              "Oberarm stabil fixieren.",
+              "Kein Schwung aus dem Körper.",
+              "Volle Streckung bewusst halten."
+            ],
+            "commonMistakes": [
+              "Momentum statt Muskelarbeit.",
+              "Oberarm bewegt sich.",
+              "zu schnelle Ausführung."
+            ]
+          },
+            {
+              "id": "crunch",
+              "name": "Crunch",
+              "family": "CRUNCH_FAMILY",
+              "basePattern": "SPINAL_FLEXION",
+              "movementPattern": "FLEXION",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "ABS",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "BEGINNER",
+              "tags": ["abs", "basic"],
+              "imageUrl": "crunch.jpg",
+              "animationUrl": "crunch.gif",
+              "thumbnail": "crunch_thumb.jpg",
+              "instructions": [
+                "Oberkörper kontrolliert anheben.",
+                "Langsam wieder absenken."
+              ],
+              "tips": [
+                "Bewegung nur aus der Wirbelsäulenflexion.",
+                "Kein Ziehen am Nacken.",
+                "Bauchspannung konstant halten."
+              ],
+              "commonMistakes": [
+                "Nacken wird gezogen.",
+                "zu schneller Schwung.",
+                "fehlende Core-Spannung."
+              ]
+            },
+            {
+              "id": "sit_up",
+              "name": "Sit Up",
+              "family": "CRUNCH_FAMILY",
+              "basePattern": "SPINAL_FLEXION_FULL",
+              "movementPattern": "FLEXION",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "ABS",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "BEGINNER",
+              "tags": ["full_range"],
+              "imageUrl": "sit_up.jpg",
+              "animationUrl": "sit_up.gif",
+              "thumbnail": "sit_up_thumb.jpg",
+              "instructions": [
+                "Komplett aufsetzen und wieder abrollen.",
+                "Kontrolliert arbeiten ohne Schwung."
+              ],
+              "tips": [
+                "Bewegung kontrolliert und segmentiert ausführen.",
+                "Core aktiv durchgehend halten.",
+                "Keine Schwungunterstützung."
+              ],
+              "commonMistakes": [
+                "Momentum statt Muskelarbeit.",
+                "Rücken überlastet durch Schwung.",
+                "fehlende Kontrolle im Absenken."
+              ]
+            },
+            {
+              "id": "leg_raise",
+              "name": "Beinheben liegend",
+              "family": "LEG_RAISE_FAMILY",
+              "basePattern": "HIP_FLEXION",
+              "movementPattern": "FLEXION",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "LOWER_ABS",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "BEGINNER",
+              "tags": ["lower_abs"],
+              "imageUrl": "leg_raise.jpg",
+              "animationUrl": "leg_raise.gif",
+              "thumbnail": "leg_raise_thumb.jpg",
+              "instructions": [
+                "Beine kontrolliert anheben.",
+                "Langsam absenken ohne Bodenverlust."
+              ],
+              "tips": [
+                "Lendenwirbelsäule am Boden fixieren.",
+                "Kein Hohlkreuz zulassen.",
+                "Exzentrik bewusst langsam ausführen."
+              ],
+              "commonMistakes": [
+                "Hohlkreuz entsteht.",
+                "Schwung aus Hüfte.",
+                "zu schnelle Absenkung."
+              ]
+            },
+            {
+              "id": "hanging_leg_raise",
+              "name": "Hanging Leg Raise",
+              "family": "LEG_RAISE_FAMILY",
+              "basePattern": "HIP_FLEXION_HANGING",
+              "movementPattern": "FLEXION",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "LOWER_ABS",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "INTERMEDIATE",
+              "tags": ["advanced"],
+              "imageUrl": "hanging_leg_raise.jpg",
+              "animationUrl": "hanging_leg_raise.gif",
+              "thumbnail": "hanging_leg_raise_thumb.jpg",
+              "instructions": [
+                "Hängend Beine kontrolliert anheben.",
+                "Ohne Schwung wieder absenken."
+              ],
+              "tips": [
+                "Core Spannung maximal aktiv halten.",
+                "Keine Pendelbewegung zulassen.",
+                "Exzentrik langsam kontrollieren."
+              ],
+              "commonMistakes": [
+                "Swing aus dem Körper.",
+                "fehlende Core-Kontrolle.",
+                "zu schnelle Abwärtsbewegung."
+              ]
+            },
+            {
+              "id": "russian_twist",
+              "name": "Russian Twist",
+              "family": "ROTATION_FAMILY",
+              "basePattern": "ROTATION",
+              "movementPattern": "ROTATION",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "OBLIQUES",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "BEGINNER",
+              "tags": ["obliques"],
+              "imageUrl": "russian_twist.jpg",
+              "animationUrl": "russian_twist.gif",
+              "thumbnail": "russian_twist_thumb.jpg",
+              "instructions": [
+                "Rumpf kontrolliert von Seite zu Seite rotieren.",
+                "Stabilen Oberkörper halten."
+              ],
+              "tips": [
+                "Rotation aus dem Rumpf, nicht aus den Armen.",
+                "Langsames kontrolliertes Tempo.",
+                "Core stabilisieren während der gesamten Bewegung."
+              ],
+              "commonMistakes": [
+                "zu schnelle Rotation.",
+                "Schwung aus Armen.",
+                "fehlende Rumpfstabilität."
+              ]
+            },
+            {
+              "id": "cable_crunch",
+              "name": "Cable Crunch",
+              "family": "CRUNCH_FAMILY",
+              "basePattern": "CABLE_FLEXION",
+              "movementPattern": "FLEXION",
+              "bodyRegion": "CORE",
+              "equipment": "CABLE",
+              "primaryMuscle": "ABS",
+              "secondaryMuscles": [],
+              "exerciseType": "ISOLATION",
+              "difficulty": "BEGINNER",
+              "tags": ["weighted"],
+              "imageUrl": "cable_crunch.jpg",
+              "animationUrl": "cable_crunch.gif",
+              "thumbnail": "cable_crunch_thumb.jpg",
+              "instructions": [
+                "Rumpf gegen Widerstand nach unten krümmen.",
+                "Langsam zurückführen."
+              ],
+              "tips": [
+                "Hüfte stabil fixieren.",
+                "Nur Wirbelsäulenflexion nutzen.",
+                "Konstante Spannung halten."
+              ],
+              "commonMistakes": [
+                "Hüfte bewegt sich.",
+                "zu viel Schwung.",
+                "fehlende Kontrolle oben."
+              ]
+            },
+            {
+              "id": "plank",
+              "name": "Plank",
+              "family": "STABILITY_FAMILY",
+              "basePattern": "ANTI_EXTENSION",
+              "movementPattern": "STABILITY",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "CORE",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "BEGINNER",
+              "tags": ["stability"],
+              "imageUrl": "plank.jpg",
+              "animationUrl": "plank.gif",
+              "thumbnail": "plank_thumb.jpg",
+              "instructions": [
+                "Körper in gerader Linie halten.",
+                "Position stabil halten."
+              ],
+              "tips": [
+                "Glutes aktiv anspannen.",
+                "Keine Durchhängung im unteren Rücken.",
+                "Rumpfspannung konstant halten."
+              ],
+              "commonMistakes": [
+                "Hüfte hängt durch.",
+                "fehlende Spannung.",
+                "zu lange ohne Kontrolle halten."
+              ]
+            },
+            {
+              "id": "side_plank",
+              "name": "Side Plank",
+              "family": "STABILITY_FAMILY",
+              "basePattern": "ANTI_LATERAL_FLEXION",
+              "movementPattern": "STABILITY",
+              "bodyRegion": "CORE",
+              "equipment": "BODYWEIGHT",
+              "primaryMuscle": "OBLIQUES",
+              "secondaryMuscles": [],
+              "exerciseType": "BODYWEIGHT",
+              "difficulty": "BEGINNER",
+              "tags": ["obliques"],
+              "imageUrl": "side_plank.jpg",
+              "animationUrl": "side_plank.gif",
+              "thumbnail": "side_plank_thumb.jpg",
+              "instructions": [
+                "Seitliche Position stabil halten.",
+                "Hüfte aktiv oben halten."
+              ],
+              "tips": [
+                "Körper bildet eine gerade Linie.",
+                "Keine Rotation im Oberkörper.",
+                "Core dauerhaft aktiv."
+              ],
+              "commonMistakes": [
+                "Einsinken der Hüfte.",
+                "Rotation im Becken.",
+                "fehlende Spannung."
+              ]
+            },
+            {
+              "id": "ab_wheel_rollout",
+              "name": "Ab Wheel Rollout",
+              "family": "STABILITY_FAMILY",
+              "basePattern": "ANTI_EXTENSION",
+              "movementPattern": "STABILITY",
+              "bodyRegion": "CORE",
+              "equipment": "OTHER",
+              "primaryMuscle": "CORE",
+              "secondaryMuscles": ["SHOULDERS"],
+              "exerciseType": "COMPOUND",
+              "difficulty": "ADVANCED",
+              "tags": ["core", "advanced"],
+              "imageUrl": "ab_wheel.jpg",
+              "animationUrl": "ab_wheel.gif",
+              "thumbnail": "ab_wheel_thumb.jpg",
+              "instructions": [
+                "Langsam nach vorne ausrollen.",
+                "Kontrolliert zurückziehen."
+              ],
+              "tips": [
+                "Core maximal unter Spannung halten.",
+                "Keine LWS-Überstreckung zulassen.",
+                "Bewegung kontrolliert und langsam."
+              ],
+              "commonMistakes": [
+                "Hohlkreuz im Strecken.",
+                "zu weit ohne Kontrolle.",
+                "Schwung statt Kontrolle."
+              ]
+            },
+              {
+                "id": "squat",
+                "name": "Kniebeuge",
+                "family": "SQUAT_FAMILY",
+                "basePattern": "SQUAT_PATTERN",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "BARBELL",
+                "primaryMuscle": "QUADS",
+                "secondaryMuscles": ["GLUTES"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "INTERMEDIATE",
+                "tags": ["compound", "quads"],
+                "imageUrl": "squat.jpg",
+                "animationUrl": "squat.gif",
+                "thumbnail": "squat_thumb.jpg",
+                "instructions": [
+                  "Kontrolliert in die Hocke gehen.",
+                  "Explosiv nach oben drücken."
+                ],
+                "tips": [
+                  "Knie aktiv nach außen führen, nicht nach innen fallen lassen.",
+                  "Rumpf stabil und aufrecht halten.",
+                  "Druck über die Fersen erzeugen."
+                ],
+                "commonMistakes": [
+                  "Knie kollabieren nach innen.",
+                  "Rücken wird rund.",
+                  "Gewicht verlagert sich auf Vorfuß."
+                ]
+              },
+              {
+                "id": "front_squat",
+                "name": "Front Squat",
+                "family": "SQUAT_FAMILY",
+                "basePattern": "SQUAT_PATTERN",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "BARBELL",
+                "primaryMuscle": "QUADS",
+                "secondaryMuscles": ["CORE"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "INTERMEDIATE",
+                "tags": ["quads", "core"],
+                "imageUrl": "front_squat.jpg",
+                "animationUrl": "front_squat.gif",
+                "thumbnail": "front_squat_thumb.jpg",
+                "instructions": [
+                  "Hantel stabil vor dem Körper halten.",
+                  "Aufrecht in die Kniebeuge gehen."
+                ],
+                "tips": [
+                  "Ellbogen hoch halten für Stabilität.",
+                  "Core aktiv gegen Vorwärtskippen.",
+                  "Aufrechte Brustposition bewahren."
+                ],
+                "commonMistakes": [
+                  "Ellbogen fallen nach unten.",
+                  "Oberkörper kippt nach vorne.",
+                  "Instabile Hantelposition."
+                ]
+              },
+              {
+                "id": "hack_squat",
+                "name": "Hack Squat",
+                "family": "MACHINE_SQUAT_FAMILY",
+                "basePattern": "MACHINE_SQUAT",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "MACHINE",
+                "primaryMuscle": "QUADS",
+                "secondaryMuscles": ["GLUTES"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "BEGINNER",
+                "tags": ["machine", "quads"],
+                "imageUrl": "hack_squat.jpg",
+                "animationUrl": "hack_squat.gif",
+                "thumbnail": "hack_squat_thumb.jpg",
+                "instructions": [
+                  "Geführt in die Kniebeuge gehen.",
+                  "Kontrolliert nach oben drücken."
+                ],
+                "tips": [
+                  "Volle Fußfläche aktiv halten.",
+                  "Keine vollständige Entlastung unten.",
+                  "Rücken fest anlehnen."
+                ],
+                "commonMistakes": [
+                  "Knie werden überstreckt.",
+                  "Hüfte hebt sich zu früh.",
+                  "Druck nur über Zehen."
+                ]
+              },
+              {
+                "id": "leg_press",
+                "name": "Beinpresse",
+                "family": "MACHINE_SQUAT_FAMILY",
+                "basePattern": "MACHINE_SQUAT",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "MACHINE",
+                "primaryMuscle": "QUADS",
+                "secondaryMuscles": ["GLUTES"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "BEGINNER",
+                "tags": ["machine"],
+                "imageUrl": "leg_press.jpg",
+                "animationUrl": "leg_press.gif",
+                "thumbnail": "leg_press_thumb.jpg",
+                "instructions": [
+                  "Plattform kontrolliert wegdrücken.",
+                  "Langsam zurückführen."
+                ],
+                "tips": [
+                  "Knie in Linie mit Füßen halten.",
+                  "Keine komplette Streckblockade.",
+                  "Kontrollierte Tiefe nutzen."
+                ],
+                "commonMistakes": [
+                  "Knie fallen nach innen.",
+                  "Hüfte hebt sich vom Sitz.",
+                  "zu kurze Range of Motion."
+                ]
+              },
+              {
+                "id": "lunges",
+                "name": "Ausfallschritte",
+                "family": "UNILATERAL_SQUAT_FAMILY",
+                "basePattern": "UNILATERAL_SQUAT",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "BODYWEIGHT",
+                "primaryMuscle": "GLUTES",
+                "secondaryMuscles": ["QUADS"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "BEGINNER",
+                "tags": ["unilateral"],
+                "imageUrl": "lunges.jpg",
+                "animationUrl": "lunges.gif",
+                "thumbnail": "lunges_thumb.jpg",
+                "instructions": [
+                  "Einen Schritt nach vorne machen.",
+                  "Kontrolliert absenken und hochdrücken."
+                ],
+                "tips": [
+                  "Oberkörper stabil halten.",
+                  "Knie kontrolliert führen.",
+                  "Gleichgewicht aktiv stabilisieren."
+                ],
+                "commonMistakes": [
+                  "zu kurzer Schritt.",
+                  "Knie kippt nach innen.",
+                  "Instabiler Oberkörper."
+                ]
+              },
+              {
+                "id": "bulgarian_split_squat",
+                "name": "Bulgarian Split Squat",
+                "family": "UNILATERAL_SQUAT_FAMILY",
+                "basePattern": "UNILATERAL_SQUAT",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "BODYWEIGHT",
+                "primaryMuscle": "GLUTES",
+                "secondaryMuscles": ["QUADS"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "INTERMEDIATE",
+                "tags": ["glutes", "unilateral"],
+                "imageUrl": "bulgarian_split_squat.jpg",
+                "animationUrl": "bulgarian_split_squat.gif",
+                "thumbnail": "bulgarian_split_squat_thumb.jpg",
+                "instructions": [
+                  "Hinteres Bein erhöht positionieren.",
+                  "Kontrolliert tief absenken."
+                ],
+                "tips": [
+                  "Vorderes Knie stabil über Fuß halten.",
+                  "Tiefe kontrolliert aufbauen.",
+                  "Core Spannung konstant halten."
+                ],
+                "commonMistakes": [
+                  "zu aufrechter oder instabiler Stand.",
+                  "Knie kollabiert nach innen.",
+                  "Schwung statt Kontrolle."
+                ]
+              },
+              {
+                "id": "romanian_deadlift",
+                "name": "Romanian Deadlift",
+                "family": "HINGE_SUPPORT_FAMILY",
+                "basePattern": "HINGE_PATTERN",
+                "movementPattern": "HINGE",
+                "bodyRegion": "BACK",
+                "equipment": "BARBELL",
+                "primaryMuscle": "HAMSTRINGS",
+                "secondaryMuscles": ["GLUTES"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "INTERMEDIATE",
+                "tags": ["hamstrings"],
+                "imageUrl": "romanian_deadlift.jpg",
+                "animationUrl": "romanian_deadlift.gif",
+                "thumbnail": "romanian_deadlift_thumb.jpg",
+                "instructions": [
+                  "Hüfte nach hinten schieben.",
+                  "Kontrolliert aufrichten."
+                ],
+                "tips": [
+                  "Langsame exzentrische Phase betonen.",
+                  "Rücken neutral halten.",
+                  "Dehnung in Hamstrings kontrollieren."
+                ],
+                "commonMistakes": [
+                  "Rundrücken entsteht.",
+                  "zu tief ohne Kontrolle.",
+                  "Schwung aus dem Rücken."
+                ]
+              },
+              {
+                "id": "good_morning",
+                "name": "Good Morning",
+                "family": "HINGE_SUPPORT_FAMILY",
+                "basePattern": "HINGE_PATTERN",
+                "movementPattern": "HINGE",
+                "bodyRegion": "BACK",
+                "equipment": "BARBELL",
+                "primaryMuscle": "HAMSTRINGS",
+                "secondaryMuscles": ["GLUTES"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "INTERMEDIATE",
+                "tags": ["hinge"],
+                "imageUrl": "good_morning.jpg",
+                "animationUrl": "good_morning.gif",
+                "thumbnail": "good_morning_thumb.jpg",
+                "instructions": [
+                  "Oberkörper kontrolliert nach vorne beugen.",
+                  "Zurück in aufrechte Position."
+                ],
+                "tips": [
+                  "Hüftbewegung sauber isolieren.",
+                  "Core aktiv stabilisieren.",
+                  "Bewegung langsam und kontrolliert."
+                ],
+                "commonMistakes": [
+                  "zu tiefe Bewegung ohne Kontrolle.",
+                  "Rücken verliert Neutralposition.",
+                  "Schwung statt Muskelspannung."
+                ]
+              },
+              {
+                "id": "step_up",
+                "name": "Step Ups",
+                "family": "UNILATERAL_SQUAT_FAMILY",
+                "basePattern": "UNILATERAL_SQUAT",
+                "movementPattern": "SQUAT",
+                "bodyRegion": "LEGS",
+                "equipment": "BODYWEIGHT",
+                "primaryMuscle": "GLUTES",
+                "secondaryMuscles": ["QUADS"],
+                "exerciseType": "COMPOUND",
+                "difficulty": "BEGINNER",
+                "tags": ["glutes"],
+                "imageUrl": "step_up.jpg",
+                "animationUrl": "step_up.gif",
+                "thumbnail": "step_up_thumb.jpg",
+                "instructions": [
+                  "Auf eine Box steigen.",
+                  "Kontrolliert hochdrücken."
+                ],
+                "tips": [
+                  "Volle Kontrolle über das Standbein.",
+                  "Kein Abstoßen mit dem hinteren Bein.",
+                  "Stabiler Rumpf während der Bewegung."
+                ],
+                "commonMistakes": [
+                  "Schwung durch hinteres Bein.",
+                  "instabile Knieachse.",
+                  "zu schnelle Ausführung."
+                ]
+              },
+              {
+                "id": "calf_raise",
+                "name": "Wadenheben",
+                "family": "CALF_FAMILY",
+                "basePattern": "ANKLE_PLANTAR_FLEXION",
+                "movementPattern": "EXTENSION",
+                "bodyRegion": "LEGS",
+                "equipment": "BODYWEIGHT",
+                "primaryMuscle": "CALVES",
+                "secondaryMuscles": [],
+                "exerciseType": "ISOLATION",
+                "difficulty": "BEGINNER",
+                "tags": ["calves"],
+                "imageUrl": "calf_raise.jpg",
+                "animationUrl": "calf_raise.gif",
+                "thumbnail": "calf_raise_thumb.jpg",
+                "instructions": [
+                  "Fersen kontrolliert anheben.",
+                  "Langsam absenken."
+                ],
+                "tips": [
+                  "Volle Streckung oben halten.",
+                  "Langsame exzentrische Phase.",
+                  "Bewegung ohne Schwung."
+                ],
+                "commonMistakes": [
+                  "zu schnelle Wiederholungen.",
+                  "keine vollständige Streckung.",
+                  "Sprungbewegung statt Kontrolle."
+                ]
+              },
+                {
+                  "id": "barbell_row",
+                  "name": "Langhantelrudern",
+                  "family": "ROW_THICKNESS_FAMILY",
+                  "basePattern": "HORIZONTAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "BARBELL",
+                  "primaryMuscle": "BACK",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "INTERMEDIATE",
+                  "tags": ["row", "strength"],
+                  "imageUrl": "barbell_row.jpg",
+                  "animationUrl": "barbell_row.gif",
+                  "thumbnail": "barbell_row_thumb.jpg",
+                  "instructions": [
+                    "Stange kontrolliert zum Bauch ziehen.",
+                    "Langsam und stabil ablassen."
+                  ],
+                  "tips": [
+                    "Rumpf stabil und konstant halten.",
+                    "Ellbogen eng am Körper führen.",
+                    "Keine Schwungbewegung zulassen."
+                  ],
+                  "commonMistakes": [
+                    "Rücken wird rund.",
+                    "Schwung aus dem Unterkörper.",
+                    "zu hohes Gewicht ohne Kontrolle."
+                  ]
+                },
+                {
+                  "id": "t_bar_row",
+                  "name": "T-Bar Rudern",
+                  "family": "ROW_THICKNESS_FAMILY",
+                  "basePattern": "HORIZONTAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "BARBELL",
+                  "primaryMuscle": "BACK",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "INTERMEDIATE",
+                  "tags": ["row", "thickness"],
+                  "imageUrl": "t_bar_row.jpg",
+                  "animationUrl": "t_bar_row.gif",
+                  "thumbnail": "t_bar_row_thumb.jpg",
+                  "instructions": [
+                    "Zur Brust oder Bauch ziehen.",
+                    "Kontrolliert zurückführen."
+                  ],
+                  "tips": [
+                    "Brust stabil nach vorne halten.",
+                    "Ellbogen aktiv nach hinten führen.",
+                    "Kein Momentum nutzen."
+                  ],
+                  "commonMistakes": [
+                    "Schwung durch Hüfte.",
+                    "Oberkörper kippt zu stark.",
+                    "unzureichende ROM."
+                  ]
+                },
+                {
+                  "id": "seated_cable_row",
+                  "name": "Sitzendes Kabelrudern",
+                  "family": "HORIZONTAL_PULL_FAMILY",
+                  "basePattern": "HORIZONTAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "CABLE",
+                  "primaryMuscle": "BACK",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "BEGINNER",
+                  "tags": ["cable", "control"],
+                  "imageUrl": "seated_cable_row.jpg",
+                  "animationUrl": "seated_cable_row.gif",
+                  "thumbnail": "seated_cable_row_thumb.jpg",
+                  "instructions": [
+                    "Griff zum Bauch ziehen.",
+                    "Kontrolliert zurücklassen."
+                  ],
+                  "tips": [
+                    "Schulterblätter aktiv zusammenziehen.",
+                    "Rücken aufrecht halten.",
+                    "Kein Zurücklehnen."
+                  ],
+                  "commonMistakes": [
+                    "Rücken rundet sich.",
+                    "Schwung durch Körper.",
+                    "zu kurze Zugphase."
+                  ]
+                },
+                {
+                  "id": "chest_supported_row",
+                  "name": "Brustgestütztes Rudern",
+                  "family": "ROW_THICKNESS_FAMILY",
+                  "basePattern": "HORIZONTAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "MACHINE",
+                  "primaryMuscle": "BACK",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "BEGINNER",
+                  "tags": ["machine", "stable"],
+                  "imageUrl": "chest_supported_row.jpg",
+                  "animationUrl": "chest_supported_row.gif",
+                  "thumbnail": "chest_supported_row_thumb.jpg",
+                  "instructions": [
+                    "Gewicht zur Brust ziehen.",
+                    "Langsam ablassen."
+                  ],
+                  "tips": [
+                    "Brust fest auf Pad fixieren.",
+                    "Saubere Ellbogenführung.",
+                    "Keine Rückenkompensation."
+                  ],
+                  "commonMistakes": [
+                    "zu viel Schwung.",
+                    "Schultern ziehen hoch.",
+                    "Bewegung wird verkürzt."
+                  ]
+                },
+                {
+                  "id": "lat_pulldown_wide",
+                  "name": "Latziehen breit",
+                  "family": "LAT_FAMILY",
+                  "basePattern": "VERTICAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "CABLE",
+                  "primaryMuscle": "LATS",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "BEGINNER",
+                  "tags": ["lat", "width"],
+                  "imageUrl": "lat_pulldown_wide.jpg",
+                  "animationUrl": "lat_pulldown_wide.gif",
+                  "thumbnail": "lat_pulldown_wide_thumb.jpg",
+                  "instructions": [
+                    "Stange zur oberen Brust ziehen."
+                  ],
+                  "tips": [
+                    "Nicht hinter den Kopf ziehen.",
+                    "Lat aktiv bewusst ansteuern.",
+                    "Kontrollierte Exzentrik."
+                  ],
+                  "commonMistakes": [
+                    "zu viel Körper-Schwung.",
+                    "Ellbogen gehen nach außen.",
+                    "Schultern ziehen hoch."
+                  ]
+                },
+                {
+                  "id": "lat_pulldown_close",
+                  "name": "Latziehen eng",
+                  "family": "LAT_FAMILY",
+                  "basePattern": "VERTICAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "CABLE",
+                  "primaryMuscle": "LATS",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "BEGINNER",
+                  "tags": ["lat", "thickness"],
+                  "imageUrl": "lat_pulldown_close.jpg",
+                  "animationUrl": "lat_pulldown_close.gif",
+                  "thumbnail": "lat_pulldown_close_thumb.jpg",
+                  "instructions": [
+                    "Eng greifen und ziehen."
+                  ],
+                  "tips": [
+                    "Ellbogen nach unten führen.",
+                    "Brust bleibt stabil offen.",
+                    "Kein Lean-Back."
+                  ],
+                  "commonMistakes": [
+                    "zu viel Rücklage.",
+                    "Schwung statt Muskelarbeit.",
+                    "verkürzte ROM."
+                  ]
+                },
+                {
+                  "id": "pull_up",
+                  "name": "Klimmzug",
+                  "family": "LAT_FAMILY",
+                  "basePattern": "VERTICAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "BODYWEIGHT",
+                  "primaryMuscle": "LATS",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "ADVANCED",
+                  "tags": ["bodyweight", "strength"],
+                  "imageUrl": "pull_up.jpg",
+                  "animationUrl": "pull_up.gif",
+                  "thumbnail": "pull_up_thumb.jpg",
+                  "instructions": [
+                    "Körper nach oben ziehen.",
+                    "Kontrolliert ablassen."
+                  ],
+                  "tips": [
+                    "Vollständige Hang-Position nutzen.",
+                    "Scapula aktiv starten.",
+                    "Kein Kipping."
+                  ],
+                  "commonMistakes": [
+                    "Schwung durch Beine.",
+                    "halbe ROM.",
+                    "fehlende Spannung im Core."
+                  ]
+                },
+                {
+                  "id": "assisted_pull_up",
+                  "name": "Assistierter Klimmzug",
+                  "family": "LAT_FAMILY",
+                  "basePattern": "VERTICAL_PULL",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "MACHINE",
+                  "primaryMuscle": "LATS",
+                  "secondaryMuscles": ["BICEPS"],
+                  "exerciseType": "COMPOUND",
+                  "difficulty": "BEGINNER",
+                  "tags": ["assisted"],
+                  "imageUrl": "assisted_pull_up.jpg",
+                  "animationUrl": "assisted_pull_up.gif",
+                  "thumbnail": "assisted_pull_up_thumb.jpg",
+                  "instructions": [
+                    "Mit Unterstützung hochziehen."
+                  ],
+                  "tips": [
+                    "Saubere Bewegung trotz Assist.",
+                    "Progressiv weniger Unterstützung.",
+                    "Kontrollierte Negativphase."
+                  ],
+                  "commonMistakes": [
+                    "nur durch Maschine arbeiten.",
+                    "keine Eigenaktivität.",
+                    "zu schnelle Wiederholungen."
+                  ]
+                },
+                {
+                  "id": "straight_arm_pulldown",
+                  "name": "Straight Arm Pulldown",
+                  "family": "LAT_FAMILY",
+                  "basePattern": "SCAPULAR_RETRACTION",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "CABLE",
+                  "primaryMuscle": "LATS",
+                  "secondaryMuscles": [],
+                  "exerciseType": "ISOLATION",
+                  "difficulty": "BEGINNER",
+                  "tags": ["lat isolation"],
+                  "imageUrl": "straight_arm_pulldown.jpg",
+                  "animationUrl": "straight_arm_pulldown.gif",
+                  "thumbnail": "straight_arm_pulldown_thumb.jpg",
+                  "instructions": [
+                    "Gestreckte Arme nach unten ziehen."
+                  ],
+                  "tips": [
+                    "Arme bleiben komplett gestreckt.",
+                    "Lat kontrolliert aktivieren.",
+                    "Keine Ellenbogenbeugung."
+                  ],
+                  "commonMistakes": [
+                    "Arme beugen sich.",
+                    "Schwung aus dem Körper.",
+                    "Schultern hochziehen."
+                  ]
+                },
+                {
+                  "id": "face_pull",
+                  "name": "Face Pull",
+                  "family": "REAR_CHAIN_BACK_FAMILY",
+                  "basePattern": "SCAPULAR_RETRACTION",
+                  "movementPattern": "PULL",
+                  "bodyRegion": "BACK",
+                  "equipment": "CABLE",
+                  "primaryMuscle": "REAR_DELTS",
+                  "secondaryMuscles": ["TRAPS"],
+                  "exerciseType": "ISOLATION",
+                  "difficulty": "BEGINNER",
+                  "tags": ["rear delts", "posture"],
+                  "imageUrl": "face_pull.jpg",
+                  "animationUrl": "face_pull.gif",
+                  "thumbnail": "face_pull_thumb.jpg",
+                  "instructions": [
+                    "Seil zum Gesicht ziehen."
+                  ],
+                  "tips": [
+                    "Ellbogen hoch führen.",
+                    "Schulterblätter aktiv zusammenziehen.",
+                    "Kontrollierte Endposition halten."
+                  ],
+                  "commonMistakes": [
+                    "zu viel Gewicht.",
+                    "keine Scapula-Kontrolle.",
+                    "Rücken kippt zurück."
+                  ]
+                },
+                  {
+                    "id": "bench_press",
+                    "name": "Bankdrücken",
+                    "family": "CHEST_PRESS_FAMILY",
+                    "basePattern": "HORIZONTAL_PUSH",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "BARBELL",
+                    "primaryMuscle": "CHEST",
+                    "secondaryMuscles": ["TRICEPS", "SHOULDERS"],
+                    "exerciseType": "COMPOUND",
+                    "difficulty": "INTERMEDIATE",
+                    "tags": ["strength", "compound"],
+                    "imageUrl": "bench_press.jpg",
+                    "animationUrl": "bench_press.gif",
+                    "thumbnail": "bench_press_thumb.jpg",
+                    "instructions": [
+                      "Kontrolliert absenken.",
+                      "Explosiv nach oben drücken."
+                    ],
+                    "tips": [
+                      "Schulterblätter aktiv nach hinten unten ziehen.",
+                      "Brust bleibt dauerhaft gespannt.",
+                      "Fester Fußdruck für Stabilität."
+                    ],
+                    "commonMistakes": [
+                      "Ellenbogen zu weit außen.",
+                      "fehlende Körperspannung.",
+                      "Bounce auf der Brust."
+                    ]
+                  },
+                  {
+                    "id": "incline_bench_press",
+                    "name": "Schrägbankdrücken",
+                    "family": "INCLINE_PRESS_FAMILY",
+                    "basePattern": "INCLINE_PUSH",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "BARBELL",
+                    "primaryMuscle": "UPPER_CHEST",
+                    "secondaryMuscles": ["TRICEPS"],
+                    "exerciseType": "COMPOUND",
+                    "difficulty": "INTERMEDIATE",
+                    "tags": ["upper chest"],
+                    "imageUrl": "incline_bench_press.jpg",
+                    "animationUrl": "incline_bench_press.gif",
+                    "thumbnail": "incline_bench_press_thumb.jpg",
+                    "instructions": [
+                      "Bank auf ca. 30° einstellen.",
+                      "Kontrolliert nach oben drücken."
+                    ],
+                    "tips": [
+                      "Nicht zu steil einstellen (Schulterstress vermeiden).",
+                      "Ellbogen leicht unter der Stange führen.",
+                      "Konstante Spannung im oberen Brustbereich."
+                    ],
+                    "commonMistakes": [
+                      "zu steile Bank.",
+                      "Schultern übernehmen die Arbeit.",
+                      "verlorene Spannung im oberen Bereich."
+                    ]
+                  },
+                  {
+                    "id": "decline_bench_press",
+                    "name": "Negativbankdrücken",
+                    "family": "DECLINE_PRESS_FAMILY",
+                    "basePattern": "DECLINE_PUSH",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "BARBELL",
+                    "primaryMuscle": "LOWER_CHEST",
+                    "secondaryMuscles": ["TRICEPS"],
+                    "exerciseType": "COMPOUND",
+                    "difficulty": "INTERMEDIATE",
+                    "tags": ["lower chest"],
+                    "imageUrl": "decline_bench_press.jpg",
+                    "animationUrl": "decline_bench_press.gif",
+                    "thumbnail": "decline_bench_press_thumb.jpg",
+                    "instructions": [
+                      "Kontrolliert absenken.",
+                      "Stabil nach oben drücken."
+                    ],
+                    "tips": [
+                      "Stabile Körperlinie halten.",
+                      "Kein Schwung aus der Hüfte.",
+                      "Saubere Barpfadführung."
+                    ],
+                    "commonMistakes": [
+                      "Instabile Bankposition.",
+                      "zu viel Schwung.",
+                      "Verlust der Spannung unten."
+                    ]
+                  },
+                  {
+                    "id": "dumbbell_bench_press",
+                    "name": "Kurzhantel Bankdrücken",
+                    "family": "CHEST_PRESS_FAMILY",
+                    "basePattern": "HORIZONTAL_PUSH",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "DUMBBELL",
+                    "primaryMuscle": "CHEST",
+                    "secondaryMuscles": ["TRICEPS"],
+                    "exerciseType": "COMPOUND",
+                    "difficulty": "INTERMEDIATE",
+                    "tags": ["dumbbell", "stability"],
+                    "imageUrl": "dumbbell_bench_press.jpg",
+                    "animationUrl": "dumbbell_bench_press.gif",
+                    "thumbnail": "dumbbell_bench_press_thumb.jpg",
+                    "instructions": [
+                      "Kontrolliert absenken.",
+                      "Stabil nach oben drücken."
+                    ],
+                    "tips": [
+                      "Größerer Bewegungsradius als Langhantel.",
+                      "Beide Arme symmetrisch führen.",
+                      "Keine Asymmetrie zulassen."
+                    ],
+                    "commonMistakes": [
+                      "ungleiche Bewegung.",
+                      "instabile Schultern.",
+                      "zu kurze ROM."
+                    ]
+                  },
+                  {
+                    "id": "machine_chest_press",
+                    "name": "Brustpresse Maschine",
+                    "family": "CHEST_PRESS_FAMILY",
+                    "basePattern": "HORIZONTAL_PUSH",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "MACHINE",
+                    "primaryMuscle": "CHEST",
+                    "secondaryMuscles": ["TRICEPS"],
+                    "exerciseType": "COMPOUND",
+                    "difficulty": "BEGINNER",
+                    "tags": ["machine", "stable"],
+                    "imageUrl": "machine_chest_press.jpg",
+                    "animationUrl": "machine_chest_press.gif",
+                    "thumbnail": "machine_chest_press_thumb.jpg",
+                    "instructions": [
+                      "Geführt drücken.",
+                      "Kontrolliert zurückführen."
+                    ],
+                    "tips": [
+                      "Konstante Spannung halten.",
+                      "Volle ROM nutzen.",
+                      "Keine Schulterdominanz."
+                    ],
+                    "commonMistakes": [
+                      "zu schnelle Bewegung.",
+                      "Schultern übernehmen.",
+                      "verkürzte Range of Motion."
+                    ]
+                  },
+                  {
+                    "id": "cable_fly_high",
+                    "name": "Cable Fly High",
+                    "family": "CABLE_CHEST_FAMILY",
+                    "basePattern": "CABLE_ADDUCTION",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "CABLE",
+                    "primaryMuscle": "UPPER_CHEST",
+                    "secondaryMuscles": [],
+                    "exerciseType": "ISOLATION",
+                    "difficulty": "BEGINNER",
+                    "tags": ["cable", "upper chest"],
+                    "imageUrl": "cable_fly_high.jpg",
+                    "animationUrl": "cable_fly_high.gif",
+                    "thumbnail": "cable_fly_high_thumb.jpg",
+                    "instructions": [
+                      "Arme kontrolliert zusammenführen."
+                    ],
+                    "tips": [
+                      "Konstante Spannung im Kabel.",
+                      "Langsame exzentrische Phase.",
+                      "Brust bewusst aktivieren."
+                    ],
+                    "commonMistakes": [
+                      "zu schneller Rückweg.",
+                      "Schultern übernehmen.",
+                      "Schwung statt Kontrolle."
+                    ]
+                  },
+                  {
+                    "id": "cable_fly_low",
+                    "name": "Cable Fly Low",
+                    "family": "CABLE_CHEST_FAMILY",
+                    "basePattern": "CABLE_ADDUCTION",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "CABLE",
+                    "primaryMuscle": "LOWER_CHEST",
+                    "secondaryMuscles": [],
+                    "exerciseType": "ISOLATION",
+                    "difficulty": "BEGINNER",
+                    "tags": ["lower chest"],
+                    "imageUrl": "cable_fly_low.jpg",
+                    "animationUrl": "cable_fly_low.gif",
+                    "thumbnail": "cable_fly_low_thumb.jpg",
+                    "instructions": [
+                      "Von unten nach oben führen."
+                    ],
+                    "tips": [
+                      "Saubere diagonale Zuglinie.",
+                      "Brustspannung konstant halten.",
+                      "Keine Hüftbewegung."
+                    ],
+                    "commonMistakes": [
+                      "zu viel Schwung.",
+                      "falscher Winkel.",
+                      "Schultern dominant."
+                    ]
+                  },
+                  {
+                    "id": "dumbbell_fly_flat",
+                    "name": "Kurzhantel Fly flach",
+                    "family": "FLY_FAMILY",
+                    "basePattern": "HORIZONTAL_ADDUCTION",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "DUMBBELL",
+                    "primaryMuscle": "CHEST",
+                    "secondaryMuscles": [],
+                    "exerciseType": "ISOLATION",
+                    "difficulty": "BEGINNER",
+                    "tags": ["stretch", "isolation"],
+                    "imageUrl": "dumbbell_fly_flat.jpg",
+                    "animationUrl": "dumbbell_fly_flat.gif",
+                    "thumbnail": "dumbbell_fly_flat_thumb.jpg",
+                    "instructions": [
+                      "Arme öffnen und schließen."
+                    ],
+                    "tips": [
+                      "Leichte Ellbogenbeugung behalten.",
+                      "Dehnung kontrolliert ausführen.",
+                      "Kein Überstretching."
+                    ],
+                    "commonMistakes": [
+                      "zu tiefe Absenkung.",
+                      "Schulterstress.",
+                      "zu schweres Gewicht."
+                    ]
+                  },
+                  {
+                    "id": "pec_deck",
+                    "name": "Pec Deck",
+                    "family": "FLY_FAMILY",
+                    "basePattern": "HORIZONTAL_ADDUCTION",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "MACHINE",
+                    "primaryMuscle": "CHEST",
+                    "secondaryMuscles": [],
+                    "exerciseType": "ISOLATION",
+                    "difficulty": "BEGINNER",
+                    "tags": ["machine fly"],
+                    "imageUrl": "pec_deck.jpg",
+                    "animationUrl": "pec_deck.gif",
+                    "thumbnail": "pec_deck_thumb.jpg",
+                    "instructions": [
+                      "Griffe zusammenführen."
+                    ],
+                    "tips": [
+                      "Konstante Spannung.",
+                      "Brust aktiv kontrahieren.",
+                      "Kontrollierte Bewegung."
+                    ],
+                    "commonMistakes": [
+                      "zu schnelles Zurücklassen.",
+                      "Schultern übernehmen.",
+                      "kein Peak Contraction."
+                    ]
+                  },
+                  {
+                    "id": "push_up",
+                    "name": "Liegestütze",
+                    "family": "CHEST_PRESS_FAMILY",
+                    "basePattern": "HORIZONTAL_PUSH",
+                    "movementPattern": "PUSH",
+                    "bodyRegion": "CHEST",
+                    "equipment": "BODYWEIGHT",
+                    "primaryMuscle": "CHEST",
+                    "secondaryMuscles": ["TRICEPS"],
+                    "exerciseType": "BODYWEIGHT",
+                    "difficulty": "BEGINNER",
+                    "tags": ["bodyweight"],
+                    "imageUrl": "push_up.jpg",
+                    "animationUrl": "push_up.gif",
+                    "thumbnail": "push_up_thumb.jpg",
+                    "instructions": [
+                      "Körper absenken und drücken."
+                    ],
+                    "tips": [
+                      "Gerade Körperlinie halten.",
+                      "Core aktiv spannen.",
+                      "Brust kontrolliert nutzen."
+                    ],
+                    "commonMistakes": [
+                      "Hüfte hängt durch.",
+                      "zu kurze ROM.",
+                      "Kopf fällt nach vorne."
+                    ]
+                  },
+                    {
+                      "id": "barbell_curl",
+                      "name": "Langhantel Curl",
+                      "family": "BICEPS_CURL_FAMILY",
+                      "basePattern": "ELBOW_FLEXION",
+                      "movementPattern": "PULL",
+                      "bodyRegion": "BICEPS",
+                      "equipment": "BARBELL",
+                      "primaryMuscle": "BICEPS",
+                      "secondaryMuscles": [],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "BEGINNER",
+                      "tags": ["strength"],
+                      "imageUrl": "barbell_curl.jpg",
+                      "animationUrl": "barbell_curl.gif",
+                      "thumbnail": "barbell_curl_thumb.jpg",
+                      "instructions": [
+                        "Hantel kontrolliert nach oben curlen.",
+                        "Langsam absenken."
+                      ],
+                      "tips": [
+                        "Ellbogen fix am Körper halten.",
+                        "Keine Schwungbewegung zulassen.",
+                        "Volle ROM sauber nutzen."
+                      ],
+                      "commonMistakes": [
+                        "Schwung aus dem Rücken.",
+                        "Ellbogen wandern nach vorne.",
+                        "zu schweres Gewicht."
+                      ]
+                    },
+                    {
+                      "id": "dumbbell_curl",
+                      "name": "Kurzhantel Curl",
+                      "family": "BICEPS_CURL_FAMILY",
+                      "basePattern": "ELBOW_FLEXION",
+                      "movementPattern": "PULL",
+                      "bodyRegion": "BICEPS",
+                      "equipment": "DUMBBELL",
+                      "primaryMuscle": "BICEPS",
+                      "secondaryMuscles": [],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "BEGINNER",
+                      "tags": ["dumbbell"],
+                      "imageUrl": "dumbbell_curl.jpg",
+                      "animationUrl": "dumbbell_curl.gif",
+                      "thumbnail": "dumbbell_curl_thumb.jpg",
+                      "instructions": [
+                        "Beide Arme kontrolliert curlen."
+                      ],
+                      "tips": [
+                        "Symmetrische Bewegung.",
+                        "Handgelenke stabil halten.",
+                        "Langsame exzentrische Phase."
+                      ],
+                      "commonMistakes": [
+                        "ungleiche Bewegung.",
+                        "Schwung.",
+                        "verkürzte Range."
+                      ]
+                    },
+                    {
+                      "id": "hammer_curl",
+                      "name": "Hammer Curl",
+                      "family": "BICEPS_CURL_FAMILY",
+                      "basePattern": "ELBOW_FLEXION_NEUTRAL",
+                      "movementPattern": "PULL",
+                      "bodyRegion": "BICEPS",
+                      "equipment": "DUMBBELL",
+                      "primaryMuscle": "BRACHIALIS",
+                      "secondaryMuscles": ["FOREARMS"],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "BEGINNER",
+                      "tags": ["forearms"],
+                      "imageUrl": "hammer_curl.jpg",
+                      "animationUrl": "hammer_curl.gif",
+                      "thumbnail": "hammer_curl_thumb.jpg",
+                      "instructions": [
+                        "Neutral greifen und curlen."
+                      ],
+                      "tips": [
+                        "Handgelenke neutral halten.",
+                        "Kontrollierte Bewegung.",
+                        "Keine Schwungphase."
+                      ],
+                      "commonMistakes": [
+                        "zu schwer gewählt.",
+                        "Ellbogen bewegen sich.",
+                        "Momentum genutzt."
+                      ]
+                    },
+                    {
+                      "id": "incline_curl",
+                      "name": "Incline Curl",
+                      "family": "BICEPS_CURL_FAMILY",
+                      "basePattern": "ELBOW_FLEXION_STRETCH",
+                      "movementPattern": "PULL",
+                      "bodyRegion": "BICEPS",
+                      "equipment": "DUMBBELL",
+                      "primaryMuscle": "BICEPS",
+                      "secondaryMuscles": [],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "INTERMEDIATE",
+                      "tags": ["stretch"],
+                      "imageUrl": "incline_curl.jpg",
+                      "animationUrl": "incline_curl.gif",
+                      "thumbnail": "incline_curl_thumb.jpg",
+                      "instructions": [
+                        "Auf Schrägbank curlen."
+                      ],
+                      "tips": [
+                        "Volle Dehnung nutzen.",
+                        "Ellbogen stabil hinten halten.",
+                        "Langsame Kontrolle."
+                      ],
+                      "commonMistakes": [
+                        "zu viel Gewicht.",
+                        "Verlust der Spannung.",
+                        "Schwung."
+                      ]
+                    },
+                    {
+                      "id": "triceps_pushdown",
+                      "name": "Trizeps Pushdown",
+                      "family": "TRICEPS_EXTENSION_FAMILY",
+                      "basePattern": "ELBOW_EXTENSION",
+                      "movementPattern": "PUSH",
+                      "bodyRegion": "TRICEPS",
+                      "equipment": "CABLE",
+                      "primaryMuscle": "TRICEPS",
+                      "secondaryMuscles": [],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "BEGINNER",
+                      "tags": ["cable"],
+                      "imageUrl": "triceps_pushdown.jpg",
+                      "animationUrl": "triceps_pushdown.gif",
+                      "thumbnail": "triceps_pushdown_thumb.jpg",
+                      "instructions": [
+                        "Seil nach unten drücken."
+                      ],
+                      "tips": [
+                        "Ellbogen fixieren.",
+                        "Nur Unterarm bewegt sich.",
+                        "Volle Streckung unten halten."
+                      ],
+                      "commonMistakes": [
+                        "Ellbogen wandern.",
+                        "zu viel Körperbewegung.",
+                        "kein Lockout."
+                      ]
+                    },
+                    {
+                      "id": "skullcrusher",
+                      "name": "Skullcrusher",
+                      "family": "TRICEPS_EXTENSION_FAMILY",
+                      "basePattern": "ELBOW_EXTENSION_OVERHEAD",
+                      "movementPattern": "PUSH",
+                      "bodyRegion": "TRICEPS",
+                      "equipment": "BARBELL",
+                      "primaryMuscle": "TRICEPS",
+                      "secondaryMuscles": [],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "INTERMEDIATE",
+                      "tags": ["lying extension"],
+                      "imageUrl": "skullcrusher.jpg",
+                      "animationUrl": "skullcrusher.gif",
+                      "thumbnail": "skullcrusher_thumb.jpg",
+                      "instructions": [
+                        "Stange kontrolliert zur Stirn senken."
+                      ],
+                      "tips": [
+                        "Ellbogen stabil halten.",
+                        "Saubere ROM ohne Abfälschen.",
+                        "Langsame exzentrische Phase."
+                      ],
+                      "commonMistakes": [
+                        "Ellbogen wandern.",
+                        "zu schweres Gewicht.",
+                        "unkontrollierte Tiefe."
+                      ]
+                    },
+                    {
+                      "id": "overhead_triceps_extension",
+                      "name": "Overhead Triceps Extension",
+                      "family": "TRICEPS_EXTENSION_FAMILY",
+                      "basePattern": "ELBOW_EXTENSION_OVERHEAD",
+                      "movementPattern": "PUSH",
+                      "bodyRegion": "TRICEPS",
+                      "equipment": "DUMBBELL",
+                      "primaryMuscle": "TRICEPS",
+                      "secondaryMuscles": [],
+                      "exerciseType": "ISOLATION",
+                      "difficulty": "BEGINNER",
+                      "tags": ["stretch"],
+                      "imageUrl": "overhead_triceps.jpg",
+                      "animationUrl": "overhead_triceps.gif",
+                      "thumbnail": "overhead_triceps_thumb.jpg",
+                      "instructions": [
+                        "Über Kopf strecken und senken."
+                      ],
+                      "tips": [
+                        "Ellbogen eng halten.",
+                        "Volle Streckung oben.",
+                        "Kontrollierte Bewegung."
+                      ],
+                      "commonMistakes": [
+                        "Hohlkreuz.",
+                        "zu schwer.",
+                        "Ellbogen öffnen sich."
+                      ]
+                    },
+                    {
+                      "id": "plank",
+                      "name": "Plank",
+                      "family": "CORE_STABILITY_FAMILY",
+                      "basePattern": "ANTI_EXTENSION",
+                      "movementPattern": "STABILITY",
+                      "bodyRegion": "CORE",
+                      "equipment": "BODYWEIGHT",
+                      "primaryMuscle": "CORE",
+                      "secondaryMuscles": [],
+                      "exerciseType": "BODYWEIGHT",
+                      "difficulty": "BEGINNER",
+                      "tags": ["stability"],
+                      "imageUrl": "plank.jpg",
+                      "animationUrl": "plank.gif",
+                      "thumbnail": "plank_thumb.jpg",
+                      "instructions": [
+                        "Position halten."
+                      ],
+                      "tips": [
+                        "Gerade Linie halten.",
+                        "Glutes aktivieren.",
+                        "Kein Durchhängen."
+                      ],
+                      "commonMistakes": [
+                        "Hüfte fällt ab.",
+                        "Hohlkreuz.",
+                        "fehlende Spannung."
+                      ]
+                    },
+                    {
+                      "id": "russian_twist",
+                      "name": "Russian Twist",
+                      "family": "CORE_ROTATION_FAMILY",
+                      "basePattern": "SPINAL_ROTATION",
+                      "movementPattern": "ROTATION",
+                      "bodyRegion": "CORE",
+                      "equipment": "BODYWEIGHT",
+                      "primaryMuscle": "OBLIQUES",
+                      "secondaryMuscles": [],
+                      "exerciseType": "BODYWEIGHT",
+                      "difficulty": "BEGINNER",
+                      "tags": ["rotation"],
+                      "imageUrl": "russian_twist.jpg",
+                      "animationUrl": "russian_twist.gif",
+                      "thumbnail": "russian_twist_thumb.jpg",
+                      "instructions": [
+                        "Kontrolliert rotieren."
+                      ],
+                      "tips": [
+                        "Rotation aus dem Core.",
+                        "Kein Armschwung.",
+                        "Langsames Tempo."
+                      ],
+                      "commonMistakes": [
+                        "zu schnell.",
+                        "Momentum.",
+                        "fehlende Kontrolle."
+                      ]
+                    },
+                    {
+                      "id": "farmer_walk",
+                      "name": "Farmer Walk",
+                      "family": "FOREARM_GRIP_FAMILY",
+                      "basePattern": "GRIP_CARRY",
+                      "movementPattern": "CARRY",
+                      "bodyRegion": "FOREARMS",
+                      "equipment": "DUMBBELL",
+                      "primaryMuscle": "FOREARMS",
+                      "secondaryMuscles": ["CORE"],
+                      "exerciseType": "COMPOUND",
+                      "difficulty": "INTERMEDIATE",
+                      "tags": ["grip"],
+                      "imageUrl": "farmer_walk.jpg",
+                      "animationUrl": "farmer_walk.gif",
+                      "thumbnail": "farmer_walk_thumb.jpg",
+                      "instructions": [
+                        "Gewichte stabil tragen."
+                      ],
+                      "tips": [
+                        "Aufrechte Haltung.",
+                        "Maximale Griffspannung.",
+                        "Kein seitliches Kippen."
+                      ],
+                      "commonMistakes": [
+                        "Haltung bricht zusammen.",
+                        "zu schwere Last.",
+                        "Instabilität."
+                      ]
+                    },
+                      {
+                        "id": "bike",
+                        "name": "Fahrrad",
+                        "family": "CYCLING_FAMILY",
+                        "basePattern": "CYCLING",
+                        "movementPattern": "CYCLING",
+                        "bodyRegion": "CARDIO",
+                        "equipment": "CARDIO",
+                        "primaryMuscle": "QUADS",
+                        "secondaryMuscles": ["GLUTES"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "BEGINNER",
+                        "tags": ["cardio", "endurance"],
+                        "imageUrl": "bike.jpg",
+                        "animationUrl": "bike.gif",
+                        "thumbnail": "bike_thumb.jpg",
+                        "instructions": [
+                          "Gleichmäßig in die Pedale treten.",
+                          "Rhythmus konstant halten."
+                        ],
+                        "tips": [
+                          "Trittfrequenz stabil halten.",
+                          "Widerstand kontrolliert einstellen.",
+                          "Oberkörper entspannt lassen."
+                        ],
+                        "commonMistakes": [
+                          "zu hoher Widerstand ohne Kontrolle.",
+                          "Rundrücken beim Fahren.",
+                          "unruhiger Tritt."
+                        ]
+                      },
+                      {
+                        "id": "running_treadmill",
+                        "name": "Laufband",
+                        "family": "CARDIO_FAMILY",
+                        "basePattern": "GAIT_PATTERN",
+                        "movementPattern": "GAIT",
+                        "bodyRegion": "CARDIO",
+                        "equipment": "CARDIO",
+                        "primaryMuscle": "LEGS",
+                        "secondaryMuscles": ["CORE"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "BEGINNER",
+                        "tags": ["running", "endurance"],
+                        "imageUrl": "running.jpg",
+                        "animationUrl": "running.gif",
+                        "thumbnail": "running_thumb.jpg",
+                        "instructions": [
+                          "Gleichmäßig laufen.",
+                          "Tempo kontrollieren."
+                        ],
+                        "tips": [
+                          "Aufrechte Körperhaltung.",
+                          "Fußaufsatz unter dem Körper.",
+                          "Atmung rhythmisch halten."
+                        ],
+                        "commonMistakes": [
+                          "Überstriding.",
+                          "Schultern verkrampfen.",
+                          "unruhiger Laufstil."
+                        ]
+                      },
+                      {
+                        "id": "burpee",
+                        "name": "Burpee",
+                        "family": "FULL_BODY_CONDITIONING_FAMILY",
+                        "basePattern": "FULL_BODY_COMPOUND",
+                        "movementPattern": "FULL_BODY",
+                        "bodyRegion": "FULL_BODY",
+                        "equipment": "BODYWEIGHT",
+                        "primaryMuscle": "FULL_BODY",
+                        "secondaryMuscles": ["CORE", "LEGS", "CHEST"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "INTERMEDIATE",
+                        "tags": ["conditioning"],
+                        "imageUrl": "burpee.jpg",
+                        "animationUrl": "burpee.gif",
+                        "thumbnail": "burpee_thumb.jpg",
+                        "instructions": [
+                          "In Liegestützposition gehen.",
+                          "Explosiv hochspringen."
+                        ],
+                        "tips": [
+                          "Bewegung sauber strukturieren.",
+                          "Core stabil halten.",
+                          "Keine unnötige Pause."
+                        ],
+                        "commonMistakes": [
+                          "unsaubere Liegestützphase.",
+                          "fehlende Stabilität.",
+                          "zu schnelle Ausführung ohne Kontrolle."
+                        ]
+                      },
+                      {
+                        "id": "mountain_climber",
+                        "name": "Mountain Climber",
+                        "family": "CORE_ADVANCED_FAMILY",
+                        "basePattern": "ANTI_EXTENSION_DYNAMIC",
+                        "movementPattern": "STABILITY",
+                        "bodyRegion": "CORE",
+                        "equipment": "BODYWEIGHT",
+                        "primaryMuscle": "CORE",
+                        "secondaryMuscles": ["SHOULDERS"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "BEGINNER",
+                        "tags": ["core", "conditioning"],
+                        "imageUrl": "mountain_climber.jpg",
+                        "animationUrl": "mountain_climber.gif",
+                        "thumbnail": "mountain_climber_thumb.jpg",
+                        "instructions": [
+                          "Knie abwechselnd zur Brust ziehen."
+                        ],
+                        "tips": [
+                          "Hüfte stabil halten.",
+                          "Kein Durchhängen im Rücken.",
+                          "Kontrolliertes Tempo."
+                        ],
+                        "commonMistakes": [
+                          "Hüfte springt hoch.",
+                          "fehlende Core Spannung.",
+                          "zu schnelle, unkontrollierte Bewegung."
+                        ]
+                      },
+                      {
+                        "id": "battle_rope",
+                        "name": "Battle Rope",
+                        "family": "FULL_BODY_CONDITIONING_FAMILY",
+                        "basePattern": "WAVE_PATTERN",
+                        "movementPattern": "FULL_BODY",
+                        "bodyRegion": "FULL_BODY",
+                        "equipment": "OTHER",
+                        "primaryMuscle": "SHOULDERS",
+                        "secondaryMuscles": ["CORE"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "INTERMEDIATE",
+                        "tags": ["conditioning", "explosive"],
+                        "imageUrl": "battle_rope.jpg",
+                        "animationUrl": "battle_rope.gif",
+                        "thumbnail": "battle_rope_thumb.jpg",
+                        "instructions": [
+                          "Seile in Wellen bewegen."
+                        ],
+                        "tips": [
+                          "Rumpf stabilisieren.",
+                          "Explosivität aus Schultern und Core.",
+                          "Rhythmus halten."
+                        ],
+                        "commonMistakes": [
+                          "nur Arme statt Ganzkörper.",
+                          "fehlende Stabilität.",
+                          "zu kurze Intervalle ohne Kontrolle."
+                        ]
+                      },
+                      {
+                        "id": "sled_push",
+                        "name": "Schlitten Push",
+                        "family": "FUNCTIONAL_CARRY_FAMILY",
+                        "basePattern": "FORCE_DRIVE",
+                        "movementPattern": "CARRY",
+                        "bodyRegion": "LEGS",
+                        "equipment": "OTHER",
+                        "primaryMuscle": "QUADS",
+                        "secondaryMuscles": ["GLUTES", "CORE"],
+                        "exerciseType": "COMPOUND",
+                        "difficulty": "INTERMEDIATE",
+                        "tags": ["strength", "conditioning"],
+                        "imageUrl": "sled_push.jpg",
+                        "animationUrl": "sled_push.gif",
+                        "thumbnail": "sled_push_thumb.jpg",
+                        "instructions": [
+                          "Schlitten kraftvoll schieben."
+                        ],
+                        "tips": [
+                          "Konstanter Druck nach vorne.",
+                          "Tiefe Körperposition halten.",
+                          "Schrittfrequenz stabil."
+                        ],
+                        "commonMistakes": [
+                          "Rundrücken.",
+                          "zu kurze Schritte.",
+                          "fehlende Beinaktivierung."
+                        ]
+                      },
+                      {
+                        "id": "jump_rope",
+                        "name": "Seilspringen",
+                        "family": "CARDIO_FAMILY",
+                        "basePattern": "CYCLICAL_JUMP",
+                        "movementPattern": "GAIT",
+                        "bodyRegion": "CARDIO",
+                        "equipment": "BODYWEIGHT",
+                        "primaryMuscle": "CALVES",
+                        "secondaryMuscles": ["CORE"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "BEGINNER",
+                        "tags": ["cardio", "coordination"],
+                        "imageUrl": "jump_rope.jpg",
+                        "animationUrl": "jump_rope.gif",
+                        "thumbnail": "jump_rope_thumb.jpg",
+                        "instructions": [
+                          "Rhythmisch springen."
+                        ],
+                        "tips": [
+                          "Kleine, schnelle Sprünge.",
+                          "Handgelenke kontrolliert drehen.",
+                          "Aufrechte Haltung."
+                        ],
+                        "commonMistakes": [
+                          "zu hohe Sprünge.",
+                          "Arme statt Handgelenke.",
+                          "unruhiger Rhythmus."
+                        ]
+                      },
+                      {
+                        "id": "plank_jack",
+                        "name": "Plank Jack",
+                        "family": "CORE_ADVANCED_FAMILY",
+                        "basePattern": "ANTI_EXTENSION_DYNAMIC",
+                        "movementPattern": "STABILITY",
+                        "bodyRegion": "CORE",
+                        "equipment": "BODYWEIGHT",
+                        "primaryMuscle": "CORE",
+                        "secondaryMuscles": ["SHOULDERS"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "INTERMEDIATE",
+                        "tags": ["core", "cardio"],
+                        "imageUrl": "plank_jack.jpg",
+                        "animationUrl": "plank_jack.gif",
+                        "thumbnail": "plank_jack_thumb.jpg",
+                        "instructions": [
+                          "Beine im Plank öffnen und schließen."
+                        ],
+                        "tips": [
+                          "Core Spannung konstant halten.",
+                          "Keine Hüftbewegung.",
+                          "Stabile Schulterposition."
+                        ],
+                        "commonMistakes": [
+                          "Hüfte kippt.",
+                          "zu schnelle Bewegung.",
+                          "fehlende Stabilität."
+                        ]
+                      },
+                      {
+                        "id": "kettlebell_swing",
+                        "name": "Kettlebell Swing",
+                        "family": "FULL_BODY_CONDITIONING_FAMILY",
+                        "basePattern": "HINGE_EXPLOSIVE",
+                        "movementPattern": "HINGE",
+                        "bodyRegion": "FULL_BODY",
+                        "equipment": "KETTLEBELL",
+                        "primaryMuscle": "GLUTES",
+                        "secondaryMuscles": ["HAMSTRINGS", "CORE"],
+                        "exerciseType": "COMPOUND",
+                        "difficulty": "INTERMEDIATE",
+                        "tags": ["explosive", "hinge"],
+                        "imageUrl": "kettlebell_swing.jpg",
+                        "animationUrl": "kettlebell_swing.gif",
+                        "thumbnail": "kettlebell_swing_thumb.jpg",
+                        "instructions": [
+                          "Hüfte explosiv strecken."
+                        ],
+                        "tips": [
+                          "Kraft aus Hüfte, nicht Arme.",
+                          "Neutraler Rücken.",
+                          "Rhythmischer Swing."
+                        ],
+                        "commonMistakes": [
+                          "Arme ziehen statt Hüfte.",
+                          "Rundrücken.",
+                          "zu wenig Explosivität."
+                        ]
+                      },
+                      {
+                        "id": "bear_crawl",
+                        "name": "Bear Crawl",
+                        "family": "CORE_ADVANCED_FAMILY",
+                        "basePattern": "CROSS_BODY_STABILITY",
+                        "movementPattern": "GAIT",
+                        "bodyRegion": "FULL_BODY",
+                        "equipment": "BODYWEIGHT",
+                        "primaryMuscle": "CORE",
+                        "secondaryMuscles": ["SHOULDERS", "LEGS"],
+                        "exerciseType": "CARDIO",
+                        "difficulty": "INTERMEDIATE",
+                        "tags": ["coordination", "core"],
+                        "imageUrl": "bear_crawl.jpg",
+                        "animationUrl": "bear_crawl.gif",
+                        "thumbnail": "bear_crawl_thumb.jpg",
+                        "instructions": [
+                          "Vierfüßlergang vorwärts bewegen."
+                        ],
+                        "tips": [
+                          "Rücken neutral halten.",
+                          "Langsame kontrollierte Schritte.",
+                          "Core maximal aktiv."
+                        ],
+                        "commonMistakes": [
+                          "Hüfte zu hoch.",
+                          "unkontrollierte Bewegung.",
+                          "fehlende Stabilität."
+                        ]
+                      }
+                    ]
