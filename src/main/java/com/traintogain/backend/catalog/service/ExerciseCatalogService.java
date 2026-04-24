@@ -25,6 +25,7 @@ public class ExerciseCatalogService {
             BodyRegion bodyRegion,
             EquipmentType equipment,
             MovementPattern pattern,
+            List<String> tags,
             String sort
     ) {
 
@@ -48,72 +49,84 @@ public class ExerciseCatalogService {
             exercises = repository.findAll();
         }
 
+        if (tags != null && !tags.isEmpty()) {
+            exercises = exercises.stream()
+                    .filter(e -> e.getTags() != null && e.getTags().stream().anyMatch(tags::contains))
+                    .toList();
+        }
+
         if ("name_desc".equals(sort)) {
             exercises.sort(Comparator.comparing(ExerciseCatalog::getName).reversed());
-        } else if ("name".equals(sort)) {
+        } else {
             exercises.sort(Comparator.comparing(ExerciseCatalog::getName));
         }
 
         return exercises.stream()
-                .map(exercise -> ExerciseCatalogResponse.builder()
-                        .id(exercise.getId())
-                        .name(exercise.getName())
-                        .imageUrl(exercise.getImageUrl())
-                        .animationUrl(exercise.getAnimationUrl())
-                        .thumbnail(exercise.getThumbnail())
-                        .bodyRegion(exercise.getBodyRegion())
-                        .equipment(exercise.getEquipment())
-                        .primaryMuscle(exercise.getPrimaryMuscle())
-                        .secondaryMuscles(exercise.getSecondaryMuscles())
-                        .exerciseType(exercise.getExerciseType())
-                        .difficulty(exercise.getDifficulty())
-                        .movementPattern(exercise.getMovementPattern())
-                        .tags(exercise.getTags())
+                .map(e -> ExerciseCatalogResponse.builder()
+                        .id(e.getId())
+                        .name(e.getName())
+                        .imageUrl(e.getImageUrl())
+                        .animationUrl(e.getAnimationUrl())
+                        .thumbnail(e.getThumbnail())
+                        .bodyRegion(e.getBodyRegion())
+                        .equipment(e.getEquipment())
+                        .primaryMuscle(e.getPrimaryMuscle())
+                        .secondaryMuscles(e.getSecondaryMuscles())
+                        .exerciseType(e.getExerciseType())
+                        .difficulty(e.getDifficulty())
+                        .movementPattern(e.getMovementPattern())
+                        .tags(e.getTags())
                         .build())
                 .toList();
     }
 
     public List<ExerciseCatalogResponse> searchExercises(String query) {
 
-        return repository.findByNameContainingIgnoreCase(query)
-                .stream()
-                .map(exercise -> ExerciseCatalogResponse.builder()
-                        .id(exercise.getId())
-                        .name(exercise.getName())
-                        .imageUrl(exercise.getImageUrl())
-                        .animationUrl(exercise.getAnimationUrl())
-                        .thumbnail(exercise.getThumbnail())
-                        .bodyRegion(exercise.getBodyRegion())
-                        .equipment(exercise.getEquipment())
-                        .primaryMuscle(exercise.getPrimaryMuscle())
-                        .secondaryMuscles(exercise.getSecondaryMuscles())
-                        .exerciseType(exercise.getExerciseType())
-                        .difficulty(exercise.getDifficulty())
-                        .movementPattern(exercise.getMovementPattern())
-                        .tags(exercise.getTags())
+        String q = query.toLowerCase();
+
+        return repository.findAll().stream()
+                .filter(e ->
+                        e.getName().toLowerCase().contains(q)
+                                || (e.getTags() != null && e.getTags().stream().anyMatch(t -> t.toLowerCase().contains(q)))
+                                || e.getPrimaryMuscle().name().toLowerCase().contains(q)
+                )
+                .map(e -> ExerciseCatalogResponse.builder()
+                        .id(e.getId())
+                        .name(e.getName())
+                        .imageUrl(e.getImageUrl())
+                        .animationUrl(e.getAnimationUrl())
+                        .thumbnail(e.getThumbnail())
+                        .bodyRegion(e.getBodyRegion())
+                        .equipment(e.getEquipment())
+                        .primaryMuscle(e.getPrimaryMuscle())
+                        .secondaryMuscles(e.getSecondaryMuscles())
+                        .exerciseType(e.getExerciseType())
+                        .difficulty(e.getDifficulty())
+                        .movementPattern(e.getMovementPattern())
+                        .tags(e.getTags())
                         .build())
                 .toList();
     }
 
     public ExerciseCatalogDetailsResponse getExercise(String id) {
 
-        var exercise = repository.findById(id)
+        var e = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Exercise not found"));
 
         return ExerciseCatalogDetailsResponse.builder()
-                .id(exercise.getId())
-                .name(exercise.getName())
-                .imageUrl(exercise.getImageUrl())
-                .animationUrl(exercise.getAnimationUrl())
-                .thumbnail(exercise.getThumbnail())
-                .bodyRegion(exercise.getBodyRegion())
-                .equipment(exercise.getEquipment())
-                .primaryMuscle(exercise.getPrimaryMuscle())
-                .secondaryMuscles(exercise.getSecondaryMuscles())
-                .exerciseType(exercise.getExerciseType())
-                .difficulty(exercise.getDifficulty())
-                .movementPattern(exercise.getMovementPattern())
-                .tags(exercise.getTags())
+                .id(e.getId())
+                .name(e.getName())
+                .imageUrl(e.getImageUrl())
+                .animationUrl(e.getAnimationUrl())
+                .thumbnail(e.getThumbnail())
+                .bodyRegion(e.getBodyRegion())
+                .equipment(e.getEquipment())
+                .primaryMuscle(e.getPrimaryMuscle())
+                .secondaryMuscles(e.getSecondaryMuscles())
+                .exerciseType(e.getExerciseType())
+                .difficulty(e.getDifficulty())
+                .movementPattern(e.getMovementPattern())
+                .tags(e.getTags())
                 .build();
     }
 }
