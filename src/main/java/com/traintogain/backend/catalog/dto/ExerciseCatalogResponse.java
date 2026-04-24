@@ -18,6 +18,8 @@ public class ExerciseCatalogResponse {
 
     private String animationUrl;
 
+    private String thumbnail;
+
     private BodyRegion bodyRegion;
 
     private EquipmentType equipment;
@@ -29,5 +31,9 @@ public class ExerciseCatalogResponse {
     private ExerciseType exerciseType;
 
     private Difficulty difficulty;
+
+    private MovementPattern movementPattern;
+
+    private List<String> tags;
 
 }
