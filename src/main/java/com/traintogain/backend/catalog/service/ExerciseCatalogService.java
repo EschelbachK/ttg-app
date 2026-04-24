@@ -24,17 +24,26 @@ public class ExerciseCatalogService {
     public List<ExerciseCatalogResponse> getExercises(
             BodyRegion bodyRegion,
             EquipmentType equipment,
+            MovementPattern pattern,
             String sort
     ) {
 
         List<ExerciseCatalog> exercises;
 
-        if (bodyRegion != null && equipment != null) {
+        if (bodyRegion != null && equipment != null && pattern != null) {
+            exercises = repository.findByBodyRegionAndEquipmentAndMovementPattern(bodyRegion, equipment, pattern);
+        } else if (bodyRegion != null && equipment != null) {
             exercises = repository.findByBodyRegionAndEquipment(bodyRegion, equipment);
+        } else if (bodyRegion != null && pattern != null) {
+            exercises = repository.findByBodyRegionAndMovementPattern(bodyRegion, pattern);
+        } else if (equipment != null && pattern != null) {
+            exercises = repository.findByEquipmentAndMovementPattern(equipment, pattern);
         } else if (bodyRegion != null) {
             exercises = repository.findByBodyRegion(bodyRegion);
         } else if (equipment != null) {
             exercises = repository.findByEquipment(equipment);
+        } else if (pattern != null) {
+            exercises = repository.findByMovementPattern(pattern);
         } else {
             exercises = repository.findAll();
         }
@@ -96,12 +105,15 @@ public class ExerciseCatalogService {
                 .name(exercise.getName())
                 .imageUrl(exercise.getImageUrl())
                 .animationUrl(exercise.getAnimationUrl())
+                .thumbnail(exercise.getThumbnail())
                 .bodyRegion(exercise.getBodyRegion())
                 .equipment(exercise.getEquipment())
-                .primaryMuskel(exercise.getPrimaryMuscle())
-                .secondaryMuskeln(exercise.getSecondaryMuscles())
-                .uebungstyp(exercise.getExerciseType())
-                .schwierigkeit(exercise.getDifficulty())
+                .primaryMuscle(exercise.getPrimaryMuscle())
+                .secondaryMuscles(exercise.getSecondaryMuscles())
+                .exerciseType(exercise.getExerciseType())
+                .difficulty(exercise.getDifficulty())
+                .movementPattern(exercise.getMovementPattern())
+                .tags(exercise.getTags())
                 .build();
     }
 }
