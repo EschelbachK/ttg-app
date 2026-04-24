@@ -51,12 +51,15 @@ public class ExerciseCatalogService {
                         .name(exercise.getName())
                         .imageUrl(exercise.getImageUrl())
                         .animationUrl(exercise.getAnimationUrl())
+                        .thumbnail(exercise.getThumbnail())
                         .bodyRegion(exercise.getBodyRegion())
                         .equipment(exercise.getEquipment())
                         .primaryMuscle(exercise.getPrimaryMuscle())
                         .secondaryMuscles(exercise.getSecondaryMuscles())
                         .exerciseType(exercise.getExerciseType())
                         .difficulty(exercise.getDifficulty())
+                        .movementPattern(exercise.getMovementPattern())
+                        .tags(exercise.getTags())
                         .build())
                 .toList();
     }
@@ -70,12 +73,15 @@ public class ExerciseCatalogService {
                         .name(exercise.getName())
                         .imageUrl(exercise.getImageUrl())
                         .animationUrl(exercise.getAnimationUrl())
+                        .thumbnail(exercise.getThumbnail())
                         .bodyRegion(exercise.getBodyRegion())
                         .equipment(exercise.getEquipment())
                         .primaryMuscle(exercise.getPrimaryMuscle())
                         .secondaryMuscles(exercise.getSecondaryMuscles())
                         .exerciseType(exercise.getExerciseType())
                         .difficulty(exercise.getDifficulty())
+                        .movementPattern(exercise.getMovementPattern())
+                        .tags(exercise.getTags())
                         .build())
                 .toList();
     }
