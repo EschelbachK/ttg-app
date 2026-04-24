@@ -10,6 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -22,45 +23,76 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println(">>> ExerciseCatalogSeeder started <<<");
+        if (repository.count() > 0) return;
 
-        long count = repository.count();
-        System.out.println("Existing exercises in DB: " + count);
-
-        if (count > 0) {
-            System.out.println("Catalog already seeded. Skipping...");
-            return;
-        }
-
-        ClassPathResource resource =
-                new ClassPathResource("catalog/exercises.json");
+        ClassPathResource resource = new ClassPathResource("catalog/exercises.json");
 
         try (InputStream input = resource.getInputStream()) {
 
             List<ExerciseCatalog> exercises =
-                    objectMapper.readValue(
-                            input,
-                            new TypeReference<List<ExerciseCatalog>>() {}
-                    );
+                    objectMapper.readValue(input, new TypeReference<List<ExerciseCatalog>>() {});
 
-            exercises.forEach(exercise -> {
-
-                if (exercise.getPrimaryMuscle() == null) {
-                    exercise.setPrimaryMuscle(Muscle.valueOf("BRUST"));
-                }
-
-                if (exercise.getExerciseType() == null) {
-                    exercise.setExerciseType(ExerciseType.GRUNDUEBUNG);
-                }
-
-                if (exercise.getDifficulty() == null) {
-                    exercise.setDifficulty(Difficulty.MITTEL);
-                }
-            });
+            exercises.forEach(this::enrich);
 
             repository.saveAll(exercises);
-
-            System.out.println(">>> Seeded " + exercises.size() + " exercises <<<");
         }
+    }
+
+    private void enrich(ExerciseCatalog e) {
+
+        if (e.getPrimaryMuscle() == null) {
+            e.setPrimaryMuscle(Muscle.BRUST);
+        }
+
+        if (e.getExerciseType() == null) {
+            e.setExerciseType(ExerciseType.GRUNDUEBUNG);
+        }
+
+        if (e.getDifficulty() == null) {
+            e.setDifficulty(Difficulty.MITTEL);
+        }
+
+        if (e.getMovementPattern() == null) {
+            e.setMovementPattern(mapPattern(e));
+        }
+
+        if (e.getTags() == null || e.getTags().isEmpty()) {
+            e.setTags(generateTags(e));
+        }
+
+        if (e.getImageUrl() == null) {
+            e.setImageUrl("/images/" + e.getId() + ".png");
+        }
+
+        if (e.getAnimationUrl() == null) {
+            e.setAnimationUrl("/animations/" + e.getId() + ".gif");
+        }
+
+        if (e.getThumbnail() == null) {
+            e.setThumbnail("/thumbnails/" + e.getId() + ".jpg");
+        }
+    }
+
+    private MovementPattern mapPattern(ExerciseCatalog e) {
+        return switch (e.getBodyRegion()) {
+            case BRUST, SCHULTERN, TRIZEPS -> MovementPattern.PUSH;
+            case RUECKEN, BIZEPS -> MovementPattern.PULL;
+            case BEINE -> MovementPattern.SQUAT;
+            case BAUCH -> MovementPattern.CORE;
+            case GANZKOERPER, CARDIO -> MovementPattern.FULL_BODY;
+            default -> MovementPattern.FULL_BODY;
+        };
+    }
+
+    private List<String> generateTags(ExerciseCatalog e) {
+
+        List<String> tags = new ArrayList<>();
+
+        tags.add(e.getPrimaryMuscle().name().toLowerCase());
+        tags.add(e.getEquipment().name().toLowerCase());
+        tags.add(e.getExerciseType().name().toLowerCase());
+        tags.add(e.getMovementPattern().name().toLowerCase());
+
+        return tags;
     }
 }
