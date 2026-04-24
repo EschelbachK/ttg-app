@@ -35,4 +35,10 @@ public class ExerciseCatalog {
 
     private Difficulty difficulty;
 
+    private MovementPattern movementPattern;
+
+    private List<String> tags;
+
+    private String thumbnail;
+
 }
