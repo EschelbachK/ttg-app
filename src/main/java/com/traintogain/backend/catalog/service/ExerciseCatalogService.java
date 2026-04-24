@@ -5,11 +5,11 @@ import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,19 +31,29 @@ public class ExerciseCatalogService {
             String sort
     ) {
 
-        List<ExerciseCatalog> exercises = repository.findAll(PageRequest.of(page, size)).getContent();
+        var pageable = PageRequest.of(page, size);
 
-        if (bodyRegion != null) {
-            exercises = exercises.stream().filter(e -> e.getBodyRegion() == bodyRegion).toList();
+        Page<ExerciseCatalog> result;
+
+        if (bodyRegion != null && equipment != null && pattern != null) {
+            result = repository.findByBodyRegionAndEquipmentAndMovementPattern(bodyRegion, equipment, pattern, pageable);
+        } else if (bodyRegion != null && equipment != null) {
+            result = repository.findByBodyRegionAndEquipment(bodyRegion, equipment, pageable);
+        } else if (bodyRegion != null && pattern != null) {
+            result = repository.findByBodyRegionAndMovementPattern(bodyRegion, pattern, pageable);
+        } else if (equipment != null && pattern != null) {
+            result = repository.findByEquipmentAndMovementPattern(equipment, pattern, pageable);
+        } else if (bodyRegion != null) {
+            result = repository.findByBodyRegion(bodyRegion, pageable);
+        } else if (equipment != null) {
+            result = repository.findByEquipment(equipment, pageable);
+        } else if (pattern != null) {
+            result = repository.findByMovementPattern(pattern, pageable);
+        } else {
+            result = repository.findAll(pageable);
         }
 
-        if (equipment != null) {
-            exercises = exercises.stream().filter(e -> e.getEquipment() == equipment).toList();
-        }
-
-        if (pattern != null) {
-            exercises = exercises.stream().filter(e -> e.getMovementPattern() == pattern).toList();
-        }
+        List<ExerciseCatalog> exercises = new ArrayList<>(result.getContent());
 
         if (tags != null && !tags.isEmpty()) {
             exercises = exercises.stream()
@@ -76,27 +86,19 @@ public class ExerciseCatalogService {
 
         int score = 0;
 
-        if (e.getName().toLowerCase().contains(q)) {
-            score += 100;
-        }
+        if (e.getName().toLowerCase().contains(q)) score += 100;
 
-        if (e.getPrimaryMuscle().name().toLowerCase().contains(q)) {
-            score += 50;
-        }
+        if (e.getPrimaryMuscle().name().toLowerCase().contains(q)) score += 50;
 
         if (e.getTags() != null) {
             for (String tag : e.getTags()) {
-                if (tag.toLowerCase().contains(q)) {
-                    score += 30;
-                }
+                if (tag.toLowerCase().contains(q)) score += 30;
             }
         }
 
         if (e.getSecondaryMuscles() != null) {
             for (Muscle m : e.getSecondaryMuscles()) {
-                if (m.name().toLowerCase().contains(q)) {
-                    score += 20;
-                }
+                if (m.name().toLowerCase().contains(q)) score += 20;
             }
         }
 
