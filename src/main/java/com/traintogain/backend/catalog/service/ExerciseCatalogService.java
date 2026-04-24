@@ -16,6 +16,7 @@ import java.util.*;
 public class ExerciseCatalogService {
 
     private final ExerciseCatalogRepository repository;
+    private final ExerciseMediaService mediaService;
 
     public List<BodyRegion> getBodyRegions() {
         return Arrays.asList(BodyRegion.values());
@@ -113,9 +114,9 @@ public class ExerciseCatalogService {
         return ExerciseCatalogDetailsResponse.builder()
                 .id(e.getId())
                 .name(e.getName())
-                .imageUrl(e.getImageUrl())
-                .animationUrl(e.getAnimationUrl())
-                .thumbnail(e.getThumbnail())
+                .imageUrl(mediaService.getImage(e.getId(), e.getImageUrl()))
+                .animationUrl(mediaService.getAnimation(e.getId(), e.getAnimationUrl()))
+                .thumbnail(mediaService.getThumbnail(e.getId(), e.getThumbnail()))
                 .bodyRegion(e.getBodyRegion())
                 .equipment(e.getEquipment())
                 .primaryMuscle(e.getPrimaryMuscle())
@@ -131,9 +132,9 @@ public class ExerciseCatalogService {
         return ExerciseCatalogResponse.builder()
                 .id(e.getId())
                 .name(e.getName())
-                .imageUrl(e.getImageUrl())
-                .animationUrl(e.getAnimationUrl())
-                .thumbnail(e.getThumbnail())
+                .imageUrl(mediaService.getImage(e.getId(), e.getImageUrl()))
+                .animationUrl(mediaService.getAnimation(e.getId(), e.getAnimationUrl()))
+                .thumbnail(mediaService.getThumbnail(e.getId(), e.getThumbnail()))
                 .bodyRegion(e.getBodyRegion())
                 .equipment(e.getEquipment())
                 .primaryMuscle(e.getPrimaryMuscle())
