@@ -43,8 +43,8 @@ public class ExerciseCatalog {
     @Indexed
     private MovementPattern movementPattern;
 
+    @Indexed
     private List<String> tags;
 
     private String thumbnail;
-
 }
