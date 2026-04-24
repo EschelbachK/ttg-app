@@ -32,26 +32,18 @@ public class ExerciseCatalogService {
             String sort
     ) {
 
-        int safeSize = Math.min(size, 100);
+        List<ExerciseCatalog> exercises = repository.findAll(PageRequest.of(page, size)).getContent();
 
-        List<ExerciseCatalog> exercises;
+        if (bodyRegion != null) {
+            exercises = exercises.stream().filter(e -> e.getBodyRegion() == bodyRegion).toList();
+        }
 
-        if (bodyRegion != null && equipment != null && pattern != null) {
-            exercises = repository.findByBodyRegionAndEquipmentAndMovementPattern(bodyRegion, equipment, pattern);
-        } else if (bodyRegion != null && equipment != null) {
-            exercises = repository.findByBodyRegionAndEquipment(bodyRegion, equipment);
-        } else if (bodyRegion != null && pattern != null) {
-            exercises = repository.findByBodyRegionAndMovementPattern(bodyRegion, pattern);
-        } else if (equipment != null && pattern != null) {
-            exercises = repository.findByEquipmentAndMovementPattern(equipment, pattern);
-        } else if (bodyRegion != null) {
-            exercises = repository.findByBodyRegion(bodyRegion);
-        } else if (equipment != null) {
-            exercises = repository.findByEquipment(equipment);
-        } else if (pattern != null) {
-            exercises = repository.findByMovementPattern(pattern);
-        } else {
-            exercises = repository.findAll();
+        if (equipment != null) {
+            exercises = exercises.stream().filter(e -> e.getEquipment() == equipment).toList();
+        }
+
+        if (pattern != null) {
+            exercises = exercises.stream().filter(e -> e.getMovementPattern() == pattern).toList();
         }
 
         if (tags != null && !tags.isEmpty()) {
@@ -61,39 +53,26 @@ public class ExerciseCatalogService {
         }
 
         if ("name_desc".equals(sort)) {
-            exercises = exercises.stream()
-                    .sorted(Comparator.comparing(ExerciseCatalog::getName).reversed())
-                    .toList();
+            exercises.sort(Comparator.comparing(ExerciseCatalog::getName).reversed());
         } else {
-            exercises = exercises.stream()
-                    .sorted(Comparator.comparing(ExerciseCatalog::getName))
-                    .toList();
+            exercises.sort(Comparator.comparing(ExerciseCatalog::getName));
         }
 
-        int fromIndex = page * safeSize;
-        int toIndex = Math.min(fromIndex + safeSize, exercises.size());
-
-        if (fromIndex >= exercises.size()) {
-            return List.of();
-        }
-
-        return exercises.subList(fromIndex, toIndex).stream()
-                .map(e -> ExerciseCatalogResponse.builder()
-                        .id(e.getId())
-                        .name(e.getName())
-                        .imageUrl(e.getImageUrl())
-                        .animationUrl(e.getAnimationUrl())
-                        .thumbnail(e.getThumbnail())
-                        .bodyRegion(e.getBodyRegion())
-                        .equipment(e.getEquipment())
-                        .primaryMuscle(e.getPrimaryMuscle())
-                        .secondaryMuscles(e.getSecondaryMuscles())
-                        .exerciseType(e.getExerciseType())
-                        .difficulty(e.getDifficulty())
-                        .movementPattern(e.getMovementPattern())
-                        .tags(e.getTags())
-                        .build())
-                .toList();
+        return exercises.stream().map(e -> ExerciseCatalogResponse.builder()
+                .id(e.getId())
+                .name(e.getName())
+                .imageUrl(e.getImageUrl())
+                .animationUrl(e.getAnimationUrl())
+                .thumbnail(e.getThumbnail())
+                .bodyRegion(e.getBodyRegion())
+                .equipment(e.getEquipment())
+                .primaryMuscle(e.getPrimaryMuscle())
+                .secondaryMuscles(e.getSecondaryMuscles())
+                .exerciseType(e.getExerciseType())
+                .difficulty(e.getDifficulty())
+                .movementPattern(e.getMovementPattern())
+                .tags(e.getTags())
+                .build()).toList();
     }
 
     public List<ExerciseCatalogResponse> searchExercises(String query) {
