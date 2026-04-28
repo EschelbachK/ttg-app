@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -43,6 +45,11 @@ public class GlobalExceptionHandler {
         return build(ex.getMessage(), "NOT_FOUND", HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorResponse> handleNoSuchElement(NoSuchElementException ex) {
+        return build(ex.getMessage(), "NOT_FOUND", HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<ErrorResponse> handleForbidden(ForbiddenException ex) {
         return build(ex.getMessage(), "FORBIDDEN", HttpStatus.FORBIDDEN);
@@ -67,6 +74,11 @@ public class GlobalExceptionHandler {
         return build(ex.getMessage(), "BAD_REQUEST", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ErrorResponse> handleResponseStatus(ResponseStatusException ex) {
+        return build(ex.getReason(), "BAD_REQUEST", HttpStatus.valueOf(ex.getStatusCode().value()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
         log.error("UNHANDLED ERROR", ex);
@@ -75,5 +87,9 @@ public class GlobalExceptionHandler {
 
     private ResponseEntity<ErrorResponse> build(String msg, String code, HttpStatus status) {
         return new ResponseEntity<>(new ErrorResponse(msg, code, status.value()), status);
+    }
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequestCustom(BadRequestException ex) {
+        return build(ex.getMessage(), "BAD_REQUEST", HttpStatus.BAD_REQUEST);
     }
 }
