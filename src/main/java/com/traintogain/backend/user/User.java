@@ -12,6 +12,7 @@ import java.time.Instant;
 public class User {
 
     @Id
+    @Setter
     private String id;
 
     @Setter
