@@ -1,4 +1,8 @@
 package com.traintogain.backend.catalog.model;
 
-public class SpeedType {
+public enum SpeedType {
+    CONTROLLED,
+    EXPLOSIVE,
+    SLOW,
+    STANDARD
 }
