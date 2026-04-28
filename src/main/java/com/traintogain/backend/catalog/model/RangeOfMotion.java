@@ -1,4 +1,7 @@
 package com.traintogain.backend.catalog.model;
 
-public class RangeOfMotion {
+public enum RangeOfMotion {
+    FULL,
+    PARTIAL,
+    STATIC
 }
