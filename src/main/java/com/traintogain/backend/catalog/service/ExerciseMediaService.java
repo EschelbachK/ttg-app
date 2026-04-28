@@ -9,41 +9,32 @@ public class ExerciseMediaService {
     @Value("${media.base-url}")
     private String baseUrl;
 
-    @Value("${media.default-image}")
-    private String defaultImage;
-
-    @Value("${media.default-animation}")
-    private String defaultAnimation;
-
-    @Value("${media.default-thumbnail}")
-    private String defaultThumbnail;
-
     public String getImage(String id, String file) {
-        return resolve(id, file, defaultImage);
+        return resolve(id, file);
     }
 
     public String getAnimation(String id, String file) {
-        return resolve(id, file, defaultAnimation);
+        return resolve(id, file);
     }
 
     public String getThumbnail(String id, String file) {
-        return resolve(id, file, defaultThumbnail);
+        return resolve(id, file);
     }
 
-    private String resolve(String id, String file, String fallback) {
-        String base = normalize(baseUrl);
-
-        if (file != null && !file.isBlank()) {
-            return base + "/exercises/" + id + "/" + file;
-        }
-
-        return base + "/" + fallback;
+    private String resolve(String id, String file) {
+        if (isBlank(baseUrl)) throw new IllegalStateException("media.base-url missing");
+        if (isBlank(id)) throw new IllegalStateException("exercise id missing for media");
+        if (isBlank(file)) throw new IllegalStateException("media file missing for exercise: " + id);
+        return build(baseUrl, "exercises/" + id + "/" + file);
     }
 
-    private String normalize(String url) {
-        if (url.endsWith("/")) {
-            return url.substring(0, url.length() - 1);
-        }
-        return url;
+    private String build(String base, String path) {
+        String cleanBase = base.endsWith("/") ? base.substring(0, base.length() - 1) : base;
+        String cleanPath = path.startsWith("/") ? path.substring(1) : path;
+        return cleanBase + "/" + cleanPath;
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
     }
 }
