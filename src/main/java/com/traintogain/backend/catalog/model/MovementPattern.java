@@ -1,17 +1,13 @@
 package com.traintogain.backend.catalog.model;
 
 public enum MovementPattern {
-
     PUSH,
     PULL,
     SQUAT,
     HINGE,
     LUNGE,
+    CORE,
     CARRY,
-    FLEXION,
-    EXTENSION,
-    ROTATION,
-    STABILITY,
-    GAIT,
-    CYCLING
+    CONDITIONING,
+    KNEE_FLEXION
 }
