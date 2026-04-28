@@ -1,12 +1,20 @@
 package com.traintogain.backend.exercise;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Document(collection = "training_exercises")
+@CompoundIndex(name = "user_folder_idx", def = "{'userId': 1, 'folderId': 1}")
 public class TrainingExercise {
 
     @Id
@@ -19,33 +27,34 @@ public class TrainingExercise {
     private String folderId;
 
     @Indexed
-    private String exerciseId;
+    private String exerciseId; // <- wichtig: entspricht der "name" aus Test
 
-    private String name;
+    private List<SetEntry> sets = new ArrayList<>();
 
-    private List<SetEntry> sets;
+    private int orderIndex;
 
-    public String getId() { return id; }
-    public String getUserId() { return userId; }
-    public String getFolderId() { return folderId; }
-    public String getExerciseId() { return exerciseId; }
-    public String getName() { return name; }
-    public List<SetEntry> getSets() { return sets; }
+    private Instant createdAt;
+    private Instant updatedAt;
 
-    public void setId(String id) { this.id = id; }
-    public void setUserId(String userId) { this.userId = userId; }
-    public void setFolderId(String folderId) { this.folderId = folderId; }
-    public void setExerciseId(String exerciseId) { this.exerciseId = exerciseId; }
-    public void setName(String name) { this.name = name; }
-    public void setSets(List<SetEntry> sets) { this.sets = sets; }
+    public void prePersist() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    public void preUpdate() {
+        updatedAt = Instant.now();
+    }
 
     public TrainingExercise copyForFolder(String newFolderId) {
         TrainingExercise copy = new TrainingExercise();
-        copy.setUserId(this.userId);
+        copy.setUserId(userId);
         copy.setFolderId(newFolderId);
-        copy.setExerciseId(this.exerciseId);
-        copy.setName(this.name);
-        copy.setSets(this.sets);
+        copy.setExerciseId(exerciseId);
+        copy.setSets(sets.stream()
+                .map(s -> new SetEntry(s.getWeight(), s.getRepetitions()))
+                .toList());
+        copy.prePersist();
         return copy;
     }
 }
