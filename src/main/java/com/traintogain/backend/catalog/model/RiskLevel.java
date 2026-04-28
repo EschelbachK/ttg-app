@@ -1,4 +1,7 @@
 package com.traintogain.backend.catalog.model;
 
-public class RiskLevel {
+public enum RiskLevel {
+    LOW,
+    MEDIUM,
+    HIGH
 }
