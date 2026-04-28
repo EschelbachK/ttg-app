@@ -6,16 +6,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface TrainingExerciseRepository
-        extends MongoRepository<TrainingExercise, String> {
+public interface TrainingExerciseRepository extends MongoRepository<TrainingExercise, String> {
 
-    Page<TrainingExercise> findByUserIdAndFolderId(
-            String userId,
-            String folderId,
-            Pageable pageable
-    );
-
-    List<TrainingExercise> findByFolderId(String folderId); // 🔥 HINZUFÜGEN
-
-    void deleteByFolderId(String folderId); // 🔥 HINZUFÜGEN
+    Page<TrainingExercise> findByUserIdAndFolderId(String userId, String folderId, Pageable pageable);
+    List<TrainingExercise> findByFolderId(String folderId);
+    void deleteByFolderId(String folderId);
 }
