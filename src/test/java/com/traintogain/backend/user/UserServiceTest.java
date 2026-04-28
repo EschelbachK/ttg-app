@@ -2,6 +2,7 @@ package com.traintogain.backend.user;
 
 import com.traintogain.backend.auth.refreshtoken.RefreshTokenService;
 import com.traintogain.backend.exception.*;
+import com.traintogain.backend.mail.MailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -23,6 +24,9 @@ class UserServiceTest {
     @Mock
     private RefreshTokenService refresh;
 
+    @Mock
+    private MailService mailService;
+
     @InjectMocks
     private UserService service;
 
@@ -34,10 +38,11 @@ class UserServiceTest {
     @Test
     void register_success() {
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.empty());
-        when(encoder.encode("123456")).thenReturn("hashed");
+        when(encoder.encode("Password1")).thenReturn("hashed");
         when(repo.save(any())).thenAnswer(i -> i.getArguments()[0]);
+        doNothing().when(mailService).sendVerificationEmail(anyString(), anyString());
 
-        User user = service.register("TEST@mail.com", "user", "123456");
+        User user = service.register("TEST@mail.com", "user", "Password1");
 
         assertEquals("test@mail.com", user.getEmail());
         assertEquals("hashed", user.getPassword());
@@ -50,7 +55,7 @@ class UserServiceTest {
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(new User()));
 
         assertThrows(EmailAlreadyExistsException.class,
-                () -> service.register("test@mail.com", "user", "123456"));
+                () -> service.register("test@mail.com", "user", "Password1"));
     }
 
     @Test
@@ -60,9 +65,9 @@ class UserServiceTest {
         user.setEnabled(true);
 
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(user));
-        when(encoder.matches("123456", "hashed")).thenReturn(true);
+        when(encoder.matches("Password1", "hashed")).thenReturn(true);
 
-        User result = service.login("TEST@mail.com", "123456");
+        User result = service.login("TEST@mail.com", "Password1");
 
         assertNotNull(result);
     }
@@ -76,7 +81,7 @@ class UserServiceTest {
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(user));
 
         assertThrows(InvalidCredentialsException.class,
-                () -> service.login("test@mail.com", "123456"));
+                () -> service.login("test@mail.com", "Password1"));
     }
 
     @Test
@@ -86,16 +91,15 @@ class UserServiceTest {
         user.setEnabled(true);
 
         when(repo.findByEmail("test@mail.com")).thenReturn(Optional.of(user));
-        when(encoder.matches("wrong", "hashed")).thenReturn(false);
+        when(encoder.matches("WrongPass1", "hashed")).thenReturn(false);
 
         assertThrows(InvalidCredentialsException.class,
-                () -> service.login("test@mail.com", "wrong"));
+                () -> service.login("test@mail.com", "WrongPass1"));
     }
 
     @Test
     void getById_success() {
         User user = new User();
-
         when(repo.findById("id")).thenReturn(Optional.of(user));
 
         User result = service.getById("id");
@@ -121,7 +125,7 @@ class UserServiceTest {
         when(repo.findByEmail("new@mail.com")).thenReturn(Optional.empty());
         when(repo.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
-        User result = service.updateProfile("id", "NEW@mail.com", "newUser");
+        User result = service.updateProfile("id", "new@mail.com", "newUser");
 
         assertEquals("new@mail.com", result.getEmail());
         assertEquals("newUser", result.getUsername());
@@ -134,6 +138,7 @@ class UserServiceTest {
 
         User other = new User();
         other.setEmail("other@mail.com");
+        other.setId("otherId");
 
         when(repo.findById("id")).thenReturn(Optional.of(user));
         when(repo.findByEmail("mail@test.com")).thenReturn(Optional.of(other));
@@ -148,10 +153,10 @@ class UserServiceTest {
         user.setPassword("oldHash");
 
         when(repo.findById("id")).thenReturn(Optional.of(user));
-        when(encoder.matches("old", "oldHash")).thenReturn(true);
-        when(encoder.encode("new")).thenReturn("newHash");
+        when(encoder.matches("OldPass1", "oldHash")).thenReturn(true);
+        when(encoder.encode("NewPass1")).thenReturn("newHash");
 
-        service.changePassword("id", "old", "new");
+        service.changePassword("id", "OldPass1", "NewPass1");
 
         verify(repo).save(user);
         verify(refresh).deleteTokensForUser("id");
@@ -163,10 +168,10 @@ class UserServiceTest {
         user.setPassword("oldHash");
 
         when(repo.findById("id")).thenReturn(Optional.of(user));
-        when(encoder.matches("wrong", "oldHash")).thenReturn(false);
+        when(encoder.matches("WrongOld1", "oldHash")).thenReturn(false);
 
         assertThrows(InvalidPasswordException.class,
-                () -> service.changePassword("id", "wrong", "new"));
+                () -> service.changePassword("id", "WrongOld1", "NewPass1"));
     }
 
     @Test
