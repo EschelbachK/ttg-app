@@ -1,5 +1,8 @@
 package com.traintogain.backend.exercise;
 
+import com.traintogain.backend.catalog.model.ExerciseCatalog;
+import com.traintogain.backend.catalog.service.ExerciseCatalogService;
+import com.traintogain.backend.exercise.BasePatternRegistry;
 import com.traintogain.backend.exception.ForbiddenException;
 import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
@@ -25,6 +28,12 @@ class TrainingExerciseServiceTest {
     @Mock
     private TrainingFolderRepository folderRepository;
 
+    @Mock
+    private ExerciseCatalogService catalogService;
+
+    @Mock
+    private ExerciseValidationService validationService;
+
     @InjectMocks
     private TrainingExerciseService service;
 
@@ -39,15 +48,27 @@ class TrainingExerciseServiceTest {
         folder.setUserId("user");
 
         when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
+
+        ExerciseCatalog catalog = new ExerciseCatalog();
+        catalog.setId("Bankdrücken");
+        catalog.setFamily(ExerciseFamily.valueOf("PUSH"));
+        catalog.setBasePattern(BasePatternRegistry.HORIZONTAL_PUSH);
+        when(catalogService.getById("Bankdrücken")).thenReturn(catalog);
+
         when(exerciseRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
-        CreateTrainingExerciseRequest request = mock(CreateTrainingExerciseRequest.class);
-        when(request.name()).thenReturn("Bankdrücken");
-        when(request.sets()).thenReturn(List.of(new SetEntryRequest(100.0, 10)));
+        CreateTrainingExerciseRequest request = new CreateTrainingExerciseRequest(
+                "Bankdrücken",
+                List.of(new SetEntryRequest(100.0, 10))
+        );
 
         TrainingExercise result = service.addExercise("user", "plan", "folder", request);
 
-        assertEquals("Bankdrücken", result.getName());
+        assertEquals(request.exerciseId(), result.getExerciseId());
+        assertEquals(request.sets().size(), result.getSets().size());
+        assertEquals(request.sets().get(0).weight(), result.getSets().get(0).getWeight());
+        assertEquals(request.sets().get(0).repetitions(), result.getSets().get(0).getRepetitions());
+
         verify(exerciseRepository).save(any());
     }
 
@@ -58,7 +79,10 @@ class TrainingExerciseServiceTest {
 
         when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
 
-        CreateTrainingExerciseRequest request = mock(CreateTrainingExerciseRequest.class);
+        CreateTrainingExerciseRequest request = new CreateTrainingExerciseRequest(
+                "Bankdrücken",
+                List.of(new SetEntryRequest(100.0, 10))
+        );
 
         assertThrows(ForbiddenException.class,
                 () -> service.addExercise("user", "plan", "folder", request));
@@ -68,6 +92,7 @@ class TrainingExerciseServiceTest {
     void getExercises_success() {
         TrainingFolder folder = new TrainingFolder("plan", "Brust", 0);
         folder.setUserId("user");
+        folder.setId("folder"); // <-- fix
 
         when(folderRepository.findById("folder")).thenReturn(Optional.of(folder));
 
@@ -79,6 +104,7 @@ class TrainingExerciseServiceTest {
                 "user", "plan", "folder", PageRequest.of(0, 10)
         );
 
+        assertNotNull(result);
         assertEquals(1, result.getContent().size());
     }
 
