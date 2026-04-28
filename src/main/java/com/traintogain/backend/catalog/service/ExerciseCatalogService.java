@@ -2,13 +2,14 @@ package com.traintogain.backend.catalog.service;
 
 import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
+import com.traintogain.backend.catalog.dto.ExerciseFilterRequest;
+import com.traintogain.backend.catalog.logic.ExerciseFilterEngine;
 import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -18,117 +19,81 @@ public class ExerciseCatalogService {
     private final ExerciseCatalogRepository repository;
     private final ExerciseMediaService mediaService;
 
-    public List<BodyRegion> getBodyRegions() {
-        return Arrays.asList(BodyRegion.values());
+    public List<BodyRegion> getCategories() {
+        return List.of(BodyRegion.values());
     }
 
-    public List<ExerciseCatalogResponse> getExercises(
-            BodyRegion bodyRegion,
-            EquipmentType equipment,
-            MovementPattern pattern,
-            List<String> tags,
-            int page,
-            int size,
-            String sort
-    ) {
+    public ExerciseCatalog getById(String id) {
+        return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Exercise not found"));
+    }
 
-        var pageable = PageRequest.of(page, size);
+    public List<ExerciseCatalogResponse> getExercises(ExerciseFilterRequest filter) {
+        Pageable pageable = PageRequest.of(filter.getPage(), filter.getSize());
+        List<ExerciseCatalog> base = repository.findAll();
+        List<ExerciseCatalog> filtered = ExerciseFilterEngine.filter(
+                base,
+                filter.getBodyRegion(),
+                filter.getMuscle(),
+                filter.getPattern(),
+                filter.getEquipment()
+        );
 
-        Page<ExerciseCatalog> result;
-
-        if (bodyRegion != null && equipment != null && pattern != null) {
-            result = repository.findByBodyRegionAndEquipmentAndMovementPattern(bodyRegion, equipment, pattern, pageable);
-        } else if (bodyRegion != null && equipment != null) {
-            result = repository.findByBodyRegionAndEquipment(bodyRegion, equipment, pageable);
-        } else if (bodyRegion != null && pattern != null) {
-            result = repository.findByBodyRegionAndMovementPattern(bodyRegion, pattern, pageable);
-        } else if (equipment != null && pattern != null) {
-            result = repository.findByEquipmentAndMovementPattern(equipment, pattern, pageable);
-        } else if (bodyRegion != null) {
-            result = repository.findByBodyRegion(bodyRegion, pageable);
-        } else if (equipment != null) {
-            result = repository.findByEquipment(equipment, pageable);
-        } else if (pattern != null) {
-            result = repository.findByMovementPattern(pattern, pageable);
-        } else {
-            result = repository.findAll(pageable);
+        if (filter.getTags() != null && !filter.getTags().isEmpty()) {
+            Set<ExerciseTag> tagSet = new HashSet<>(filter.getTags());
+            filtered = filtered.stream().filter(e -> e.getTags().stream().anyMatch(tagSet::contains)).toList();
         }
 
-        List<ExerciseCatalog> exercises = result.getContent();
+        filtered = applySort(filtered, filter.getSort());
+        int total = filtered.size();
+        int from = Math.min((int) pageable.getOffset(), total);
+        int to = Math.min(from + pageable.getPageSize(), total);
+        if (from >= to) return List.of();
 
-        if (tags != null && !tags.isEmpty()) {
-            exercises = exercises.stream()
-                    .filter(e -> e.getTags() != null && e.getTags().stream().anyMatch(tags::contains))
-                    .toList();
-        }
+        return filtered.subList(from, to).stream().map(this::mapToResponse).toList();
+    }
 
-        Comparator<ExerciseCatalog> comparator = Comparator.comparing(ExerciseCatalog::getName);
-
-        if ("name_desc".equals(sort)) {
-            comparator = comparator.reversed();
-        }
-
-        return exercises.stream()
-                .sorted(comparator)
+    public List<ExerciseCatalogResponse> searchExercises(String query) {
+        if (query == null || query.isBlank()) return List.of();
+        String q = query.toLowerCase();
+        return repository.findAll().stream()
+                .filter(e -> e.getName() != null && e.getName().toLowerCase().contains(q))
+                .sorted(Comparator.comparing(ExerciseCatalog::getName))
                 .map(this::mapToResponse)
                 .toList();
     }
 
-    public List<ExerciseCatalogResponse> searchExercises(String query) {
-
-        String q = query.toLowerCase();
-
-        return repository.findAll().stream()
-                .map(e -> new AbstractMap.SimpleEntry<>(e, score(e, q)))
-                .filter(entry -> entry.getValue() > 0)
-                .sorted(Map.Entry.<ExerciseCatalog, Integer>comparingByValue().reversed())
-                .map(entry -> mapToResponse(entry.getKey()))
-                .toList();
-    }
-
-    private int score(ExerciseCatalog e, String q) {
-
-        int score = 0;
-
-        if (e.getName().toLowerCase().contains(q)) score += 100;
-
-        if (e.getPrimaryMuscle() != null &&
-                e.getPrimaryMuscle().name().toLowerCase().contains(q)) score += 50;
-
-        if (e.getTags() != null) {
-            for (String tag : e.getTags()) {
-                if (tag.toLowerCase().contains(q)) score += 30;
-            }
-        }
-
-        if (e.getSecondaryMuscles() != null) {
-            for (Muscle m : e.getSecondaryMuscles()) {
-                if (m.name().toLowerCase().contains(q)) score += 20;
-            }
-        }
-
-        return score;
+    private List<ExerciseCatalog> applySort(List<ExerciseCatalog> list, String sort) {
+        Comparator<ExerciseCatalog> comparator = Comparator.comparing(ExerciseCatalog::getName);
+        if (sort == null) return list.stream().sorted(comparator).toList();
+        return switch (sort) {
+            case "name_desc" -> list.stream().sorted(comparator.reversed()).toList();
+            case "difficulty" -> list.stream().sorted(
+                    Comparator.comparing(ExerciseCatalog::getDifficulty, Comparator.nullsLast(Comparator.naturalOrder()))
+            ).toList();
+            default -> list.stream().sorted(comparator).toList();
+        };
     }
 
     public ExerciseCatalogDetailsResponse getExercise(String id) {
-
-        var e = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Exercise not found"));
-
+        var e = getById(id);
         return ExerciseCatalogDetailsResponse.builder()
                 .id(e.getId())
                 .name(e.getName())
-                .imageUrl(mediaService.getImage(e.getId(), e.getImageUrl()))
-                .animationUrl(mediaService.getAnimation(e.getId(), e.getAnimationUrl()))
-                .thumbnail(mediaService.getThumbnail(e.getId(), e.getThumbnail()))
                 .bodyRegion(e.getBodyRegion())
+                .family(e.getFamily())
+                .movementPattern(e.getMovementPattern())
+                .basePattern(e.getBasePattern())
                 .equipment(e.getEquipment())
                 .primaryMuscle(e.getPrimaryMuscle())
                 .secondaryMuscles(e.getSecondaryMuscles())
+                .stabilizers(e.getStabilizers())
                 .exerciseType(e.getExerciseType())
                 .difficulty(e.getDifficulty())
-                .movementPattern(e.getMovementPattern())
-                .tags(e.getTags())
+                .tags(mapTags(e.getTags()))
+                .media(resolveMedia(e))
+                .execution(e.getExecution())
+                .progression(e.getProgression())
+                .safety(e.getSafety())
                 .instructions(e.getInstructions())
                 .tips(e.getTips())
                 .commonMistakes(e.getCommonMistakes())
@@ -139,17 +104,39 @@ public class ExerciseCatalogService {
         return ExerciseCatalogResponse.builder()
                 .id(e.getId())
                 .name(e.getName())
-                .imageUrl(mediaService.getImage(e.getId(), e.getImageUrl()))
-                .animationUrl(mediaService.getAnimation(e.getId(), e.getAnimationUrl()))
-                .thumbnail(mediaService.getThumbnail(e.getId(), e.getThumbnail()))
                 .bodyRegion(e.getBodyRegion())
+                .family(e.getFamily())
+                .movementPattern(e.getMovementPattern())
+                .basePattern(e.getBasePattern())
                 .equipment(e.getEquipment())
                 .primaryMuscle(e.getPrimaryMuscle())
-                .secondaryMuscles(e.getSecondaryMuscles())
                 .exerciseType(e.getExerciseType())
                 .difficulty(e.getDifficulty())
-                .movementPattern(e.getMovementPattern())
-                .tags(e.getTags())
+                .tags(mapTags(e.getTags()))
+                .media(resolveMedia(e))
                 .build();
+    }
+
+    private List<String> mapTags(List<ExerciseTag> tags) {
+        if (tags == null || tags.isEmpty()) return List.of();
+        return tags.stream().map(Enum::name).toList();
+    }
+
+    private ExerciseMedia resolveMedia(ExerciseCatalog e) {
+        ExerciseMedia media = e.getMedia();
+        if (media == null) throw new IllegalStateException("media missing for exercise: " + e.getId());
+        if (isBlank(media.getImage())) throw new IllegalStateException("image missing for exercise: " + e.getId());
+        if (isBlank(media.getThumbnail())) throw new IllegalStateException("thumbnail missing for exercise: " + e.getId());
+        if (isBlank(media.getAnimation())) throw new IllegalStateException("animation missing for exercise: " + e.getId());
+
+        return ExerciseMedia.builder()
+                .image(mediaService.getImage(e.getId(), media.getImage()))
+                .thumbnail(mediaService.getThumbnail(e.getId(), media.getThumbnail()))
+                .animation(mediaService.getAnimation(e.getId(), media.getAnimation()))
+                .build();
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
     }
 }
