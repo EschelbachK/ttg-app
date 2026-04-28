@@ -1,7 +1,6 @@
 package com.traintogain.backend.catalog.model;
 
 public enum EquipmentType {
-
     BARBELL,
     DUMBBELL,
     MACHINE,
@@ -10,5 +9,6 @@ public enum EquipmentType {
     KETTLEBELL,
     RESISTANCE_BAND,
     CARDIO,
+    WHEEL,
     OTHER
 }
