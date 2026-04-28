@@ -1,7 +1,8 @@
-package com.traintogain.backend.catalog.seeder;
+package com.traintogain.backend.catalog.seed;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.traintogain.backend.catalog.media.MediaAutoBuilder;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,11 +10,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-
 import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -24,51 +22,58 @@ public class ExerciseCatalogSeeder {
 
     @EventListener(ApplicationReadyEvent.class)
     public void seed() {
+        if (repository.count() > 0) return;
 
-        try (InputStream inputStream = new ClassPathResource("exercise-catalog.json").getInputStream()) {
+        List<ExerciseCatalog> exercises = load();
+        if (exercises.isEmpty()) throw new IllegalStateException("exercise json empty");
 
-            List<ExerciseCatalog> incoming = objectMapper.readValue(
-                    inputStream,
-                    new TypeReference<List<ExerciseCatalog>>() {}
-            );
+        validateUniqueIds(exercises);
+        ensureMovementBaseCompatibility(exercises);
+        exercises.forEach(e -> {
+            e.ensureSafeDefaults();
+            if (e.getMedia() == null) e.setMedia(MediaAutoBuilder.build(e.getId()));
+        });
 
-            Map<String, ExerciseCatalog> existingMap = repository.findAll()
-                    .stream()
-                    .collect(Collectors.toMap(ExerciseCatalog::getId, e -> e));
+        repository.saveAll(exercises);
+    }
 
-            List<ExerciseCatalog> toSave = incoming.stream()
-                    .map(e -> {
-
-                        ExerciseCatalog existing = existingMap.get(e.getId());
-
-                        if (existing == null) {
-                            return e;
-                        }
-
-                        existing.setName(e.getName());
-                        existing.setBodyRegion(e.getBodyRegion());
-                        existing.setEquipment(e.getEquipment());
-                        existing.setPrimaryMuscle(e.getPrimaryMuscle());
-                        existing.setSecondaryMuscles(e.getSecondaryMuscles());
-                        existing.setExerciseType(e.getExerciseType());
-                        existing.setDifficulty(e.getDifficulty());
-                        existing.setMovementPattern(e.getMovementPattern());
-                        existing.setTags(e.getTags());
-                        existing.setThumbnail(e.getThumbnail());
-                        existing.setImageUrl(e.getImageUrl());
-                        existing.setAnimationUrl(e.getAnimationUrl());
-                        existing.setInstructions(e.getInstructions());
-                        existing.setTips(e.getTips());
-                        existing.setCommonMistakes(e.getCommonMistakes());
-
-                        return existing;
-                    })
-                    .toList();
-
-            repository.saveAll(toSave);
-
+    private List<ExerciseCatalog> load() {
+        try (InputStream is = new ClassPathResource("exercises.json").getInputStream()) {
+            return Optional.ofNullable(objectMapper.readValue(is, new TypeReference<List<ExerciseCatalog>>() {}))
+                    .orElse(List.of());
         } catch (Exception e) {
-            throw new RuntimeException("failed to seed exercise catalog", e);
+            throw new RuntimeException("failed to load exercise json", e);
+        }
+    }
+
+    private void validateUniqueIds(List<ExerciseCatalog> exercises) {
+        Set<String> ids = new HashSet<>();
+        for (ExerciseCatalog e : exercises) {
+            String id = e.getId();
+            if (id == null || id.isBlank()) throw new IllegalStateException("exercise with missing id");
+            if (!ids.add(id)) throw new IllegalStateException("duplicate exercise id: " + id);
+        }
+    }
+
+    private void ensureMovementBaseCompatibility(List<ExerciseCatalog> exercises) {
+        Set<String> allowedIsolations = Set.of(
+                "ELBOW_FLEXION","ELBOW_EXTENSION","WRIST_FLEXION","WRIST_EXTENSION",
+                "SCAPULAR_ELEVATION","LATERAL_RAISE","HORIZONTAL_ADDUCTION",
+                "HORIZONTAL_ABDUCTION","ISOLATION_CARRY"
+        );
+
+        for (ExerciseCatalog e : exercises) {
+            String movement = e.getMovementPattern().name();
+            String base = e.getBasePattern().name();
+
+            if (base == null || base.isBlank())
+                throw new IllegalStateException("exercise " + e.getId() + " has missing basePattern");
+
+            boolean valid = allowedIsolations.contains(base) || base.endsWith("_PATTERN") || movement.equals(base);
+            if (!valid)
+                throw new IllegalStateException(
+                        "invalid exercise: " + e.getId() + " -> movementPattern=" + movement + ", basePattern=" + base
+                );
         }
     }
 }
