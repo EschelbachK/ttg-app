@@ -1,5 +1,10 @@
 package com.traintogain.backend.exercise;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class SetEntry {
 
     private double weight;
@@ -12,19 +17,4 @@ public class SetEntry {
         this.repetitions = repetitions;
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public int getRepetitions() {
-        return repetitions;
-    }
-
-    public void setRepetitions(int repetitions) {
-        this.repetitions = repetitions;
-    }
 }
