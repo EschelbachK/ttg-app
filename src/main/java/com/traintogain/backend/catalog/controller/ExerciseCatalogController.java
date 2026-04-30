@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ExerciseCatalogController {
 
     @GetMapping("/categories")
     public List<BodyRegion> getCategories() {
-        return service.getCategories();
+        return List.of(BodyRegion.values());
     }
 
     @GetMapping("/equipment")
@@ -36,35 +37,34 @@ public class ExerciseCatalogController {
 
     @GetMapping
     public List<ExerciseCatalogResponse> getExercises(
-            @RequestParam(required = false) String bodyRegion,
-            @RequestParam(required = false) String muscle,
-            @RequestParam(required = false) String equipment,
-            @RequestParam(required = false) String pattern,
+            @RequestParam(required = false) List<String> bodyRegion,
+            @RequestParam(required = false) List<String> muscle,
+            @RequestParam(required = false) List<String> equipment,
+            @RequestParam(required = false) List<String> pattern,
             @RequestParam(required = false) List<String> tags,
+            @RequestParam(required = false) List<String> planes,
+            @RequestParam(required = false) List<String> mechanics,
+            @RequestParam(required = false) List<String> loadTypes,
+            @RequestParam(required = false) List<String> lateralities,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(required = false) String sort
     ) {
         ExerciseFilterRequest filter = ExerciseFilterRequest.builder()
-                .bodyRegion(parseEnum(bodyRegion, BodyRegion.class, "bodyRegion"))
-                .muscle(parseEnum(muscle, Muscle.class, "muscle"))
-                .equipment(parseEnum(equipment, EquipmentType.class, "equipment"))
-                .pattern(parseEnum(pattern, MovementPattern.class, "pattern"))
+                .bodyRegions(parseEnumList(bodyRegion, BodyRegion.class, "bodyRegion"))
+                .muscles(parseEnumList(muscle, Muscle.class, "muscle"))
+                .equipment(parseEnumList(equipment, EquipmentType.class, "equipment"))
+                .patterns(parseEnumList(pattern, MovementPattern.class, "pattern"))
                 .tags(parseEnumList(tags, ExerciseTag.class, "tags"))
+                .planes(parseEnumList(planes, MovementPlane.class, "planes"))
+                .mechanics(parseEnumList(mechanics, MovementMechanic.class, "mechanics"))
+                .loadTypes(parseEnumList(loadTypes, LoadType.class, "loadTypes"))
+                .lateralities(parseEnumList(lateralities, Laterality.class, "lateralities"))
                 .page(page)
                 .size(size)
                 .sort(sort)
                 .build();
 
-        return service.getExercises(filter);
-    }
-
-    @GetMapping("/all")
-    public List<ExerciseCatalogResponse> getAllExercises() {
-        ExerciseFilterRequest filter = ExerciseFilterRequest.builder()
-                .page(0)
-                .size(Integer.MAX_VALUE)
-                .build();
         return service.getExercises(filter);
     }
 
@@ -83,19 +83,12 @@ public class ExerciseCatalogController {
         return "Exercise Catalog API running";
     }
 
-    private <T extends Enum<T>> T parseEnum(String value, Class<T> clazz, String field) {
-        if (value == null || value.isBlank()) return null;
-        try {
-            return Enum.valueOf(clazz, value.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid " + field + ": " + value);
-        }
-    }
-
     private <T extends Enum<T>> List<T> parseEnumList(List<String> values, Class<T> clazz, String field) {
-        if (values == null || values.isEmpty()) return null;
+        if (values == null || values.isEmpty()) return List.of();
         try {
-            return values.stream().map(v -> Enum.valueOf(clazz, v.toUpperCase())).toList();
+            return values.stream()
+                    .map(v -> Enum.valueOf(clazz, v.trim().toUpperCase()))
+                    .toList();
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid " + field + ": " + values);
         }
