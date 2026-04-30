@@ -2,7 +2,6 @@ package com.traintogain.backend.exercise;
 
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
-import com.traintogain.backend.exercise.BasePatternRegistry;
 import com.traintogain.backend.exception.ForbiddenException;
 import com.traintogain.backend.exception.NotFoundException;
 import com.traintogain.backend.exercise.dto.CreateTrainingExerciseRequest;
@@ -52,7 +51,7 @@ class TrainingExerciseServiceTest {
         ExerciseCatalog catalog = new ExerciseCatalog();
         catalog.setId("Bankdrücken");
         catalog.setFamily(ExerciseFamily.valueOf("PUSH"));
-        catalog.setBasePattern(BasePatternRegistry.HORIZONTAL_PUSH);
+        catalog.setBasePattern(BaseMovementPattern.HORIZONTAL_PUSH);
         when(catalogService.getById("Bankdrücken")).thenReturn(catalog);
 
         when(exerciseRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
