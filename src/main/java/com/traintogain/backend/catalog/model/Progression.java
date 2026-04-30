@@ -10,6 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Progression {
-    private List<String> regressions;
-    private List<String> progressions;
+
+    @Builder.Default
+    private List<String> regressions = List.of();
+
+    @Builder.Default
+    private List<String> progressions = List.of();
 }

@@ -10,6 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Safety {
+
     private RiskLevel riskLevel;
-    private List<String> contraindications;
+
+    private List<String> contraindicationTags;
 }

@@ -8,7 +8,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExerciseMedia {
-    private String image;
-    private String thumbnail;
-    private String animation;
+
+    @Builder.Default
+    private String imageFile = "";
+
+    @Builder.Default
+    private String thumbnailFile = "";
+
+    @Builder.Default
+    private String animationFile = "";
 }

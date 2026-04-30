@@ -1,5 +1,6 @@
 package com.traintogain.backend.catalog.model;
 
+import com.traintogain.backend.exercise.BaseMovementPattern;
 import com.traintogain.backend.exercise.ExerciseFamily;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -19,7 +20,8 @@ import java.util.List;
 @CompoundIndexes({
         @CompoundIndex(name = "body_region_idx", def = "{'bodyRegion':1}"),
         @CompoundIndex(name = "pattern_idx", def = "{'movementPattern':1}"),
-        @CompoundIndex(name = "family_idx", def = "{'family':1}")
+        @CompoundIndex(name = "family_idx", def = "{'family':1}"),
+        @CompoundIndex(name = "base_pattern_idx", def = "{'basePattern':1}")
 })
 public class ExerciseCatalog {
 
@@ -33,6 +35,16 @@ public class ExerciseCatalog {
     private ExerciseFamily family;
 
     private MovementPattern movementPattern;
+
+    private BaseMovementPattern basePattern;
+
+    private MovementPlane movementPlane;
+
+    private MovementMechanic mechanic;
+
+    private LoadType loadType;
+
+    private Laterality laterality;
 
     @Builder.Default
     private List<EquipmentType> equipment = new ArrayList<>();
@@ -48,8 +60,6 @@ public class ExerciseCatalog {
     private ExerciseType exerciseType;
 
     private Difficulty difficulty;
-
-    private SpeedType speedType;
 
     @Builder.Default
     private List<ExerciseTag> tags = new ArrayList<>();
