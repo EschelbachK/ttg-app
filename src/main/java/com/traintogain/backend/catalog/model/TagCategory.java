@@ -1,4 +1,9 @@
 package com.traintogain.backend.catalog.model;
 
-public class TagCategory {
+public enum TagCategory {
+    STRUCTURE,
+    GOAL,
+    LEVEL,
+    FUNCTION,
+    REHAB
 }
