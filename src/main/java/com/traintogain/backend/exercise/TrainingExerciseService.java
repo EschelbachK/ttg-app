@@ -54,6 +54,7 @@ public class TrainingExerciseService {
         TrainingFolder folder = getValidFolder(userId, planId, folderId);
         TrainingExercise exercise = trainingExerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException("Übung nicht gefunden"));
+
         if (!exercise.getUserId().equals(userId) || !exercise.getFolderId().equals(folder.getId())) {
             throw new ForbiddenException("Kein Zugriff");
         }
@@ -63,9 +64,11 @@ public class TrainingExerciseService {
             exercise.setExerciseId(catalog.getId());
         }
 
-        if (request.getSets() != null) exercise.setSets(mapSets(request.getSets()));
-        exercise.preUpdate();
+        if (request.getSets() != null) {
+            exercise.setSets(mapSets(request.getSets()));
+        }
 
+        exercise.preUpdate();
         return trainingExerciseRepository.save(exercise);
     }
 
@@ -77,16 +80,22 @@ public class TrainingExerciseService {
     public void deleteExercise(String id, String userId) {
         TrainingExercise exercise = trainingExerciseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Übung nicht gefunden"));
-        if (!exercise.getUserId().equals(userId)) throw new ForbiddenException("Kein Zugriff");
+
+        if (!exercise.getUserId().equals(userId)) {
+            throw new ForbiddenException("Kein Zugriff");
+        }
+
         trainingExerciseRepository.delete(exercise);
     }
 
     private TrainingFolder getValidFolder(String userId, String planId, String folderId) {
         TrainingFolder folder = trainingFolderRepository.findById(folderId)
                 .orElseThrow(() -> new NotFoundException("Muskelgruppe nicht gefunden"));
+
         if (!folder.getUserId().equals(userId) || !folder.getTrainingPlanId().equals(planId)) {
             throw new ForbiddenException("Kein Zugriff auf diese Muskelgruppe");
         }
+
         return folder;
     }
 

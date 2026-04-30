@@ -25,7 +25,6 @@ public class TrainingExercise {
     private String bodyRegion;
     private String family;
     private String movementPattern;
-    private String basePattern;
     private String equipment;
     private String primaryMuscle;
     private List<String> secondaryMuscles = new ArrayList<>();
@@ -53,7 +52,9 @@ public class TrainingExercise {
         updatedAt = now;
     }
 
-    public void preUpdate() { updatedAt = Instant.now(); }
+    public void preUpdate() {
+        updatedAt = Instant.now();
+    }
 
     public TrainingExercise copyForFolder(String newFolderId) {
         TrainingExercise copy = new TrainingExercise();
@@ -65,26 +66,30 @@ public class TrainingExercise {
         return copy;
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class Media {
-        private String image;
-        private String thumbnail;
-        private String animation;
+        private String image = "";
+        private String thumbnail = "";
+        private String animation = "";
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class Execution {
         private String tempo;
         private String rangeOfMotion;
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class Progression {
         private List<String> regressions = new ArrayList<>();
         private List<String> progressions = new ArrayList<>();
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class Safety {
         private String riskLevel;
         private List<String> contraindications = new ArrayList<>();
