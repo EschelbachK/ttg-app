@@ -1,7 +1,7 @@
 package com.traintogain.backend.exercise;
 
-public enum BasePatternRegistry {
-    // Push / Pull
+public enum BaseMovementPattern {
+
     HORIZONTAL_PUSH,
     VERTICAL_PUSH,
     INCLINE_PUSH,
@@ -10,7 +10,6 @@ public enum BasePatternRegistry {
     HORIZONTAL_PULL,
     VERTICAL_PULL,
 
-    // Legs / Lower Body
     HIP_HINGE,
     HIP_EXTENSION,
     LUNGE_PATTERN,
@@ -20,7 +19,6 @@ public enum BasePatternRegistry {
     ISOLATION_CARRY,
     CONDITIONING,
 
-    // Core / Anti-movement
     ANTI_EXTENSION,
     ELBOW_EXTENSION,
     ELBOW_FLEXION,
@@ -34,7 +32,6 @@ public enum BasePatternRegistry {
     ANTI_LATERAL_FLEXION,
     GAIT,
 
-    // Isolation / Shoulders / Arms
     HORIZONTAL_ADDUCTION,
     HORIZONTAL_ABDUCTION,
     SCAPULAR_ELEVATION,
