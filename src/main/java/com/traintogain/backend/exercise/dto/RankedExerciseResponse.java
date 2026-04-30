@@ -17,7 +17,7 @@ public class RankedExerciseResponse {
         return RankedExerciseResponse.builder()
                 .id(e.getId())
                 .name(e.getName())
-                .imageUrl(e.getMedia() != null ? e.getMedia().getImage() : null)
+                .imageUrl(e.getMedia() != null ? e.getMedia().getImageFile() : null)
                 .score(score)
                 .build();
     }
