@@ -1,87 +1,211 @@
 package com.traintogain.backend.catalog.seed;
 
-import com.traintogain.backend.catalog.model.ExerciseCatalog;
-import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
-import com.traintogain.backend.catalog.validation.ExerciseValidator;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.io.ClassPathResource;
+import com.traintogain.backend.catalog.model.ExerciseCatalog;
+import com.traintogain.backend.catalog.model.Muscle;
+import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.*;
 
 @Component
-@RequiredArgsConstructor
-public class ExerciseCatalogSeeder {
+public class ExerciseCatalogSeeder implements CommandLineRunner {
 
     private final ExerciseCatalogRepository repository;
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper mapper;
+    private final PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-    @EventListener(ApplicationReadyEvent.class)
+    public ExerciseCatalogSeeder(
+            ExerciseCatalogRepository repository,
+            ObjectMapper mapper
+    ) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+
+    @Override
+    @Transactional
+    public void run(String... args) {
+        seed();
+    }
+
     public void seed() {
-        if (repository.count() > 0) return;
+        try {
+            System.out.println("starting exercise catalog seeder");
 
-        List<ExerciseCatalog> exercises = load();
+            Resource[] resources = resolver.getResources("classpath:exercise_catalog/*.json");
 
-        if (exercises.isEmpty()) {
-            throw new IllegalStateException("exercise json empty");
-        }
+            Map<String, ExerciseCatalog> exerciseMap = new HashMap<>();
 
-        validateUniqueIds(exercises);
-        validateExercises(exercises);
-        applyDefaults(exercises);
+            int success = 0;
+            int failed = 0;
 
-        repository.saveAll(exercises);
-    }
+            for (Resource resource : resources) {
 
-    private List<ExerciseCatalog> load() {
-        try (InputStream is = new ClassPathResource("exercises.json").getInputStream()) {
-            return Optional.ofNullable(
-                    objectMapper.readValue(is, new TypeReference<List<ExerciseCatalog>>() {})
-            ).orElse(List.of());
+                System.out.println("processing file: " + resource.getFilename());
+
+                try (InputStream is = resource.getInputStream()) {
+
+                    JsonNode root = mapper.readTree(is);
+                    JsonNode exercisesNode = root.get("exercises");
+
+                    if (exercisesNode == null || !exercisesNode.isArray()) {
+                        System.out.println("no exercises array: " + resource.getFilename());
+                        continue;
+                    }
+
+                    for (JsonNode node : exercisesNode) {
+
+                        try {
+                            ExerciseCatalog exercise = safeMap(node);
+
+                            if (!validate(exercise)) {
+                                failed++;
+                                continue;
+                            }
+
+                            if (exerciseMap.containsKey(exercise.getId())) {
+                                System.out.println("duplicate id skipped: " + exercise.getId());
+                                continue;
+                            }
+
+                            exerciseMap.put(exercise.getId(), exercise);
+                            success++;
+
+                        } catch (Exception ex) {
+                            failed++;
+                            System.out.println("❌ mapping failed: " + ex.getMessage());
+                        }
+                    }
+                }
+            }
+
+            List<ExerciseCatalog> existing = repository.findAll();
+            Map<String, ExerciseCatalog> existingMap = new HashMap<>();
+
+            for (ExerciseCatalog e : existing) {
+                existingMap.put(e.getId(), e);
+            }
+
+            List<ExerciseCatalog> toSave = new ArrayList<>();
+
+            for (ExerciseCatalog incoming : exerciseMap.values()) {
+
+                ExerciseCatalog old = existingMap.get(incoming.getId());
+
+                if (old != null) {
+                    toSave.add(merge(old, incoming));
+                } else {
+                    toSave.add(incoming);
+                }
+            }
+
+            repository.saveAll(toSave);
+
+            System.out.println("====== SEED SUMMARY ======");
+            System.out.println("success: " + success);
+            System.out.println("failed: " + failed);
+            System.out.println("saved: " + toSave.size());
+
         } catch (Exception e) {
-            throw new RuntimeException("failed to load exercise json", e);
+            throw new RuntimeException("seeder failed", e);
         }
     }
 
-    private void validateUniqueIds(List<ExerciseCatalog> exercises) {
-        Set<String> ids = new HashSet<>();
+    private ExerciseCatalog safeMap(JsonNode node) {
 
-        for (ExerciseCatalog e : exercises) {
-            String id = e.getId();
+        ExerciseCatalog exercise = mapper.convertValue(node, ExerciseCatalog.class);
 
-            if (id == null || id.isBlank()) {
-                throw new IllegalStateException("exercise with missing id");
-            }
-
-            if (!ids.add(id)) {
-                throw new IllegalStateException("duplicate exercise id: " + id);
-            }
+        if (exercise.getPrimaryMuscle() == null && node.has("primaryMuscle")) {
+            exercise.setPrimaryMuscle(resolveMuscle(node.get("primaryMuscle").asText()));
         }
+
+        if (node.has("secondaryMuscles")) {
+            List<Muscle> list = new ArrayList<>();
+
+            for (JsonNode m : node.get("secondaryMuscles")) {
+                Muscle resolved = resolveMuscle(m.asText());
+                if (resolved != null) list.add(resolved);
+            }
+
+            exercise.setSecondaryMuscles(list);
+        }
+
+        return exercise;
     }
 
-    private void validateExercises(List<ExerciseCatalog> exercises) {
-        for (ExerciseCatalog e : exercises) {
-            List<String> errors = ExerciseValidator.validate(e);
+    private Muscle resolveMuscle(String raw) {
 
-            if (!errors.isEmpty()) {
-                throw new IllegalStateException(
-                        "invalid exercise: " + e.getId() + " -> " + errors
-                );
+        if (raw == null) return null;
+
+        try {
+            return Muscle.valueOf(raw);
+        } catch (Exception ignored) {}
+
+        for (Muscle m : Muscle.values()) {
+            if (m.name().equalsIgnoreCase(raw)) {
+                return m;
             }
         }
+
+        System.out.println("⚠️ unknown muscle: " + raw);
+        return null;
     }
 
-    private void applyDefaults(List<ExerciseCatalog> exercises) {
-        for (ExerciseCatalog e : exercises) {
-            if (e.getEquipment() == null) e.setEquipment(new ArrayList<>());
-            if (e.getSecondaryMuscles() == null) e.setSecondaryMuscles(new ArrayList<>());
-            if (e.getStabilizers() == null) e.setStabilizers(new ArrayList<>());
-            if (e.getTags() == null) e.setTags(new ArrayList<>());
+    private boolean validate(ExerciseCatalog e) {
+
+        if (e.getId() == null || e.getId().isBlank()) {
+            return false;
         }
+
+        if (e.getPrimaryMuscle() == null) {
+            System.out.println("❌ invalid: missing primary muscle " + e.getId());
+            return false;
+        }
+
+        if (e.getMovementPattern() == null ||
+                e.getBodyRegion() == null ||
+                e.getFamily() == null) {
+
+            System.out.println("❌ invalid core fields " + e.getId());
+            return false;
+        }
+
+        return true;
+    }
+
+    private ExerciseCatalog merge(ExerciseCatalog existing, ExerciseCatalog incoming) {
+
+        existing.setName(incoming.getName());
+        existing.setBodyRegion(incoming.getBodyRegion());
+        existing.setFamily(incoming.getFamily());
+        existing.setMovementPattern(incoming.getMovementPattern());
+        existing.setBasePattern(incoming.getBasePattern());
+        existing.setMovementPlane(incoming.getMovementPlane());
+        existing.setMechanic(incoming.getMechanic());
+        existing.setLoadType(incoming.getLoadType());
+        existing.setLaterality(incoming.getLaterality());
+        existing.setPrimaryMuscle(incoming.getPrimaryMuscle());
+        existing.setSecondaryMuscles(incoming.getSecondaryMuscles());
+        existing.setStabilizers(incoming.getStabilizers());
+        existing.setEquipment(incoming.getEquipment());
+        existing.setExerciseType(incoming.getExerciseType());
+        existing.setDifficulty(incoming.getDifficulty());
+        existing.setTags(incoming.getTags());
+        existing.setMedia(incoming.getMedia());
+        existing.setExecution(incoming.getExecution());
+        existing.setProgression(incoming.getProgression());
+        existing.setSafety(incoming.getSafety());
+        existing.setInstructions(incoming.getInstructions());
+        existing.setTips(incoming.getTips());
+        existing.setCommonMistakes(incoming.getCommonMistakes());
+
+        return existing;
     }
 }

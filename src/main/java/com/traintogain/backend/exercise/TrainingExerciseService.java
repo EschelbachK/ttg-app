@@ -35,7 +35,12 @@ public class TrainingExerciseService {
         this.validationService = validationService;
     }
 
-    public TrainingExercise addExercise(String userId, String planId, String folderId, CreateTrainingExerciseRequest request) {
+    public TrainingExercise addExercise(
+            String userId,
+            String planId,
+            String folderId,
+            CreateTrainingExerciseRequest request
+    ) {
         TrainingFolder folder = getValidFolder(userId, planId, folderId);
         ExerciseCatalog catalog = getValidatedCatalog(request.exerciseId());
         List<SetEntry> sets = mapSets(request.sets());
@@ -50,8 +55,15 @@ public class TrainingExerciseService {
         return trainingExerciseRepository.save(exercise);
     }
 
-    public TrainingExercise updateExercise(String userId, String planId, String folderId, String exerciseId, UpdateTrainingExerciseRequest request) {
+    public TrainingExercise updateExercise(
+            String userId,
+            String planId,
+            String folderId,
+            String exerciseId,
+            UpdateTrainingExerciseRequest request
+    ) {
         TrainingFolder folder = getValidFolder(userId, planId, folderId);
+
         TrainingExercise exercise = trainingExerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException("Übung nicht gefunden"));
 
@@ -72,7 +84,12 @@ public class TrainingExerciseService {
         return trainingExerciseRepository.save(exercise);
     }
 
-    public Page<TrainingExercise> getExercisesByFolder(String userId, String planId, String folderId, Pageable pageable) {
+    public Page<TrainingExercise> getExercisesByFolder(
+            String userId,
+            String planId,
+            String folderId,
+            Pageable pageable
+    ) {
         TrainingFolder folder = getValidFolder(userId, planId, folderId);
         return trainingExerciseRepository.findByUserIdAndFolderId(userId, folder.getId(), pageable);
     }
@@ -107,6 +124,8 @@ public class TrainingExerciseService {
 
     private List<SetEntry> mapSets(List<SetEntryRequest> sets) {
         if (sets == null) return List.of();
-        return sets.stream().map(s -> new SetEntry(s.weight(), s.repetitions())).toList();
+        return sets.stream()
+                .map(s -> new SetEntry(s.weight(), s.repetitions()))
+                .toList();
     }
 }

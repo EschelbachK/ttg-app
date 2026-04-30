@@ -14,9 +14,15 @@ public class MuscleCoverageService {
     private static final int STABILIZER_WEIGHT = 1;
 
     public Map<Muscle, Integer> analyze(List<ExerciseCatalog> exercises) {
+
         Map<Muscle, Integer> map = new HashMap<>();
 
+        if (exercises == null || exercises.isEmpty()) {
+            return map;
+        }
+
         for (ExerciseCatalog e : exercises) {
+
             increment(map, e.getPrimaryMuscle(), PRIMARY_WEIGHT);
 
             for (Muscle m : safe(e.getSecondaryMuscles())) {

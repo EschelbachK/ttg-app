@@ -72,8 +72,7 @@ public class ExerciseCatalog {
 
     private Safety safety;
 
-    @Builder.Default
-    private List<String> instructions = new ArrayList<>();
+    private String instructions;
 
     @Builder.Default
     private List<String> tips = new ArrayList<>();

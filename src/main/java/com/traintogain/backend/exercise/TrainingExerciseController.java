@@ -52,7 +52,6 @@ public class TrainingExerciseController {
         );
     }
 
-    // 🔥 FIX: UPDATE ENDPOINT
     @PutMapping("/{exerciseId}")
     public ResponseEntity<TrainingExercise> updateExercise(
             @PathVariable String planId,

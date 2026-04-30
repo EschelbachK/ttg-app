@@ -1,10 +1,5 @@
 package com.traintogain.backend.catalog.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 public enum BodyRegion {
 
     CHEST("Chest"),
@@ -13,7 +8,18 @@ public enum BodyRegion {
     ARMS("Arms"),
     LEGS("Legs"),
     CORE("Core"),
-    FULL_BODY("Full Body");
+    FULL_BODY("Full Body"),
+
+    UPPER_BODY("Upper Body"),
+    LOWER_BODY("Lower Body");
 
     private final String displayName;
+
+    BodyRegion(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }

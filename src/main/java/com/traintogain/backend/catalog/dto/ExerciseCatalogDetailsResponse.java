@@ -51,8 +51,7 @@ public class ExerciseCatalogDetailsResponse {
 
     private Safety safety;
 
-    @Builder.Default
-    private List<String> instructions = List.of();
+    private String instructions;
 
     @Builder.Default
     private List<String> tips = List.of();

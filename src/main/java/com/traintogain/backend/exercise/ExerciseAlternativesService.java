@@ -15,7 +15,10 @@ public class ExerciseAlternativesService {
     private final ExerciseCatalogRepository catalogRepository;
     private Map<String, ExerciseCatalog> cache;
 
-    public ExerciseAlternativesService(TrainingExerciseRepository repository, ExerciseCatalogRepository catalogRepository) {
+    public ExerciseAlternativesService(
+            TrainingExerciseRepository repository,
+            ExerciseCatalogRepository catalogRepository
+    ) {
         this.repository = repository;
         this.catalogRepository = catalogRepository;
     }
@@ -32,7 +35,11 @@ public class ExerciseAlternativesService {
         return findAlternatives(exerciseId, false, true);
     }
 
-    private List<TrainingExercise> findAlternatives(String exerciseId, boolean checkFamily, boolean checkPattern) {
+    private List<TrainingExercise> findAlternatives(
+            String exerciseId,
+            boolean checkFamily,
+            boolean checkPattern
+    ) {
         Map<String, ExerciseCatalog> catalogMap = getCatalogMap();
         ExerciseCatalog base = catalogMap.get(exerciseId);
         if (base == null) return List.of();
@@ -43,7 +50,11 @@ public class ExerciseAlternativesService {
                 .toList();
     }
 
-    private boolean isValidCandidate(TrainingExercise ex, String exerciseId, Map<String, ExerciseCatalog> catalogMap) {
+    private boolean isValidCandidate(
+            TrainingExercise ex,
+            String exerciseId,
+            Map<String, ExerciseCatalog> catalogMap
+    ) {
         return ex.getExerciseId() != null
                 && !ex.getExerciseId().equals(exerciseId)
                 && catalogMap.containsKey(ex.getExerciseId());
@@ -77,7 +88,11 @@ public class ExerciseAlternativesService {
             cache = catalogRepository.findAll().stream()
                     .filter(Objects::nonNull)
                     .filter(e -> e.getId() != null)
-                    .collect(Collectors.toMap(ExerciseCatalog::getId, Function.identity(), (a, b) -> a));
+                    .collect(Collectors.toMap(
+                            ExerciseCatalog::getId,
+                            Function.identity(),
+                            (a, b) -> a
+                    ));
         }
         return cache;
     }

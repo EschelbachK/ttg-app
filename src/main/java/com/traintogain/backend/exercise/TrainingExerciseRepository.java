@@ -9,6 +9,8 @@ import java.util.List;
 public interface TrainingExerciseRepository extends MongoRepository<TrainingExercise, String> {
 
     Page<TrainingExercise> findByUserIdAndFolderId(String userId, String folderId, Pageable pageable);
+
     List<TrainingExercise> findByFolderId(String folderId);
+
     void deleteByFolderId(String folderId);
 }

@@ -23,19 +23,22 @@ public class ExerciseAlternativeController {
 
     @GetMapping("/{exerciseId}/alternatives")
     public ResponseEntity<List<RankedExerciseResponse>> getAlternatives(@PathVariable String exerciseId) {
-        List<RankedExerciseResponse> ranked = rankingEngine.rank(exerciseId, alternativesService.getAlternatives(exerciseId));
+        List<RankedExerciseResponse> ranked =
+                rankingEngine.rank(exerciseId, alternativesService.getAlternatives(exerciseId));
         return ResponseEntity.ok(ranked);
     }
 
     @GetMapping("/{exerciseId}/alternatives/family")
     public ResponseEntity<List<RankedExerciseResponse>> getFamilyAlternatives(@PathVariable String exerciseId) {
-        List<RankedExerciseResponse> ranked = rankingEngine.rank(exerciseId, alternativesService.getFamilyAlternatives(exerciseId));
+        List<RankedExerciseResponse> ranked =
+                rankingEngine.rank(exerciseId, alternativesService.getFamilyAlternatives(exerciseId));
         return ResponseEntity.ok(ranked);
     }
 
     @GetMapping("/{exerciseId}/alternatives/base-pattern")
     public ResponseEntity<List<RankedExerciseResponse>> getBasePatternAlternatives(@PathVariable String exerciseId) {
-        List<RankedExerciseResponse> ranked = rankingEngine.rank(exerciseId, alternativesService.getBasePatternAlternatives(exerciseId));
+        List<RankedExerciseResponse> ranked =
+                rankingEngine.rank(exerciseId, alternativesService.getBasePatternAlternatives(exerciseId));
         return ResponseEntity.ok(ranked);
     }
 }

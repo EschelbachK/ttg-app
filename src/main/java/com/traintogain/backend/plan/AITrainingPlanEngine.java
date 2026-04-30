@@ -51,23 +51,17 @@ public class AITrainingPlanEngine {
                 continue;
             }
 
-            // --- Anpassung: Nur die Enums verwenden, die in der JSON existieren ---
             switch (family) {
-                case PUSH -> chestVolume++; // Bankdrücken, Schulterdrücken, etc.
-                case PULL -> backVolume++;  // Rudern, Klimmzüge
-                case LEGS -> legVolume++;   // Squats, Deadlifts, Lunges
+                case PUSH -> chestVolume++;
+                case PULL -> backVolume++;
+                case LEGS -> legVolume++;
                 case FULL_BODY, CORE, CONDITIONING -> {
-                    // Ignorieren, kein Volumen-Counting nötig
-                }
-                default -> {
-                    // Sicherheitsnetz, falls neue Enums hinzukommen
                 }
             }
 
             optimized.add(ex);
         }
 
-        // --- Warnungen auf Basis von Volumen ---
         if (chestVolume > backVolume + 2) {
             warnings.add("Chest volume too high vs back");
         }

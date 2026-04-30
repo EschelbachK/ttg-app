@@ -44,15 +44,16 @@ public final class ExerciseValidator {
     }
 
     private static void validateExecution(ExerciseCatalog e, List<String> errors) {
+
         Execution ex = e.getExecution();
         if (ex == null) return;
 
         if (isBlank(ex.getTempo())) errors.add("tempo missing");
         if (ex.getRangeOfMotion() == null) errors.add("rangeOfMotion missing");
-        if (ex.getSpeedType() == null) errors.add("speedType missing");
     }
 
     private static void validateTags(ExerciseCatalog e, List<String> errors) {
+
         List<ExerciseTag> tags = safe(e.getTags());
 
         if (tags.isEmpty()) {

@@ -1,0 +1,394 @@
+{
+  "exercises": [
+    {
+      "id": "barbell_bench_press",
+      "name": "Barbell Bench Press",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "HORIZONTAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "PECTORALIS_MAJOR",
+      "secondaryMuscles": ["TRICEPS_BRACHII", "ANTERIOR_DELTOID"],
+      "stabilizers": ["SERRATUS_ANTERIOR", "ROTATOR_CUFF"],
+      "equipment": ["BARBELL", "BENCH"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["MASS", "STRENGTH", "GYM"],
+      "media": {
+        "imageFile": "barbell_bench_press.png",
+        "thumbnailFile": "barbell_bench_press_thumb.png",
+        "animationFile": "barbell_bench_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": true,
+        "commonRisks": ["shoulder_impingement", "bar_path_instability"]
+      },
+      "instructions": "Lower the bar to mid chest and press upward in a controlled path.",
+      "tips": ["Retract shoulder blades", "Drive feet into the floor"],
+      "commonMistakes": ["Elbows flaring", "Bouncing bar off chest"]
+    },
+    {
+      "id": "incline_barbell_bench_press",
+      "name": "Incline Barbell Bench Press",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "HORIZONTAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "PECTORALIS_MAJOR",
+      "secondaryMuscles": ["ANTERIOR_DELTOID", "TRICEPS_BRACHII"],
+      "stabilizers": ["ROTATOR_CUFF"],
+      "equipment": ["BARBELL", "BENCH"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["UPPER_CHEST", "GYM"],
+      "media": {
+        "imageFile": "incline_barbell_bench_press.png",
+        "thumbnailFile": "incline_barbell_bench_press_thumb.png",
+        "animationFile": "incline_barbell_bench_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": true,
+        "commonRisks": ["shoulder_strain"]
+      },
+      "instructions": "Press the bar upward on an incline bench.",
+      "tips": ["Use ~30° incline"],
+      "commonMistakes": ["Too steep angle"]
+    },
+    {
+      "id": "decline_barbell_bench_press",
+      "name": "Decline Barbell Bench Press",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "HORIZONTAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "PECTORALIS_MAJOR",
+      "secondaryMuscles": ["TRICEPS_BRACHII"],
+      "stabilizers": ["ROTATOR_CUFF"],
+      "equipment": ["BARBELL", "BENCH"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["LOWER_CHEST", "GYM"],
+      "media": {
+        "imageFile": "decline_barbell_bench_press.png",
+        "thumbnailFile": "decline_barbell_bench_press_thumb.png",
+        "animationFile": "decline_barbell_bench_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": true,
+        "commonRisks": ["shoulder_stress"]
+      },
+      "instructions": "Press the bar from lower chest upward.",
+      "tips": ["Control descent"],
+      "commonMistakes": ["Losing control at bottom"]
+    },
+    {
+      "id": "dumbbell_bench_press",
+      "name": "Dumbbell Bench Press",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "HORIZONTAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "PECTORALIS_MAJOR",
+      "secondaryMuscles": ["TRICEPS_BRACHII", "ANTERIOR_DELTOID"],
+      "stabilizers": ["ROTATOR_CUFF"],
+      "equipment": ["DUMBBELL", "BENCH"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["MASS", "GYM"],
+      "media": {
+        "imageFile": "dumbbell_bench_press.png",
+        "thumbnailFile": "dumbbell_bench_press_thumb.png",
+        "animationFile": "dumbbell_bench_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["imbalance"]
+      },
+      "instructions": "Press dumbbells upward from chest.",
+      "tips": ["Control each side independently"],
+      "commonMistakes": ["Uneven pressing"]
+    },
+    {
+      "id": "push_up",
+      "name": "Push-Up",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "HORIZONTAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "PECTORALIS_MAJOR",
+      "secondaryMuscles": ["TRICEPS_BRACHII", "ANTERIOR_DELTOID"],
+      "stabilizers": ["CORE"],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["HOME_WORKOUT", "CALISTHENICS"],
+      "media": {
+        "imageFile": "push_up.png",
+        "thumbnailFile": "push_up_thumb.png",
+        "animationFile": "push_up.gif"
+      },
+      "execution": {
+        "tempo": "2-0-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["hip_sagging"]
+      },
+      "instructions": "Lower chest to floor and push up.",
+      "tips": ["Keep body straight"],
+      "commonMistakes": ["Sagging hips"]
+    },
+    {
+      "id": "barbell_overhead_press",
+      "name": "Barbell Overhead Press",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "VERTICAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "ANTERIOR_DELTOID",
+      "secondaryMuscles": ["TRICEPS_BRACHII"],
+      "stabilizers": ["CORE", "ROTATOR_CUFF"],
+      "equipment": ["BARBELL"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["STRENGTH", "GYM"],
+      "media": {
+        "imageFile": "barbell_overhead_press.png",
+        "thumbnailFile": "barbell_overhead_press_thumb.png",
+        "animationFile": "barbell_overhead_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["lower_back_overextension"]
+      },
+      "instructions": "Press bar overhead from shoulders.",
+      "tips": ["Brace core"],
+      "commonMistakes": ["Leaning back"]
+    },
+    {
+      "id": "dumbbell_shoulder_press",
+      "name": "Dumbbell Shoulder Press",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "VERTICAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "ANTERIOR_DELTOID",
+      "secondaryMuscles": ["TRICEPS_BRACHII"],
+      "stabilizers": ["CORE"],
+      "equipment": ["DUMBBELL"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["GYM"],
+      "media": {
+        "imageFile": "dumbbell_shoulder_press.png",
+        "thumbnailFile": "dumbbell_shoulder_press_thumb.png",
+        "animationFile": "dumbbell_shoulder_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["imbalance"]
+      },
+      "instructions": "Press dumbbells overhead.",
+      "tips": ["Control movement"],
+      "commonMistakes": ["Uneven lockout"]
+    },
+    {
+      "id": "cable_chest_fly",
+      "name": "Cable Chest Fly",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "HORIZONTAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "TRANSVERSE",
+      "mechanic": "ISOLATION",
+      "loadType": "CABLE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "PECTORALIS_MAJOR",
+      "secondaryMuscles": [],
+      "stabilizers": ["ANTERIOR_DELTOID"],
+      "equipment": ["CABLE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["CHEST", "GYM"],
+      "media": {
+        "imageFile": "cable_chest_fly.png",
+        "thumbnailFile": "cable_chest_fly_thumb.png",
+        "animationFile": "cable_chest_fly.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["shoulder_overstretch"]
+      },
+      "instructions": "Bring handles together in front of chest.",
+      "tips": ["Slight bend in elbows"],
+      "commonMistakes": ["Too much stretch"]
+    },
+    {
+      "id": "triceps_pushdown",
+      "name": "Triceps Pushdown",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "ELBOW_EXTENSION",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "CABLE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "TRICEPS_BRACHII",
+      "secondaryMuscles": [],
+      "stabilizers": ["CORE"],
+      "equipment": ["CABLE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["ARMS", "GYM"],
+      "media": {
+        "imageFile": "triceps_pushdown.png",
+        "thumbnailFile": "triceps_pushdown_thumb.png",
+        "animationFile": "triceps_pushdown.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["elbow_stress"]
+      },
+      "instructions": "Extend arms downward fully.",
+      "tips": ["Keep elbows fixed"],
+      "commonMistakes": ["Swinging arms"]
+    },
+    {
+      "id": "dips",
+      "name": "Dips",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PUSH",
+      "movementPattern": "VERTICAL_PUSH",
+      "basePattern": "PRESS",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "TRICEPS_BRACHII",
+      "secondaryMuscles": ["PECTORALIS_MAJOR"],
+      "stabilizers": ["CORE"],
+      "equipment": ["BODYWEIGHT", "DIP_BAR"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["CALISTHENICS"],
+      "media": {
+        "imageFile": "dips.png",
+        "thumbnailFile": "dips_thumb.png",
+        "animationFile": "dips.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["shoulder_strain"]
+      },
+      "instructions": "Lower body and push upward on bars.",
+      "tips": ["Lean forward slightly for chest"],
+      "commonMistakes": ["Too shallow"]
+    }
+  ]
+}

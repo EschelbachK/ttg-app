@@ -1,9 +1,9 @@
 package com.traintogain.backend.catalog.service;
 
-import com.traintogain.backend.catalog.logic.ExerciseFilterService;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogDetailsResponse;
 import com.traintogain.backend.catalog.dto.ExerciseCatalogResponse;
 import com.traintogain.backend.catalog.dto.ExerciseFilterRequest;
+import com.traintogain.backend.catalog.logic.ExerciseFilterService;
 import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +29,7 @@ public class ExerciseCatalogService {
     }
 
     public List<ExerciseCatalogResponse> getExercises(ExerciseFilterRequest filter) {
+
         List<ExerciseCatalog> base = repository.findAll();
 
         List<ExerciseCatalog> filtered = filterService.filter(
@@ -44,26 +45,19 @@ public class ExerciseCatalogService {
         );
 
         if (filter.getTags() != null && !filter.getTags().isEmpty()) {
-            Set<ExerciseTag> tagSet = new HashSet<>(filter.getTags());
-            filtered = filtered.stream()
-                    .filter(e -> e.getTags() != null && e.getTags().stream().anyMatch(tagSet::contains))
-                    .toList();
+            filtered = applyTagFilter(filtered, filter.getTags());
         }
 
         filtered = applySort(filtered, filter.getSort());
 
-        int total = filtered.size();
-        int from = Math.min(filter.getPage() * filter.getSize(), total);
-        int to = Math.min(from + filter.getSize(), total);
-        if (from >= to) return List.of();
-
-        return filtered.subList(from, to)
+        return paginate(filtered, filter.getPage(), filter.getSize())
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
     public List<ExerciseCatalogResponse> searchExercises(String query) {
+
         if (query == null || query.isBlank()) return List.of();
 
         return repository.findByNameContainingIgnoreCase(query).stream()
@@ -72,25 +66,9 @@ public class ExerciseCatalogService {
                 .toList();
     }
 
-    private List<ExerciseCatalog> applySort(List<ExerciseCatalog> list, String sort) {
-        Comparator<ExerciseCatalog> comparator = Comparator.comparing(ExerciseCatalog::getName);
-
-        if (sort == null) return list.stream().sorted(comparator).toList();
-
-        return switch (sort) {
-            case "name_desc" -> list.stream().sorted(comparator.reversed()).toList();
-            case "difficulty" -> list.stream().sorted(
-                    Comparator.comparing(
-                            ExerciseCatalog::getDifficulty,
-                            Comparator.nullsLast(Comparator.naturalOrder())
-                    )
-            ).toList();
-            default -> list.stream().sorted(comparator).toList();
-        };
-    }
-
     public ExerciseCatalogDetailsResponse getExercise(String id) {
-        var e = getById(id);
+
+        ExerciseCatalog e = getById(id);
 
         return ExerciseCatalogDetailsResponse.builder()
                 .id(e.getId())
@@ -105,9 +83,9 @@ public class ExerciseCatalogService {
                 .exerciseType(e.getExerciseType())
                 .difficulty(e.getDifficulty())
                 .tags(mapTags(e.getTags()))
-                .image(buildImage(e))
-                .thumbnail(buildThumbnail(e))
-                .animation(buildAnimation(e))
+                .image(resolveImage(e))
+                .thumbnail(resolveThumbnail(e))
+                .animation(resolveAnimation(e))
                 .execution(e.getExecution())
                 .progression(e.getProgression())
                 .safety(e.getSafety())
@@ -118,6 +96,7 @@ public class ExerciseCatalogService {
     }
 
     private ExerciseCatalogResponse mapToResponse(ExerciseCatalog e) {
+
         return ExerciseCatalogResponse.builder()
                 .id(e.getId())
                 .name(e.getName())
@@ -129,33 +108,101 @@ public class ExerciseCatalogService {
                 .exerciseType(e.getExerciseType())
                 .difficulty(e.getDifficulty())
                 .tags(mapTags(e.getTags()))
-                .image(buildImage(e))
-                .thumbnail(buildThumbnail(e))
-                .animation(buildAnimation(e))
+                .image(resolveImage(e))
+                .thumbnail(resolveThumbnail(e))
+                .animation(resolveAnimation(e))
                 .build();
     }
 
+    private List<ExerciseCatalog> applyTagFilter(List<ExerciseCatalog> list, List<ExerciseTag> tags) {
+
+        Set<ExerciseTag> tagSet = new HashSet<>(tags);
+
+        return list.stream()
+                .filter(e -> e.getTags() != null && e.getTags().stream().anyMatch(tagSet::contains))
+                .toList();
+    }
+
+    private List<ExerciseCatalog> applySort(List<ExerciseCatalog> list, String sort) {
+
+        Comparator<ExerciseCatalog> byName = Comparator.comparing(ExerciseCatalog::getName);
+
+        if (sort == null) return list.stream().sorted(byName).toList();
+
+        return switch (sort) {
+            case "name_desc" -> list.stream().sorted(byName.reversed()).toList();
+
+            case "difficulty" -> list.stream().sorted(
+                    Comparator.comparing(
+                            ExerciseCatalog::getDifficulty,
+                            Comparator.nullsLast(Comparator.naturalOrder())
+                    )
+            ).toList();
+
+            default -> list.stream().sorted(byName).toList();
+        };
+    }
+
+    private List<ExerciseCatalog> paginate(List<ExerciseCatalog> list, int page, int size) {
+
+        int safePage = Math.max(page, 0);
+        int safeSize = Math.max(size, 1);
+
+        int total = list.size();
+        int from = Math.min(safePage * safeSize, total);
+        int to = Math.min(from + safeSize, total);
+
+        if (from >= to) return List.of();
+
+        return list.subList(from, to);
+    }
+
     private List<String> mapTags(List<ExerciseTag> tags) {
+
         if (tags == null || tags.isEmpty()) return List.of();
-        return tags.stream().map(Enum::name).toList();
+
+        return tags.stream()
+                .map(Enum::name)
+                .toList();
     }
 
-    private String buildImage(ExerciseCatalog e) {
-        if (e.getMedia() == null || isBlank(e.getMedia().getImageFile())) return null;
-        return mediaService.buildImage(e.getId(), e.getMedia().getImageFile());
+    private String resolveImage(ExerciseCatalog e) {
+        return resolveMedia(e, MediaType.IMAGE);
     }
 
-    private String buildThumbnail(ExerciseCatalog e) {
-        if (e.getMedia() == null || isBlank(e.getMedia().getThumbnailFile())) return null;
-        return mediaService.buildThumbnail(e.getId(), e.getMedia().getThumbnailFile());
+    private String resolveThumbnail(ExerciseCatalog e) {
+        return resolveMedia(e, MediaType.THUMBNAIL);
     }
 
-    private String buildAnimation(ExerciseCatalog e) {
-        if (e.getMedia() == null || isBlank(e.getMedia().getAnimationFile())) return null;
-        return mediaService.buildAnimation(e.getId(), e.getMedia().getAnimationFile());
+    private String resolveAnimation(ExerciseCatalog e) {
+        return resolveMedia(e, MediaType.ANIMATION);
     }
 
-    private boolean isBlank(String value) {
-        return value == null || value.isBlank();
+    private String resolveMedia(ExerciseCatalog e, MediaType type) {
+
+        if (e.getMedia() == null) return null;
+
+        return switch (type) {
+
+            case IMAGE -> blank(e.getMedia().getImageFile())
+                    ? null
+                    : mediaService.buildImage(e.getId(), e.getMedia().getImageFile());
+
+            case THUMBNAIL -> blank(e.getMedia().getThumbnailFile())
+                    ? null
+                    : mediaService.buildThumbnail(e.getId(), e.getMedia().getThumbnailFile());
+
+            case ANIMATION -> blank(e.getMedia().getAnimationFile())
+                    ? null
+                    : mediaService.buildAnimation(e.getId(), e.getMedia().getAnimationFile());
+        };
+    }
+
+    private boolean blank(String v) {
+        return v == null || v.isBlank();
+    }
+
+    private enum MediaType {
+        IMAGE, THUMBNAIL, ANIMATION
     }
 }

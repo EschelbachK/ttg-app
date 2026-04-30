@@ -1,0 +1,316 @@
+{
+  "exercises": [
+    {
+      "id": "pull_up",
+      "name": "Pull-Up",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "VERTICAL_PULL",
+      "basePattern": "PULL",
+      "movementPlane": "FRONTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "LATISSIMUS_DORSI",
+      "secondaryMuscles": ["BICEPS_BRACHII"],
+      "stabilizers": ["CORE", "SCAPULAR_STABILIZERS"],
+      "equipment": ["BODYWEIGHT", "PULLUP_BAR"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["CALISTHENICS", "GYM"],
+      "media": {
+        "imageFile": "pull_up.png",
+        "thumbnailFile": "pull_up_thumb.png",
+        "animationFile": "pull_up.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["shoulder_strain"]
+      },
+      "instructions": "Pull your body upward until chin clears the bar.",
+      "tips": ["Engage lats first", "Avoid swinging"],
+      "commonMistakes": ["Using momentum", "Partial reps"]
+    },
+    {
+      "id": "chin_up",
+      "name": "Chin-Up",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "VERTICAL_PULL",
+      "basePattern": "PULL",
+      "movementPlane": "FRONTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "LATISSIMUS_DORSI",
+      "secondaryMuscles": ["BICEPS_BRACHII"],
+      "stabilizers": ["CORE"],
+      "equipment": ["BODYWEIGHT", "PULLUP_BAR"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "BEGINNER",
+      "tags": ["CALISTHENICS"],
+      "media": {
+        "imageFile": "chin_up.png",
+        "thumbnailFile": "chin_up_thumb.png",
+        "animationFile": "chin_up.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["elbow_strain"]
+      },
+      "instructions": "Pull up with underhand grip.",
+      "tips": ["Focus on biceps"],
+      "commonMistakes": ["Swinging"]
+    },
+    {
+      "id": "lat_pulldown",
+      "name": "Lat Pulldown",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "VERTICAL_PULL",
+      "basePattern": "PULL",
+      "movementPlane": "FRONTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "MACHINE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "LATISSIMUS_DORSI",
+      "secondaryMuscles": ["BICEPS_BRACHII"],
+      "stabilizers": ["CORE"],
+      "equipment": ["MACHINE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["GYM"],
+      "media": {
+        "imageFile": "lat_pulldown.png",
+        "thumbnailFile": "lat_pulldown_thumb.png",
+        "animationFile": "lat_pulldown.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["neck_pull"]
+      },
+      "instructions": "Pull bar to upper chest.",
+      "tips": ["Keep chest up"],
+      "commonMistakes": ["Pulling behind neck"]
+    },
+    {
+      "id": "barbell_row",
+      "name": "Barbell Row",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "HORIZONTAL_PULL",
+      "basePattern": "PULL",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "LATISSIMUS_DORSI",
+      "secondaryMuscles": ["RHOMBOIDS", "BICEPS_BRACHII"],
+      "stabilizers": ["CORE", "ERECTOR_SPINAE"],
+      "equipment": ["BARBELL"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["MASS", "GYM"],
+      "media": {
+        "imageFile": "barbell_row.png",
+        "thumbnailFile": "barbell_row_thumb.png",
+        "animationFile": "barbell_row.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["lower_back_strain"]
+      },
+      "instructions": "Row bar toward torso.",
+      "tips": ["Neutral spine"],
+      "commonMistakes": ["Jerking weight"]
+    },
+    {
+      "id": "seated_cable_row",
+      "name": "Seated Cable Row",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "HORIZONTAL_PULL",
+      "basePattern": "PULL",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "CABLE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "LATISSIMUS_DORSI",
+      "secondaryMuscles": ["RHOMBOIDS"],
+      "stabilizers": ["CORE"],
+      "equipment": ["CABLE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["GYM"],
+      "media": {
+        "imageFile": "seated_cable_row.png",
+        "thumbnailFile": "seated_cable_row_thumb.png",
+        "animationFile": "seated_cable_row.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["rounding_back"]
+      },
+      "instructions": "Pull handle toward torso.",
+      "tips": ["Squeeze shoulder blades"],
+      "commonMistakes": ["Leaning back"]
+    },
+    {
+      "id": "face_pull",
+      "name": "Face Pull",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "HORIZONTAL_PULL",
+      "basePattern": "PULL",
+      "movementPlane": "TRANSVERSE",
+      "mechanic": "ISOLATION",
+      "loadType": "CABLE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "POSTERIOR_DELTOID",
+      "secondaryMuscles": ["RHOMBOIDS"],
+      "stabilizers": ["ROTATOR_CUFF"],
+      "equipment": ["CABLE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["POSTURE", "SHOULDERS"],
+      "media": {
+        "imageFile": "face_pull.png",
+        "thumbnailFile": "face_pull_thumb.png",
+        "animationFile": "face_pull.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["improper_form"]
+      },
+      "instructions": "Pull rope toward face.",
+      "tips": ["Elbows high"],
+      "commonMistakes": ["Too heavy weight"]
+    },
+    {
+      "id": "barbell_biceps_curl",
+      "name": "Barbell Biceps Curl",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "ELBOW_FLEXION",
+      "basePattern": "PULL",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "BICEPS_BRACHII",
+      "secondaryMuscles": [],
+      "stabilizers": ["CORE"],
+      "equipment": ["BARBELL"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["ARMS"],
+      "media": {
+        "imageFile": "barbell_biceps_curl.png",
+        "thumbnailFile": "barbell_biceps_curl_thumb.png",
+        "animationFile": "barbell_biceps_curl.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["elbow_stress"]
+      },
+      "instructions": "Curl bar upward.",
+      "tips": ["Keep elbows fixed"],
+      "commonMistakes": ["Swinging"]
+    },
+    {
+      "id": "hammer_curl",
+      "name": "Hammer Curl",
+      "bodyRegion": "UPPER_BODY",
+      "family": "PULL",
+      "movementPattern": "ELBOW_FLEXION",
+      "basePattern": "PULL",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "BRACHIALIS",
+      "secondaryMuscles": ["BICEPS_BRACHII"],
+      "stabilizers": ["CORE"],
+      "equipment": ["DUMBBELL"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["ARMS"],
+      "media": {
+        "imageFile": "hammer_curl.png",
+        "thumbnailFile": "hammer_curl_thumb.png",
+        "animationFile": "hammer_curl.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["wrist_strain"]
+      },
+      "instructions": "Curl dumbbells with neutral grip.",
+      "tips": ["Control movement"],
+      "commonMistakes": ["Swinging"]
+    }
+  ]
+}

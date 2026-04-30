@@ -6,11 +6,10 @@ import com.traintogain.backend.catalog.dto.ExerciseFilterRequest;
 import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -27,12 +26,12 @@ public class ExerciseCatalogController {
 
     @GetMapping("/equipment")
     public List<EquipmentType> getEquipmentTypes() {
-        return Arrays.asList(EquipmentType.values());
+        return List.of(EquipmentType.values());
     }
 
     @GetMapping("/patterns")
     public List<MovementPattern> getPatterns() {
-        return Arrays.asList(MovementPattern.values());
+        return List.of(MovementPattern.values());
     }
 
     @GetMapping
@@ -50,18 +49,19 @@ public class ExerciseCatalogController {
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(required = false) String sort
     ) {
+
         ExerciseFilterRequest filter = ExerciseFilterRequest.builder()
-                .bodyRegions(parseEnumList(bodyRegion, BodyRegion.class, "bodyRegion"))
-                .muscles(parseEnumList(muscle, Muscle.class, "muscle"))
-                .equipment(parseEnumList(equipment, EquipmentType.class, "equipment"))
-                .patterns(parseEnumList(pattern, MovementPattern.class, "pattern"))
-                .tags(parseEnumList(tags, ExerciseTag.class, "tags"))
-                .planes(parseEnumList(planes, MovementPlane.class, "planes"))
-                .mechanics(parseEnumList(mechanics, MovementMechanic.class, "mechanics"))
-                .loadTypes(parseEnumList(loadTypes, LoadType.class, "loadTypes"))
-                .lateralities(parseEnumList(lateralities, Laterality.class, "lateralities"))
-                .page(page)
-                .size(size)
+                .bodyRegions(parse(bodyRegion, BodyRegion.class))
+                .muscles(parse(muscle, Muscle.class))
+                .equipment(parse(equipment, EquipmentType.class))
+                .patterns(parse(pattern, MovementPattern.class))
+                .tags(parse(tags, ExerciseTag.class))
+                .planes(parse(planes, MovementPlane.class))
+                .mechanics(parse(mechanics, MovementMechanic.class))
+                .loadTypes(parse(loadTypes, LoadType.class))
+                .lateralities(parse(lateralities, Laterality.class))
+                .page(Math.max(page, 0))
+                .size(Math.min(Math.max(size, 1), 100))
                 .sort(sort)
                 .build();
 
@@ -83,14 +83,32 @@ public class ExerciseCatalogController {
         return "Exercise Catalog API running";
     }
 
-    private <T extends Enum<T>> List<T> parseEnumList(List<String> values, Class<T> clazz, String field) {
-        if (values == null || values.isEmpty()) return List.of();
+    private <T extends Enum<T>> List<T> parse(List<String> values, Class<T> clazz) {
+
+        if (values == null || values.isEmpty()) {
+            return List.of();
+        }
+
         try {
             return values.stream()
-                    .map(v -> Enum.valueOf(clazz, v.trim().toUpperCase()))
+                    .map(this::normalize)
+                    .map(v -> Enum.valueOf(clazz, v))
                     .toList();
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid " + field + ": " + values);
+
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "invalid enum value: " + clazz.getSimpleName()
+            );
         }
+    }
+
+    private String normalize(String value) {
+        if (value == null) return null;
+
+        return value.trim()
+                .replace("-", "_")
+                .replace(" ", "_")
+                .toUpperCase();
     }
 }

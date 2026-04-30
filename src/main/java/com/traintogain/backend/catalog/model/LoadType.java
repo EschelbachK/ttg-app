@@ -2,6 +2,7 @@ package com.traintogain.backend.catalog.model;
 
 public enum LoadType {
     BODYWEIGHT,
-    EXTERNAL,
-    MACHINE
+    EXTERNAL_LOAD,
+    MACHINE,
+    CABLE
 }

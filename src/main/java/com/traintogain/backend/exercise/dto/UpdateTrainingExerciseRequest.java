@@ -17,5 +17,4 @@ public class UpdateTrainingExerciseRequest {
     private Integer restTimerSeconds;
 
     private List<@Valid SetEntryRequest> sets;
-
 }

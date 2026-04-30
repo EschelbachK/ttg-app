@@ -10,11 +10,11 @@ import lombok.*;
 public class ExerciseMedia {
 
     @Builder.Default
-    private String imageFile = "";
+    private String imageFile = null;
 
     @Builder.Default
-    private String thumbnailFile = "";
+    private String thumbnailFile = null;
 
     @Builder.Default
-    private String animationFile = "";
+    private String animationFile = null;
 }

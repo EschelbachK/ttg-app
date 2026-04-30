@@ -2,6 +2,12 @@ package com.traintogain.backend.exercise;
 
 public enum BaseMovementPattern {
 
+    PRESS,
+    PULL,
+    SQUAT,
+    HINGE,
+    CORE,
+
     HORIZONTAL_PUSH,
     VERTICAL_PUSH,
     INCLINE_PUSH,

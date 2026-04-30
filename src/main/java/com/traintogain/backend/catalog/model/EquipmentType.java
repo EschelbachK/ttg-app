@@ -18,10 +18,13 @@ public enum EquipmentType {
 
     // Bodyweight
     BODYWEIGHT("Bodyweight", EquipmentCategory.BODYWEIGHT),
+    PULLUP_BAR("Pull-up Bar", EquipmentCategory.BODYWEIGHT),
+    DIP_BAR("Dip Bar", EquipmentCategory.BODYWEIGHT),
 
     // Accessories
     RESISTANCE_BAND("Resistance Band", EquipmentCategory.ACCESSORY),
     AB_WHEEL("Ab Wheel", EquipmentCategory.ACCESSORY),
+    BENCH("Bench", EquipmentCategory.ACCESSORY),
 
     // Cardio
     CARDIO_MACHINE("Cardio Machine", EquipmentCategory.CARDIO);

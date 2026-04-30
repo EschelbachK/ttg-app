@@ -37,9 +37,11 @@ public class ExerciseFilterRequest {
     @Builder.Default
     private List<Laterality> lateralities = List.of();
 
-    private int page;
+    @Builder.Default
+    private int page = 0;
 
-    private int size;
+    @Builder.Default
+    private int size = 20;
 
     private String sort;
 }

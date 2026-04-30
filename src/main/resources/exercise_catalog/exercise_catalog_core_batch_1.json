@@ -1,0 +1,238 @@
+{
+  "exercises": [
+    {
+      "id": "plank",
+      "name": "Plank",
+      "bodyRegion": "CORE",
+      "family": "CORE",
+      "movementPattern": "ANTI_EXTENSION",
+      "basePattern": "CORE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "RECTUS_ABDOMINIS",
+      "secondaryMuscles": ["TRANSVERSE_ABDOMINIS"],
+      "stabilizers": ["GLUTEUS_MAXIMUS", "SHOULDERS"],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["CORE", "HOME_WORKOUT"],
+      "media": {
+        "imageFile": "plank.png",
+        "thumbnailFile": "plank_thumb.png",
+        "animationFile": "plank.gif"
+      },
+      "execution": {
+        "tempo": "STATIC",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "TIME",
+        "steps": ["increase_duration"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["lower_back_sagging"]
+      },
+      "instructions": "Hold a straight body position on forearms.",
+      "tips": ["Keep hips level", "Brace core"],
+      "commonMistakes": ["Sagging hips", "Raised hips"]
+    },
+    {
+      "id": "side_plank",
+      "name": "Side Plank",
+      "bodyRegion": "CORE",
+      "family": "CORE",
+      "movementPattern": "ANTI_LATERAL_FLEXION",
+      "basePattern": "CORE",
+      "movementPlane": "FRONTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "BODYWEIGHT",
+      "laterality": "UNILATERAL",
+      "primaryMuscle": "OBLIQUES",
+      "secondaryMuscles": ["TRANSVERSE_ABDOMINIS"],
+      "stabilizers": ["GLUTEUS_MEDIUS"],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["CORE"],
+      "media": {
+        "imageFile": "side_plank.png",
+        "thumbnailFile": "side_plank_thumb.png",
+        "animationFile": "side_plank.gif"
+      },
+      "execution": {
+        "tempo": "STATIC",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "TIME",
+        "steps": ["increase_duration"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["shoulder_strain"]
+      },
+      "instructions": "Hold body in a straight line on one side.",
+      "tips": ["Stack shoulders", "Engage obliques"],
+      "commonMistakes": ["Dropping hips"]
+    },
+    {
+      "id": "hanging_leg_raise",
+      "name": "Hanging Leg Raise",
+      "bodyRegion": "CORE",
+      "family": "CORE",
+      "movementPattern": "HIP_FLEXION",
+      "basePattern": "CORE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "RECTUS_ABDOMINIS",
+      "secondaryMuscles": ["HIP_FLEXORS"],
+      "stabilizers": ["FOREARMS"],
+      "equipment": ["PULLUP_BAR"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["CORE", "CALISTHENICS"],
+      "media": {
+        "imageFile": "hanging_leg_raise.png",
+        "thumbnailFile": "hanging_leg_raise_thumb.png",
+        "animationFile": "hanging_leg_raise.gif"
+      },
+      "execution": {
+        "tempo": "2-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["swinging"]
+      },
+      "instructions": "Raise legs upward while hanging.",
+      "tips": ["Control movement", "Avoid swinging"],
+      "commonMistakes": ["Using momentum"]
+    },
+    {
+      "id": "crunch",
+      "name": "Crunch",
+      "bodyRegion": "CORE",
+      "family": "CORE",
+      "movementPattern": "SPINAL_FLEXION",
+      "basePattern": "CORE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "RECTUS_ABDOMINIS",
+      "secondaryMuscles": [],
+      "stabilizers": [],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["CORE", "HOME_WORKOUT"],
+      "media": {
+        "imageFile": "crunch.png",
+        "thumbnailFile": "crunch_thumb.png",
+        "animationFile": "crunch.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "PARTIAL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["neck_strain"]
+      },
+      "instructions": "Lift shoulders off the ground.",
+      "tips": ["Do not pull neck"],
+      "commonMistakes": ["Using momentum"]
+    },
+    {
+      "id": "russian_twist",
+      "name": "Russian Twist",
+      "bodyRegion": "CORE",
+      "family": "CORE",
+      "movementPattern": "ROTATION",
+      "basePattern": "CORE",
+      "movementPlane": "TRANSVERSE",
+      "mechanic": "ISOLATION",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "OBLIQUES",
+      "secondaryMuscles": ["RECTUS_ABDOMINIS"],
+      "stabilizers": ["HIP_FLEXORS"],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["CORE"],
+      "media": {
+        "imageFile": "russian_twist.png",
+        "thumbnailFile": "russian_twist_thumb.png",
+        "animationFile": "russian_twist.gif"
+      },
+      "execution": {
+        "tempo": "2-0-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["lower_back_stress"]
+      },
+      "instructions": "Rotate torso side to side.",
+      "tips": ["Keep core tight"],
+      "commonMistakes": ["Moving arms only"]
+    },
+    {
+      "id": "dead_bug",
+      "name": "Dead Bug",
+      "bodyRegion": "CORE",
+      "family": "CORE",
+      "movementPattern": "ANTI_EXTENSION",
+      "basePattern": "CORE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "BODYWEIGHT",
+      "laterality": "UNILATERAL",
+      "primaryMuscle": "TRANSVERSE_ABDOMINIS",
+      "secondaryMuscles": ["RECTUS_ABDOMINIS"],
+      "stabilizers": ["HIP_FLEXORS"],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["CORE", "REHAB"],
+      "media": {
+        "imageFile": "dead_bug.png",
+        "thumbnailFile": "dead_bug_thumb.png",
+        "animationFile": "dead_bug.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["loss_of_control"]
+      },
+      "instructions": "Alternate arm and leg while lying.",
+      "tips": ["Keep lower back pressed"],
+      "commonMistakes": ["Arching back"]
+    }
+  ]
+}

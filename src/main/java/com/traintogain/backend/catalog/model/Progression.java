@@ -1,19 +1,16 @@
 package com.traintogain.backend.catalog.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Progression {
 
-    @Builder.Default
-    private List<String> regressions = List.of();
-
-    @Builder.Default
-    private List<String> progressions = List.of();
+    private ProgressionType type;
+    private List<String> steps;
 }

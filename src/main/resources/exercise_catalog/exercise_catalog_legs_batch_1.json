@@ -1,0 +1,316 @@
+{
+  "exercises": [
+    {
+      "id": "barbell_back_squat",
+      "name": "Barbell Back Squat",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "SQUAT",
+      "basePattern": "SQUAT",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "QUADRICEPS",
+      "secondaryMuscles": ["GLUTEUS_MAXIMUS", "ADDUCTORS"],
+      "stabilizers": ["CORE", "ERECTOR_SPINAE"],
+      "equipment": ["BARBELL"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["MASS", "STRENGTH", "GYM"],
+      "media": {
+        "imageFile": "barbell_back_squat.png",
+        "thumbnailFile": "barbell_back_squat_thumb.png",
+        "animationFile": "barbell_back_squat.gif"
+      },
+      "execution": {
+        "tempo": "3-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": true,
+        "commonRisks": ["knee_valgus", "lower_back_rounding"]
+      },
+      "instructions": "Lower hips below parallel and drive upward.",
+      "tips": ["Brace core", "Keep chest up"],
+      "commonMistakes": ["Shallow depth", "Knees collapsing"]
+    },
+    {
+      "id": "barbell_front_squat",
+      "name": "Barbell Front Squat",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "SQUAT",
+      "basePattern": "SQUAT",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "QUADRICEPS",
+      "secondaryMuscles": ["GLUTEUS_MAXIMUS"],
+      "stabilizers": ["CORE", "UPPER_BACK"],
+      "equipment": ["BARBELL"],
+      "exerciseType": "STRENGTH",
+      "difficulty": "ADVANCED",
+      "tags": ["QUADS", "GYM"],
+      "media": {
+        "imageFile": "barbell_front_squat.png",
+        "thumbnailFile": "barbell_front_squat_thumb.png",
+        "animationFile": "barbell_front_squat.gif"
+      },
+      "execution": {
+        "tempo": "3-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": true,
+        "commonRisks": ["wrist_stress"]
+      },
+      "instructions": "Hold bar in front rack and squat.",
+      "tips": ["Elbows high"],
+      "commonMistakes": ["Dropping elbows"]
+    },
+    {
+      "id": "leg_press",
+      "name": "Leg Press",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "SQUAT",
+      "basePattern": "SQUAT",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "MACHINE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "QUADRICEPS",
+      "secondaryMuscles": ["GLUTEUS_MAXIMUS"],
+      "stabilizers": ["CORE"],
+      "equipment": ["MACHINE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["GYM"],
+      "media": {
+        "imageFile": "leg_press.png",
+        "thumbnailFile": "leg_press_thumb.png",
+        "animationFile": "leg_press.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["knee_overload"]
+      },
+      "instructions": "Push platform away with feet.",
+      "tips": ["Do not lock knees"],
+      "commonMistakes": ["Too deep range"]
+    },
+    {
+      "id": "walking_lunge",
+      "name": "Walking Lunge",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "LUNGE",
+      "basePattern": "SQUAT",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "BODYWEIGHT",
+      "laterality": "UNILATERAL",
+      "primaryMuscle": "GLUTEUS_MAXIMUS",
+      "secondaryMuscles": ["QUADRICEPS"],
+      "stabilizers": ["CORE"],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["HOME_WORKOUT"],
+      "media": {
+        "imageFile": "walking_lunge.png",
+        "thumbnailFile": "walking_lunge_thumb.png",
+        "animationFile": "walking_lunge.gif"
+      },
+      "execution": {
+        "tempo": "2-0-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_steps"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["balance_loss"]
+      },
+      "instructions": "Step forward into lunge.",
+      "tips": ["Keep torso upright"],
+      "commonMistakes": ["Knee collapsing"]
+    },
+    {
+      "id": "romanian_deadlift",
+      "name": "Romanian Deadlift",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "HINGE",
+      "basePattern": "HINGE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "COMPOUND",
+      "loadType": "EXTERNAL_LOAD",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "HAMSTRINGS",
+      "secondaryMuscles": ["GLUTEUS_MAXIMUS"],
+      "stabilizers": ["CORE"],
+      "equipment": ["BARBELL"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "INTERMEDIATE",
+      "tags": ["HAMSTRINGS"],
+      "media": {
+        "imageFile": "romanian_deadlift.png",
+        "thumbnailFile": "romanian_deadlift_thumb.png",
+        "animationFile": "romanian_deadlift.gif"
+      },
+      "execution": {
+        "tempo": "3-1-1",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["lower_back_strain"]
+      },
+      "instructions": "Hinge at hips with slight knee bend.",
+      "tips": ["Stretch hamstrings"],
+      "commonMistakes": ["Rounding back"]
+    },
+    {
+      "id": "leg_extension",
+      "name": "Leg Extension",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "KNEE_EXTENSION",
+      "basePattern": "SQUAT",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "MACHINE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "QUADRICEPS",
+      "secondaryMuscles": [],
+      "stabilizers": [],
+      "equipment": ["MACHINE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["QUADS"],
+      "media": {
+        "imageFile": "leg_extension.png",
+        "thumbnailFile": "leg_extension_thumb.png",
+        "animationFile": "leg_extension.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["knee_stress"]
+      },
+      "instructions": "Extend legs fully.",
+      "tips": ["Control movement"],
+      "commonMistakes": ["Using momentum"]
+    },
+    {
+      "id": "leg_curl",
+      "name": "Leg Curl",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "KNEE_FLEXION",
+      "basePattern": "HINGE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "MACHINE",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "HAMSTRINGS",
+      "secondaryMuscles": [],
+      "stabilizers": [],
+      "equipment": ["MACHINE"],
+      "exerciseType": "HYPERTROPHY",
+      "difficulty": "BEGINNER",
+      "tags": ["HAMSTRINGS"],
+      "media": {
+        "imageFile": "leg_curl.png",
+        "thumbnailFile": "leg_curl_thumb.png",
+        "animationFile": "leg_curl.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "LOAD",
+        "steps": ["increase_weight"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["muscle_strain"]
+      },
+      "instructions": "Curl legs toward glutes.",
+      "tips": ["Control eccentric"],
+      "commonMistakes": ["Too fast reps"]
+    },
+    {
+      "id": "standing_calf_raise",
+      "name": "Standing Calf Raise",
+      "bodyRegion": "LOWER_BODY",
+      "family": "LEGS",
+      "movementPattern": "PLANTAR_FLEXION",
+      "basePattern": "HINGE",
+      "movementPlane": "SAGITTAL",
+      "mechanic": "ISOLATION",
+      "loadType": "BODYWEIGHT",
+      "laterality": "BILATERAL",
+      "primaryMuscle": "GASTROCNEMIUS",
+      "secondaryMuscles": ["SOLEUS"],
+      "stabilizers": [],
+      "equipment": ["BODYWEIGHT"],
+      "exerciseType": "ENDURANCE",
+      "difficulty": "BEGINNER",
+      "tags": ["CALVES"],
+      "media": {
+        "imageFile": "standing_calf_raise.png",
+        "thumbnailFile": "standing_calf_raise_thumb.png",
+        "animationFile": "standing_calf_raise.gif"
+      },
+      "execution": {
+        "tempo": "2-1-2",
+        "rangeOfMotion": "FULL"
+      },
+      "progression": {
+        "type": "REPS",
+        "steps": ["increase_repetitions"]
+      },
+      "safety": {
+        "spotterRequired": false,
+        "commonRisks": ["ankle_instability"]
+      },
+      "instructions": "Raise heels upward.",
+      "tips": ["Pause at top"],
+      "commonMistakes": ["Partial reps"]
+    }
+  ]
+}

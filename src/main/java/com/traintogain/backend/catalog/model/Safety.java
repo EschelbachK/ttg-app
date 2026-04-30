@@ -11,7 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Safety {
 
-    private RiskLevel riskLevel;
+    private boolean spotterRequired;
 
-    private List<String> contraindicationTags;
+    @Builder.Default
+    private List<RiskType> commonRisks = List.of();
 }
