@@ -44,18 +44,32 @@ public class ExerciseAlternativesService {
     }
 
     private boolean isValidCandidate(TrainingExercise ex, String exerciseId, Map<String, ExerciseCatalog> catalogMap) {
-        return ex.getExerciseId() != null && !ex.getExerciseId().equals(exerciseId)
+        return ex.getExerciseId() != null
+                && !ex.getExerciseId().equals(exerciseId)
                 && catalogMap.containsKey(ex.getExerciseId());
     }
 
-    private boolean matchesCriteria(TrainingExercise ex, ExerciseCatalog base, Map<String, ExerciseCatalog> catalogMap, boolean checkFamily, boolean checkPattern) {
+    private boolean matchesCriteria(
+            TrainingExercise ex,
+            ExerciseCatalog base,
+            Map<String, ExerciseCatalog> catalogMap,
+            boolean checkFamily,
+            boolean checkPattern
+    ) {
         ExerciseCatalog other = catalogMap.get(ex.getExerciseId());
         if (other == null) return false;
 
-        boolean sameFamily = checkFamily && base.getFamily() != null && base.getFamily() == other.getFamily();
-        boolean samePattern = checkPattern && base.getBasePattern() != null && base.getBasePattern() == other.getBasePattern();
+        boolean sameFamily =
+                checkFamily
+                        && base.getFamily() != null
+                        && base.getFamily() == other.getFamily();
 
-        return sameFamily || samePattern;
+        boolean sameBasePattern =
+                checkPattern
+                        && base.getBasePattern() != null
+                        && base.getBasePattern() == other.getBasePattern();
+
+        return sameFamily || sameBasePattern;
     }
 
     private Map<String, ExerciseCatalog> getCatalogMap() {

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class SmartAlternativeRankingEngine {
 
     private final ExerciseCatalogRepository catalogRepository;
-    private Map<String, ExerciseCatalog> cache = new HashMap<>();
+    private Map<String, ExerciseCatalog> cache;
 
     public SmartAlternativeRankingEngine(ExerciseCatalogRepository catalogRepository) {
         this.catalogRepository = catalogRepository;
@@ -31,9 +31,19 @@ public class SmartAlternativeRankingEngine {
                     if (other == null) return null;
 
                     int score = 0;
-                    if (other.getFamily() == base.getFamily()) score += 40;
-                    if (other.getBasePattern() == base.getBasePattern()) score += 25;
-                    if (isSameMuscle(other.getPrimaryMuscle(), base.getPrimaryMuscle())) score += 15;
+
+                    if (other.getFamily() == base.getFamily()) {
+                        score += 40;
+                    }
+
+                    if (isSameBasePattern(base, other)) {
+                        score += 25;
+                    }
+
+                    if (isSameMuscle(other.getPrimaryMuscle(), base.getPrimaryMuscle())) {
+                        score += 15;
+                    }
+
                     score += equipmentScore(ex);
 
                     return RankedExerciseResponse.from(other, score);
@@ -43,15 +53,26 @@ public class SmartAlternativeRankingEngine {
                 .toList();
     }
 
+    private boolean isSameBasePattern(ExerciseCatalog base, ExerciseCatalog other) {
+        return base.getBasePattern() != null
+                && base.getBasePattern() == other.getBasePattern();
+    }
+
     private Map<String, ExerciseCatalog> getCatalogMap() {
-        if (cache.isEmpty()) {
+        if (cache == null || cache.isEmpty()) {
             cache = catalogRepository.findAll().stream()
-                    .collect(Collectors.toMap(ExerciseCatalog::getId, e -> e));
+                    .filter(Objects::nonNull)
+                    .filter(e -> e.getId() != null)
+                    .collect(Collectors.toMap(ExerciseCatalog::getId, e -> e, (a, b) -> a));
         }
         return cache;
     }
 
-    private int equipmentScore(TrainingExercise ex) { return 0; }
+    private int equipmentScore(TrainingExercise ex) {
+        return 0;
+    }
 
-    private boolean isSameMuscle(Muscle a, Muscle b) { return a != null && a == b; }
+    private boolean isSameMuscle(Muscle a, Muscle b) {
+        return a != null && a == b;
+    }
 }

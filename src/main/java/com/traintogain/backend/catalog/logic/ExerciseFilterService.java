@@ -1,31 +1,48 @@
 package com.traintogain.backend.catalog.logic;
 
 import com.traintogain.backend.catalog.model.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class ExerciseFilterEngine {
+@Service
+public class ExerciseFilterService {
 
-    private ExerciseFilterEngine() {}
-
-    public static List<ExerciseCatalog> filter(
+    public List<ExerciseCatalog> filter(
             List<ExerciseCatalog> exercises,
-            BodyRegion bodyRegion,
-            Muscle muscle,
-            MovementPattern pattern,
-            EquipmentType equipment
+            List<BodyRegion> bodyRegions,
+            List<Muscle> muscles,
+            List<MovementPattern> patterns,
+            List<EquipmentType> equipment,
+            List<MovementPlane> planes,
+            List<MovementMechanic> mechanics,
+            List<LoadType> loadTypes,
+            List<Laterality> lateralities
     ) {
         return exercises.stream()
-                .filter(e -> bodyRegion == null || bodyRegion == e.getBodyRegion())
-                .filter(e -> muscle == null || matchesMuscle(e, muscle))
-                .filter(e -> pattern == null || pattern == e.getMovementPattern())
-                .filter(e -> equipment == null || equipment == e.getEquipment())
+                .filter(e -> bodyRegions.isEmpty() || bodyRegions.contains(e.getBodyRegion()))
+                .filter(e -> muscles.isEmpty() || matchesMuscles(e, muscles))
+                .filter(e -> patterns.isEmpty() || patterns.contains(e.getMovementPattern()))
+                .filter(e -> equipment.isEmpty() || matchesEquipment(e, equipment))
+                .filter(e -> planes.isEmpty() || planes.contains(e.getMovementPlane()))
+                .filter(e -> mechanics.isEmpty() || mechanics.contains(e.getMechanic()))
+                .filter(e -> loadTypes.isEmpty() || loadTypes.contains(e.getLoadType()))
+                .filter(e -> lateralities.isEmpty() || lateralities.contains(e.getLaterality()))
                 .toList();
     }
 
-    private static boolean matchesMuscle(ExerciseCatalog e, Muscle target) {
-        if (e.getPrimaryMuscle() == target) return true;
-        if (e.getSecondaryMuscles() != null && e.getSecondaryMuscles().contains(target)) return true;
-        return e.getStabilizers() != null && e.getStabilizers().contains(target);
+    private boolean matchesMuscles(ExerciseCatalog e, List<Muscle> targets) {
+        if (targets.stream().anyMatch(m -> m == e.getPrimaryMuscle())) return true;
+
+        if (e.getSecondaryMuscles() != null &&
+                targets.stream().anyMatch(e.getSecondaryMuscles()::contains)) return true;
+
+        return e.getStabilizers() != null &&
+                targets.stream().anyMatch(e.getStabilizers()::contains);
+    }
+
+    private boolean matchesEquipment(ExerciseCatalog e, List<EquipmentType> target) {
+        if (e.getEquipment() == null) return false;
+        return e.getEquipment().stream().anyMatch(target::contains);
     }
 }

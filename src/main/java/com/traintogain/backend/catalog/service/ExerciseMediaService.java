@@ -9,22 +9,24 @@ public class ExerciseMediaService {
     @Value("${media.base-url}")
     private String baseUrl;
 
-    public String getImage(String id, String file) {
+    public String buildImage(String id, String file) {
         return resolve(id, file);
     }
 
-    public String getAnimation(String id, String file) {
+    public String buildAnimation(String id, String file) {
         return resolve(id, file);
     }
 
-    public String getThumbnail(String id, String file) {
+    public String buildThumbnail(String id, String file) {
         return resolve(id, file);
     }
 
     private String resolve(String id, String file) {
         if (isBlank(baseUrl)) throw new IllegalStateException("media.base-url missing");
-        if (isBlank(id)) throw new IllegalStateException("exercise id missing for media");
-        if (isBlank(file)) throw new IllegalStateException("media file missing for exercise: " + id);
+        if (isBlank(id)) throw new IllegalStateException("exercise id missing");
+
+        if (isBlank(file)) return null;
+
         return build(baseUrl, "exercises/" + id + "/" + file);
     }
 
