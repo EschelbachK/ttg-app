@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
 import com.traintogain.backend.catalog.model.Muscle;
 import com.traintogain.backend.catalog.repository.ExerciseCatalogRepository;
+import com.traintogain.backend.catalog.validation.ExerciseValidator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -37,18 +38,11 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
 
     public void seed() {
         try {
-            System.out.println("starting exercise catalog seeder");
-
             Resource[] resources = resolver.getResources("classpath:exercise_catalog/*.json");
 
             Map<String, ExerciseCatalog> exerciseMap = new HashMap<>();
 
-            int success = 0;
-            int failed = 0;
-
             for (Resource resource : resources) {
-
-                System.out.println("processing file: " + resource.getFilename());
 
                 try (InputStream is = resource.getInputStream()) {
 
@@ -56,32 +50,25 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
                     JsonNode exercisesNode = root.get("exercises");
 
                     if (exercisesNode == null || !exercisesNode.isArray()) {
-                        System.out.println("no exercises array: " + resource.getFilename());
-                        continue;
+                        throw new IllegalStateException("invalid exercises array in " + resource.getFilename());
                     }
 
                     for (JsonNode node : exercisesNode) {
 
-                        try {
-                            ExerciseCatalog exercise = safeMap(node);
+                        ExerciseCatalog exercise = safeMap(node);
 
-                            if (!validate(exercise)) {
-                                failed++;
-                                continue;
-                            }
-
-                            if (exerciseMap.containsKey(exercise.getId())) {
-                                System.out.println("duplicate id skipped: " + exercise.getId());
-                                continue;
-                            }
-
-                            exerciseMap.put(exercise.getId(), exercise);
-                            success++;
-
-                        } catch (Exception ex) {
-                            failed++;
-                            System.out.println("❌ mapping failed: " + ex.getMessage());
+                        List<String> errors = ExerciseValidator.validate(exercise);
+                        if (!errors.isEmpty()) {
+                            throw new IllegalStateException(
+                                    "validation failed for " + exercise.getId() + ": " + errors
+                            );
                         }
+
+                        if (exerciseMap.containsKey(exercise.getId())) {
+                            throw new IllegalStateException("duplicate id: " + exercise.getId());
+                        }
+
+                        exerciseMap.put(exercise.getId(), exercise);
                     }
                 }
             }
@@ -107,11 +94,6 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
             }
 
             repository.saveAll(toSave);
-
-            System.out.println("====== SEED SUMMARY ======");
-            System.out.println("success: " + success);
-            System.out.println("failed: " + failed);
-            System.out.println("saved: " + toSave.size());
 
         } catch (Exception e) {
             throw new RuntimeException("seeder failed", e);
@@ -154,30 +136,7 @@ public class ExerciseCatalogSeeder implements CommandLineRunner {
             }
         }
 
-        System.out.println("⚠️ unknown muscle: " + raw);
-        return null;
-    }
-
-    private boolean validate(ExerciseCatalog e) {
-
-        if (e.getId() == null || e.getId().isBlank()) {
-            return false;
-        }
-
-        if (e.getPrimaryMuscle() == null) {
-            System.out.println("❌ invalid: missing primary muscle " + e.getId());
-            return false;
-        }
-
-        if (e.getMovementPattern() == null ||
-                e.getBodyRegion() == null ||
-                e.getFamily() == null) {
-
-            System.out.println("❌ invalid core fields " + e.getId());
-            return false;
-        }
-
-        return true;
+        throw new IllegalStateException("invalid muscle: " + raw);
     }
 
     private ExerciseCatalog merge(ExerciseCatalog existing, ExerciseCatalog incoming) {

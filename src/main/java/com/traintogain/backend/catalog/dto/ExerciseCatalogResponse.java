@@ -1,6 +1,5 @@
 package com.traintogain.backend.catalog.dto;
 
-import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.exercise.ExerciseFamily;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,20 +14,20 @@ public class ExerciseCatalogResponse {
 
     private String name;
 
-    private BodyRegion bodyRegion;
+    private String bodyRegion;
 
     private ExerciseFamily family;
 
-    private MovementPattern movementPattern;
+    private String movementPattern;
 
     @Builder.Default
-    private List<EquipmentType> equipment = List.of();
+    private List<String> equipment = List.of();
 
-    private Muscle primaryMuscle;
+    private String primaryMuscle;
 
-    private ExerciseType exerciseType;
+    private String exerciseType;
 
-    private Difficulty difficulty;
+    private String difficulty;
 
     @Builder.Default
     private List<String> tags = List.of();

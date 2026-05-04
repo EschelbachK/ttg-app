@@ -7,9 +7,8 @@ import com.traintogain.backend.catalog.model.*;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,6 +31,16 @@ public class ExerciseCatalogController {
     @GetMapping("/patterns")
     public List<MovementPattern> getPatterns() {
         return List.of(MovementPattern.values());
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        return "Exercise Catalog API running";
+    }
+
+    @GetMapping("/search")
+    public List<ExerciseCatalogResponse> searchExercises(@RequestParam String q) {
+        return service.searchExercises(q);
     }
 
     @GetMapping
@@ -68,19 +77,17 @@ public class ExerciseCatalogController {
         return service.getExercises(filter);
     }
 
-    @GetMapping("/search")
-    public List<ExerciseCatalogResponse> searchExercises(@RequestParam String q) {
-        return service.searchExercises(q);
+    @GetMapping("/{id}/alternatives")
+    public List<ExerciseCatalogResponse> getAlternatives(
+            @PathVariable String id,
+            @RequestParam(defaultValue = "6") int limit
+    ) {
+        return service.getAlternatives(id, limit);
     }
 
     @GetMapping("/{id}")
     public ExerciseCatalogDetailsResponse getExercise(@PathVariable String id) {
         return service.getExercise(id);
-    }
-
-    @GetMapping("/health")
-    public String health() {
-        return "Exercise Catalog API running";
     }
 
     private <T extends Enum<T>> List<T> parse(List<String> values, Class<T> clazz) {
@@ -89,26 +96,30 @@ public class ExerciseCatalogController {
             return List.of();
         }
 
-        try {
-            return values.stream()
-                    .map(this::normalize)
-                    .map(v -> Enum.valueOf(clazz, v))
-                    .toList();
+        List<T> result = new ArrayList<>();
 
-        } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "invalid enum value: " + clazz.getSimpleName()
-            );
+        for (String raw : values) {
+
+            String normalized = normalize(raw);
+            if (normalized == null) continue;
+
+            try {
+                result.add(Enum.valueOf(clazz, normalized));
+            } catch (Exception ignored) {
+            }
         }
+
+        return result;
     }
 
     private String normalize(String value) {
         if (value == null) return null;
 
-        return value.trim()
+        String v = value.trim()
                 .replace("-", "_")
                 .replace(" ", "_")
                 .toUpperCase();
+
+        return v.isBlank() ? null : v;
     }
 }
