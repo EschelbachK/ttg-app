@@ -1,7 +1,7 @@
 package com.traintogain.backend.exercise;
 
-import com.traintogain.backend.catalog.model.SpeedType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.traintogain.backend.catalog.model.SpeedType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -56,6 +56,16 @@ public class TrainingExercise {
 
     private Instant createdAt;
     private Instant updatedAt;
+
+    @JsonProperty("catalogId")
+    public String getCatalogId() {
+        return exerciseId;
+    }
+
+    @JsonProperty("catalogId")
+    public void setCatalogId(String catalogId) {
+        this.exerciseId = catalogId;
+    }
 
     public void prePersist() {
         Instant now = Instant.now();

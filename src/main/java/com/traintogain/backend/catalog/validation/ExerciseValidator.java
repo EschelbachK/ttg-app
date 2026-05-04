@@ -5,7 +5,6 @@ import com.traintogain.backend.catalog.model.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public final class ExerciseValidator {
 
@@ -27,6 +26,10 @@ public final class ExerciseValidator {
         if (e.getFamily() == null) errors.add("family missing");
         if (e.getMovementPattern() == null) errors.add("movementPattern missing");
         if (e.getBasePattern() == null) errors.add("basePattern missing");
+        if (e.getMovementPlane() == null) errors.add("movementPlane missing");
+        if (e.getMechanic() == null) errors.add("mechanic missing");
+        if (e.getLoadType() == null) errors.add("loadType missing");
+        if (e.getLaterality() == null) errors.add("laterality missing");
 
         if (e.getPrimaryMuscle() == null) errors.add("primaryMuscle missing");
 
@@ -36,9 +39,12 @@ public final class ExerciseValidator {
         if (e.getExecution() == null) errors.add("execution missing");
         if (e.getMedia() == null) errors.add("media missing");
 
+        if (isBlank(e.getInstructions())) errors.add("instructions missing");
+
         validateExecution(e, errors);
         validateMuscles(e, errors);
         validateTags(e, errors);
+        validateMedia(e, errors);
 
         return errors;
     }
@@ -50,6 +56,7 @@ public final class ExerciseValidator {
 
         if (isBlank(ex.getTempo())) errors.add("tempo missing");
         if (ex.getRangeOfMotion() == null) errors.add("rangeOfMotion missing");
+        if (ex.getSpeedType() == null) errors.add("speedType missing");
     }
 
     private static void validateTags(ExerciseCatalog e, List<String> errors) {
@@ -88,6 +95,16 @@ public final class ExerciseValidator {
         if (hasDuplicates(stabilizers)) {
             errors.add("duplicate stabilizers");
         }
+    }
+
+    private static void validateMedia(ExerciseCatalog e, List<String> errors) {
+
+        ExerciseMedia media = e.getMedia();
+        if (media == null) return;
+
+        if (isBlank(media.getImageFile())) errors.add("image missing");
+        if (isBlank(media.getThumbnailFile())) errors.add("thumbnail missing");
+        if (isBlank(media.getAnimationFile())) errors.add("animation missing");
     }
 
     private static <T> boolean hasDuplicates(List<T> list) {

@@ -1,6 +1,10 @@
 package com.traintogain.backend.exercise;
 
+import com.traintogain.backend.catalog.model.EquipmentType;
 import com.traintogain.backend.catalog.model.ExerciseCatalog;
+import com.traintogain.backend.catalog.model.ExerciseMedia;
+import com.traintogain.backend.catalog.model.ExerciseTag;
+import com.traintogain.backend.catalog.model.Muscle;
 import com.traintogain.backend.catalog.service.ExerciseCatalogService;
 import com.traintogain.backend.exception.ForbiddenException;
 import com.traintogain.backend.exception.NotFoundException;
@@ -50,6 +54,9 @@ public class TrainingExerciseService {
         exercise.setFolderId(folder.getId());
         exercise.setExerciseId(catalog.getId());
         exercise.setSets(sets);
+
+        applyCatalogSnapshot(exercise, catalog);
+
         exercise.prePersist();
 
         return trainingExerciseRepository.save(exercise);
@@ -74,6 +81,7 @@ public class TrainingExerciseService {
         if (request.getExerciseId() != null) {
             ExerciseCatalog catalog = getValidatedCatalog(request.getExerciseId());
             exercise.setExerciseId(catalog.getId());
+            applyCatalogSnapshot(exercise, catalog);
         }
 
         if (request.getSets() != null) {
@@ -120,6 +128,67 @@ public class TrainingExerciseService {
         ExerciseCatalog catalog = catalogService.getById(exerciseId);
         validationService.validateExercise(catalog.getFamily(), catalog.getBasePattern());
         return catalog;
+    }
+
+    private void applyCatalogSnapshot(TrainingExercise exercise, ExerciseCatalog catalog) {
+        exercise.setName(catalog.getName());
+        exercise.setBodyRegion(catalog.getBodyRegion() != null ? catalog.getBodyRegion().name() : null);
+        exercise.setFamily(catalog.getFamily() != null ? catalog.getFamily().name() : null);
+        exercise.setMovementPattern(catalog.getMovementPattern() != null ? catalog.getMovementPattern().name() : null);
+        exercise.setEquipment(mapEquipment(catalog.getEquipment()));
+        exercise.setPrimaryMuscle(catalog.getPrimaryMuscle() != null ? catalog.getPrimaryMuscle().name() : null);
+        exercise.setSecondaryMuscles(mapMuscles(catalog.getSecondaryMuscles()));
+        exercise.setStabilizers(mapMuscles(catalog.getStabilizers()));
+        exercise.setExerciseType(catalog.getExerciseType() != null ? catalog.getExerciseType().name() : null);
+        exercise.setDifficulty(catalog.getDifficulty() != null ? catalog.getDifficulty().name() : null);
+        exercise.setTags(mapTags(catalog.getTags()));
+        exercise.setInstructions(splitInstructions(catalog.getInstructions()));
+        exercise.setTips(catalog.getTips() == null ? List.of() : catalog.getTips());
+        exercise.setCommonMistakes(catalog.getCommonMistakes() == null ? List.of() : catalog.getCommonMistakes());
+        applyMediaSnapshot(exercise, catalog.getMedia());
+    }
+
+    private void applyMediaSnapshot(TrainingExercise exercise, ExerciseMedia media) {
+        TrainingExercise.Media snapshot = new TrainingExercise.Media();
+
+        if (media != null) {
+            snapshot.setImage(media.getImageFile() == null ? "" : media.getImageFile());
+            snapshot.setThumbnail(media.getThumbnailFile() == null ? "" : media.getThumbnailFile());
+            snapshot.setAnimation(media.getAnimationFile() == null ? "" : media.getAnimationFile());
+        }
+
+        exercise.setMedia(snapshot);
+    }
+
+    private String mapEquipment(List<EquipmentType> equipment) {
+        if (equipment == null || equipment.isEmpty()) return "";
+        return equipment.stream()
+                .map(Enum::name)
+                .findFirst()
+                .orElse("");
+    }
+
+    private List<String> mapMuscles(List<Muscle> muscles) {
+        if (muscles == null) return List.of();
+        return muscles.stream()
+                .map(Enum::name)
+                .toList();
+    }
+
+    private List<String> mapTags(List<ExerciseTag> tags) {
+        if (tags == null) return List.of();
+        return tags.stream()
+                .map(Enum::name)
+                .toList();
+    }
+
+    private List<String> splitInstructions(String raw) {
+        if (raw == null || raw.isBlank()) return List.of();
+
+        return List.of(raw.split("\\.")).stream()
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
     }
 
     private List<SetEntry> mapSets(List<SetEntryRequest> sets) {

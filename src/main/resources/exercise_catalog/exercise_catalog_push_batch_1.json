@@ -25,6 +25,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -64,6 +65,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -103,6 +105,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -142,6 +145,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -181,6 +185,7 @@
       },
       "execution": {
         "tempo": "2-0-1",
+        "speedType": "STANDARD",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -220,6 +225,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -259,6 +265,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -298,6 +305,7 @@
       },
       "execution": {
         "tempo": "2-1-2",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -337,6 +345,7 @@
       },
       "execution": {
         "tempo": "2-1-2",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
@@ -376,6 +385,7 @@
       },
       "execution": {
         "tempo": "2-1-1",
+        "speedType": "CONTROLLED",
         "rangeOfMotion": "FULL"
       },
       "progression": {
